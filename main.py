@@ -18,7 +18,7 @@ async def test():
     return response.json()
 
 @app.get("/Getproperty")
-async def test():
+async def test1():
     async with httpx.AsyncClient() as client:
         payload = {
     "authentication": {
