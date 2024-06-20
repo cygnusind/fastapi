@@ -18,7 +18,7 @@ async def test():
         response = await client.get("https://httpbin.org/get")
     return response.json()
 
-@app.get("/Getproperty")
+@app.post("/Getproperty")
 async def test1():
     async with httpx.AsyncClient() as client:
         payload = {
