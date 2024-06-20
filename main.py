@@ -19,7 +19,7 @@ async def test():
     return response.json()
 
 @app.post("/Getproperty/")
-async def test1(proid:str=0):
+async def test1(proid:str=""):
     async with httpx.AsyncClient() as client:
         payload = {
     "authentication": {
