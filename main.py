@@ -36,7 +36,7 @@ async def test1(proid:str=""):
 }
         
         response = await client.post("https://api.bakuun.com/ratedockAPI/RDK220/getproperty" ,json=payload,headers=headers)
-      
 
-    return response.json()
+
+    return proid
    
