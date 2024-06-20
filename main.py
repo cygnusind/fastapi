@@ -20,6 +20,20 @@ async def test():
 @app.get("/Getproperty")
 async def test():
     async with httpx.AsyncClient() as client:
-        response = await client.get("https://api.bakuun.com/ratedockAPI/RDK220/getproperty")
+        payload = {
+    "authentication": {
+        "username": "cygnus",
+        "password": "KdFoGuC_",
+        "propertyId": "HTL993.6",
+        "partnerId": "RDK220"
+    },
+    "action": "GetPropertyInfo"
+}
+        headers = {
+    "accept": "application/json",
+    "content-type": "application/json"
+}
+        
+        response = await client.get("https://api.bakuun.com/ratedockAPI/RDK220/getproperty" ,json=payload, headers=headers)
     return response.json()
     
