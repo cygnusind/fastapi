@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+import asyncio
 import httpx
 
 app = FastAPI()
@@ -34,6 +35,8 @@ async def test1():
     "content-type": "application/json"
 }
         
-        response = await client.get("https://api.bakuun.com/ratedockAPI/RDK220/getproperty" ,json=payload, headers=headers)
+        response = await client.get("https://api.bakuun.com/ratedockAPI/RDK220/getproperty" ,headers=headers,data=payload)
+      
+
     return response.json()
-    
+   
