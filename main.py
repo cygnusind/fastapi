@@ -11,7 +11,7 @@ async def root():
 async def read_item(item_id: int):
     return {"item_id": item_id}
 
-@app.get("/test")
+@app.get("/test1")
 async def test():
     async with httpx.AsyncClient() as client:
         response = await client.get("https://httpbin.org/get")
