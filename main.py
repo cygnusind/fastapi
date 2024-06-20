@@ -35,7 +35,7 @@ async def test1():
     "content-type": "application/json"
 }
         
-        response = await client.post("https://api.bakuun.com/ratedockAPI/RDK220/getproperty" ,data=payload,headers=headers)
+        response = await client.post("https://api.bakuun.com/ratedockAPI/RDK220/getproperty" ,json=payload,headers=headers)
       
 
     return response.json()
