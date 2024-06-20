@@ -16,3 +16,10 @@ async def test():
     async with httpx.AsyncClient() as client:
         response = await client.get("https://httpbin.org/get")
     return response.json()
+
+@app.get("/Getproperty")
+async def test():
+    async with httpx.AsyncClient() as client:
+        response = await client.get("https://api.bakuun.com/ratedockAPI/RDK220/getproperty")
+    return response.json()
+    
