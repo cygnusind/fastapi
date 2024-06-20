@@ -18,14 +18,14 @@ async def test():
         response = await client.get("https://httpbin.org/get")
     return response.json()
 
-@app.post("/Getproperty")
-async def test1():
+@app.post("/Getproperty/")
+async def test1(proid:str=0):
     async with httpx.AsyncClient() as client:
         payload = {
     "authentication": {
         "username": "cygnus",
         "password": "KdFoGuC_",
-        "propertyId": "HTL993.6",
+        "propertyId": proid,
         "partnerId": "RDK220"
     },
     "action": "GetPropertyInfo"
