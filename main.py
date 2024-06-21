@@ -65,7 +65,7 @@ headers = {
     "accept": "application/json",
     "content-type": "application/json"
 }
-@app.post("/mps/")
+@app.post("/mps")
 async def mutli_pro():
     async with httpx.AsyncClient() as client:
         response = await client.post("https://api.bakuun.com/ratedockAPI/RDK220/getproperty" ,json=MainModal,headers=headers)
