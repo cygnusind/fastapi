@@ -55,6 +55,7 @@ class ratesByOccupancy1(BaseModel):
    occupancies:list
 
 class MainModal(BaseModel):
+    model_config = ConfigDict(title='Main')
     username:str
     password:str
     partnerId:str
