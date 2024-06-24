@@ -16,7 +16,7 @@ async def read_item(item_id: int):
 async def test():
     async with httpx.AsyncClient() as client:
         response = await client.get("https://httpbin.org/get")
-    return response.json()
+    return response.json
 
 
 
@@ -35,5 +35,6 @@ async def root1(request: Request):
         body = await request.body()
         data = body.decode("utf-8")
         response = await client.post("https://api.bakuun.com/ratedockAPI/RDK220/getproperty",json=data, headers=headers)
+        response.raise_for_status()
         #,content=body, headers=request.headers
-    return data.json()
+    return response.raise_for_status()
