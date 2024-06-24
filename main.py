@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, Request, logger
 # import asyncio
 import httpx
 
@@ -20,21 +20,14 @@ async def test():
 
 
 
-@app.post("/getprop")
+@app.post("/mps")
 async def root1(request: Request):
-  
-
-
-
     async with httpx.AsyncClient() as client:
-        headers = {
-    "accept": "application/json",
-    "content-type": "application/json"
-}
-  
         body = await request.json()
-        data = body.decode("utf-8")
-        response = await client.post("https://api.bakuun.com/ratedockAPI/RDK220/getproperty",json=data, headers=headers)
-        response.raise_for_status()
+        #data = body.decode("utf-8")
+        response = await client.post("https://pull.devbakuun.cloud/RDK220/mpsnight/",json=data, headers=headers)
+        logger.info(body)
+        logger.info(response)
+        #response.raise_for_status()
         #,content=body, headers=request.headers
-    return data
+    return response
