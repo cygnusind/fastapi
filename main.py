@@ -48,8 +48,8 @@ async def GetProperty(proid:str):
 
 
 #MPS
-class mutliSeacrhIds(str,Enum):
-    propertyIds: str
+class mutliSeacrhIds(list,Enum):
+    propertyIds: list
 
 class ratesByOccupancy1(BaseModel):
    occupancies:list
@@ -58,8 +58,8 @@ class MainModal(BaseModel):
     username:str
     password:str
     partnerId:str
-    multiSearchByIds:mutliSeacrhIds
-    ratesByOccupancy:ratesByOccupancy1
+    #multiSearchByIds:mutliSeacrhIds
+    #ratesByOccupancy:ratesByOccupancy1
 
 headers = {
     "accept": "application/json",
