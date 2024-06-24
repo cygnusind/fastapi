@@ -58,7 +58,7 @@ class MainModal(BaseModel):
     username:str
     password:str
     partnerId:str
-    #multiSearchByIds:mutliSeacrhIds
+    multiSearchByIds:list=mutliSeacrhIds
     #ratesByOccupancy:ratesByOccupancy1
 
 headers = {
