@@ -26,10 +26,14 @@ async def root1(request: Request):
     async with httpx.AsyncClient() as client:
         body = await request.json()
         print(f"Request body: {body}")
-        data = body.decode("utf-8")
+        headers = {
+            "Content-Type": "application/json"
+        }
+        data = body
+        print(f"Request DATa: {data}")
         response = await client.post("https://pull.devbakuun.cloud/RDK220/mpsnight/",json=data, headers=headers)
         #logger.info(body)
         print(f"Response: {response}")
         #response.raise_for_status()
         #,content=body, headers=request.headers
-    return response
+    return {"Testresponse":"Test"}
