@@ -27,4 +27,4 @@ async def root1(request: Request):
         data = body.decode("utf-8")
         response = await client.post("https://api.bakuun.com/ratedockAPI/RDK220/getproperty",json=data, headers=request.headers)
         #,content=body, headers=request.headers
-    return data
+    return data.json
