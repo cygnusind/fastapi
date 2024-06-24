@@ -32,7 +32,7 @@ async def root1(request: Request):
     "content-type": "application/json"
 }
   
-        body = await request.body()
+        body = await request.json()
         data = body.decode("utf-8")
         response = await client.post("https://api.bakuun.com/ratedockAPI/RDK220/getproperty",json=data, headers=headers)
         response.raise_for_status()
