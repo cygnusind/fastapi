@@ -33,7 +33,7 @@ async def root1(request: Request):
         print(f"Request DATa: {data}")
         response = await client.post("https://pull.devbakuun.cloud/RDK220/mpsnight/",json=data, headers=headers)
         #logger.info(body)
-        print(f"Response: {response}")
+        print(f"Response: {response.json()}")
         #response.raise_for_status()
         #,content=body, headers=request.headers
     return {"Testresponse":"Test"}
