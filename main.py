@@ -76,6 +76,7 @@ async def mutli_pro(model:MainModal):
 @app.post("/getprop")
 async def root():
     async with httpx.AsyncClient() as client:
-        body = await request.body()
-        response = await client.post("https://api.bakuun.com/ratedockAPI/RDK220/getproperty",content=body, headers=request.headers)
-    return body
+        #body = await request.body()
+        response = await client.post("https://api.bakuun.com/ratedockAPI/RDK220/getproperty")
+        #,content=body, headers=request.headers
+    return {"greeting": "Hello, haren!", "message": "Welcome to FastAPI!"}
