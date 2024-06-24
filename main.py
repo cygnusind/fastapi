@@ -49,7 +49,7 @@ async def GetProperty(proid:str):
 
 #MPS
 class mutliSeacrhIds1(BaseModel):
-    propertyIds: Union[float, None] = None
+    propertyIds: Union[str, None] = None
 
 class ratesByOccupancy1(BaseModel):
    occupancies:list
