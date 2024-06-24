@@ -48,8 +48,8 @@ async def GetProperty(proid:str):
 
 
 #MPS
-class mutliSeacrhIds(str,Enum):
-    propertyIds: str
+class mutliSeacrhIds1(BaseModel):
+    propertyIds: Union[float, None] = None
 
 class ratesByOccupancy1(BaseModel):
    occupancies:list
@@ -58,7 +58,7 @@ class MainModal(BaseModel):
     username:str
     password:str
     partnerId:str
-    multiSearchByIds:str
+    multiSearchByIds:mutliSeacrhIds1
     #ratesByOccupancy:ratesByOccupancy1
 
 headers = {
