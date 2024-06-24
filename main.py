@@ -22,9 +22,18 @@ async def test():
 
 @app.post("/getprop")
 async def root1(request: Request):
+  
+
+
+
     async with httpx.AsyncClient() as client:
+        headers = {
+    "accept": "application/json",
+    "content-type": "application/json"
+}
+  
         body = await request.body()
         data = body.decode("utf-8")
-        response = await client.post("https://api.bakuun.com/ratedockAPI/RDK220/getproperty",json=data, headers=request.headers)
+        response = await client.post("https://api.bakuun.com/ratedockAPI/RDK220/getproperty",json=data, headers=headers)
         #,content=body, headers=request.headers
     return data.json()
