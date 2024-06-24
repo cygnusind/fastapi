@@ -6,7 +6,7 @@ app = FastAPI()
 
 @app.get("/")
 async def root():
-    logger.info("yay")
+    print(f"Test")
     return {"greeting": "Hello, Niyas!", "message": "Welcome to FastAPI!"}
 
 @app.get("/items/{item_id}")
@@ -25,11 +25,11 @@ async def test():
 async def root1(request: Request):
     async with httpx.AsyncClient() as client:
         body = await request.json()
-        logger.info(body)
+        print(f"Request body: {body}")
         data = body.decode("utf-8")
         response = await client.post("https://pull.devbakuun.cloud/RDK220/mpsnight/",json=data, headers=headers)
         #logger.info(body)
-        logger.info(response)
+        print(f"Response: {response}")
         #response.raise_for_status()
         #,content=body, headers=request.headers
     return response
