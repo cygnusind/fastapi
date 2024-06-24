@@ -24,6 +24,6 @@ async def test():
 async def root1(request: Request):
     async with httpx.AsyncClient() as client:
         body = await request.body()
-        response = await client.post("https://api.bakuun.com/ratedockAPI/RDK220/getproperty",content=body, headers=request.headers)
+        response = await client.post("https://api.bakuun.com/ratedockAPI/RDK220/getproperty",json=body, headers=request.headers)
         #,content=body, headers=request.headers
     return response
