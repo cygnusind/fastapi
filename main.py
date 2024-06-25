@@ -33,7 +33,7 @@ async def root1(request: Request):
         }
         data = body
         print(f"Request DATa: {data}")
-    async with client.stream('POST',"https://pull.devbakuun.cloud/RDK220/mpsnight",content=data ,headers=headers):
+    async with client.stream('POST',"https://pull.devbakuun.cloud/RDK220/mpsnight",content=data ,headers=headers) as response:
      async for chunk in response.aiter_bytes():
         print("Response")
         print(chunk.decode('utf-8'))
@@ -41,7 +41,7 @@ async def root1(request: Request):
 
         #response = await client.post("https://pull.devbakuun.cloud/RDK220/mpsnight/",content=data, headers=headers)
         #logger.info(body)
-        print(f"Response: {response.json()}")
+        #print(f"Response: {response.json()}")
         #response.raise_for_status()
         #,content=body, headers=request.headers
     return {"Testresponse":"Test"}
