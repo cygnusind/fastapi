@@ -34,9 +34,9 @@ async def root1(request: Request):
         data = body
         print(f"Request DATa: {data}")
     async with client.stream('POST',"https://pull.devbakuun.cloud/RDK220/mpsnight",content=data ,headers=headers) as response:
-     async for chunk in response.aiter_bytes():
+     async for chunk in response.aiter_text():
         print("Response")
-        print(chunk.decode('utf-8'))
+        print(chunk)
 
 
         #response = await client.post("https://pull.devbakuun.cloud/RDK220/mpsnight/",content=data, headers=headers)
