@@ -24,6 +24,8 @@ async def test():
 @app.post("/mps")
 async def root1(request: Request):
     async with httpx.AsyncClient() as client:
+       
+
         body = await request.json()
         print(f"Request body: {body}")
         headers = {
@@ -31,7 +33,13 @@ async def root1(request: Request):
         }
         data = body
         print(f"Request DATa: {data}")
-        response = await client.post("https://pull.devbakuun.cloud/RDK220/mpsnight/",content=data, headers=headers)
+    async with client.stream('POST',"https://pull.devbakuun.cloud/RDK220/mpsnight",content=data ,headers=headers):
+     async for chunk in response.aiter_bytes():
+        print("Response")
+        print(chunk.decode('utf-8'))
+
+
+        #response = await client.post("https://pull.devbakuun.cloud/RDK220/mpsnight/",content=data, headers=headers)
         #logger.info(body)
         print(f"Response: {response.json()}")
         #response.raise_for_status()
