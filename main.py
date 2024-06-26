@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Request, logger
+from fastapi import FastAPI, Request
 # import asyncio
 import httpx
 import traceback
