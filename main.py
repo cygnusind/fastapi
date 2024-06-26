@@ -82,6 +82,16 @@ async def mps_check(request: Request):
 
         # Return the response from the external API
         return response.json()
+    except httpx.HTTPStatusError as http_exc:
+        print(f"HTTP error occurred: {http_exc.response.status_code} - {http_exc.response.text}")
+        return {"error": f"HTTP error occurred: {http_exc.response.status_code}"}
+    except httpx.RequestError as req_exc:
+        print(f"Request error occurred: {req_exc}")
+        return {"error": "Request error occurred"}
     except Exception as e:
         print(f"Unexpected error: {e}")
+        print(traceback.format_exc())
         return {"error": "Unexpected error occurred"}
+    # except Exception as e:
+    #     print(f"Unexpected error: {e}")
+    #     return {"error": "Unexpected error occurred"}
