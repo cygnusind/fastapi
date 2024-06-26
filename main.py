@@ -111,8 +111,9 @@ async def sps(request: Request):
         return {"error": "Unexpected error occurred"}
     
 @app.get("/sps/{token}")
-async def sps_token(request: Request,token : str):
-    api_url = "https://pull.bakuun.com/RDK220/spsnight/" + token + "/results"
+async def sps_token(token : str,request: Request):
+    api_url = "https://pull.bakuun.com/RDK220/spsnight/" + token 
+    print(f"API URL: {api_url}")
     try:
         if not await request.body():
             return {"error": "Request body is empty"}
