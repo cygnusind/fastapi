@@ -110,7 +110,7 @@ async def sps(request: Request):
         print(f"Unexpected error: {e}")
         return {"error": "Unexpected error occurred"}
     
-@app.post("/sps/{token}")
+@app.get("/sps/{token}")
 async def sps_token(request: Request,token : str):
     api_url = "https://pull.bakuun.com/RDK220/spsnight/" + token + "/results"
     try:
@@ -120,7 +120,7 @@ async def sps_token(request: Request,token : str):
         print(f"Request body: {body}")
         #return {"Testresponse": "Test"}
         async with httpx.AsyncClient() as client:
-            response = await client.post(
+            response = await client.get(
                 api_url,
                 headers={"Content-Type": "application/json"},
                 json=body
