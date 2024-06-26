@@ -80,7 +80,9 @@ async def mps_check(request: Request):
                 headers={"Content-Type": "application/json"},
                 json=body
             )
-
+         # Print raw response text for debugging
+        raw_response_text = response.text
+        print(f"Raw response text: {raw_response_text}")
         # Return the response from the external API
         return response.json()
     except httpx.HTTPStatusError as http_exc:
