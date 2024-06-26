@@ -1,4 +1,6 @@
 from fastapi import FastAPI, Request
+import requests
+
 # import asyncio
 import httpx
 import traceback
@@ -120,12 +122,14 @@ async def sps_token(token : str,request: Request):
         body = await request.json()
         print(f"Request body: {body}")
         #return {"Testresponse": "Test"}
-        async with httpx.AsyncClient() as client:
-            response = await client.get(
-                api_url,
-                headers={"Content-Type": "application/json"},
-                json=body
-            )
+        response = requests.get(api_url, json=body, headers={"Content-Type": "application/json","Accept": "application/json"})
+        print(f"Response: {response.text}")
+        # async with httpx.AsyncClient() as client:
+        #     response = await client.get(
+        #         api_url,
+        #         headers={"Content-Type": "application/json","Accept": "application/json"},
+        #         json=body
+        #     )
 
         # Return the response from the external API
         return response.json()
