@@ -112,7 +112,7 @@ async def sps(request: Request):
     
 @app.get("/sps/{token}/results")
 async def sps_token(token : str,request: Request):
-    api_url = "https://pull.bakuun.com/RDK220/spsnight/" + token 
+    api_url = "https://pull.bakuun.com/RDK220/spsnight/" + token +"/results"
     print(f"API URL: {api_url}")
     try:
         if not await request.body():
