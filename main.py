@@ -45,3 +45,25 @@ async def root1(request: Request):
         #response.raise_for_status()
         #,content=body, headers=request.headers
     return {"Testresponse":"Test"}
+
+@app.post("/create")
+async def create_user(request: Request):
+    try:
+        if not await request.body():
+            return {"error": "Request body is empty"}
+        body = await request.json()
+        print(f"Request body: {body}")
+        #return {"Testresponse": "Test"}
+        # Make the request to the external API
+        async with httpx.AsyncClient() as client:
+            response = await client.post(
+                "https://reqres.in/api/users",
+                headers={"Content-Type": "application/json"},
+                json=body
+            )
+
+        # Return the response from the external API
+        return response.json()
+    except Exception as e:
+        print(f"Unexpected error: {e}")
+        return {"error": "Unexpected error occurred"}
