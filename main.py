@@ -20,32 +20,6 @@ async def test():
     return response.json
 
 
-
-@app.post("/mps")
-async def root1(request: Request):
-    async with httpx.AsyncClient() as client:
-       
-
-        body = await request.json()
-        print(f"Request body: {body}")
-        headers = {
-            "Content-Type": "application/json"
-        }
-        data = body
-        print(f"Request DATa: {data}")
-    async with client.stream('POST',"https://pull.devbakuun.cloud/RDK220/mpsnight",content=data ,headers=headers) as response:
-     async for chunk in response.aiter_text():
-        print("Response")
-        print(chunk)
-
-
-        #response = await client.post("https://pull.devbakuun.cloud/RDK220/mpsnight/",content=data, headers=headers)
-        #logger.info(body)
-        #print(f"Response: {response.json()}")
-        #response.raise_for_status()
-        #,content=body, headers=request.headers
-    return {"Testresponse":"Test"}
-
 @app.post("/create")
 async def create_user(request: Request):
     try:
@@ -58,6 +32,50 @@ async def create_user(request: Request):
         async with httpx.AsyncClient() as client:
             response = await client.post(
                 "https://reqres.in/api/users",
+                headers={"Content-Type": "application/json"},
+                json=body
+            )
+
+        # Return the response from the external API
+        return response.json()
+    except Exception as e:
+        print(f"Unexpected error: {e}")
+        return {"error": "Unexpected error occurred"}
+    
+
+@app.post("/getprop")
+async def get_prop(request: Request):
+    try:
+        if not await request.body():
+            return {"error": "Request body is empty"}
+        body = await request.json()
+        print(f"Request body: {body}")
+        # Make the request to the Bakuun API
+        async with httpx.AsyncClient() as client:
+            response = await client.post(
+                "https://api.bakuun.com/ratedockAPI/RDK220/getproperty",
+                headers={"Content-Type": "application/json"},
+                json=body
+            )
+
+        # Return the response from the Bakuun API
+        return response.json()
+    except Exception as e:
+        print(f"Unexpected error: {e}")
+        return {"error": "Unexpected error occurred"}
+
+@app.post("/mps")
+async def mps_check(request: Request):
+    try:
+        if not await request.body():
+            return {"error": "Request body is empty"}
+        body = await request.json()
+        print(f"Request body: {body}")
+        #return {"Testresponse": "Test"}
+        # Make the request to the external API
+        async with httpx.AsyncClient() as client:
+            response = await client.post(
+                "https://pull.bakuun.com/RDK220/mpsnight",
                 headers={"Content-Type": "application/json"},
                 json=body
             )
