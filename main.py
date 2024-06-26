@@ -110,7 +110,7 @@ async def sps(request: Request):
         print(f"Unexpected error: {e}")
         return {"error": "Unexpected error occurred"}
     
-@app.get("/sps/{token}")
+@app.get("/sps/{token}/results")
 async def sps_token(token : str,request: Request):
     api_url = "https://pull.bakuun.com/RDK220/spsnight/" + token 
     print(f"API URL: {api_url}")
