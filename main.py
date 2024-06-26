@@ -73,7 +73,7 @@ async def mps_check(request: Request):
         body = await request.json()
         print(f"Request body: {body}")
         #return {"Testresponse": "Test"}
-        # Make the request to the external API
+        # Make the request to the Bakuun API
         async with httpx.AsyncClient() as client:
             response = await client.post(
                 "https://pull.bakuun.com/RDK220/mpsnight",
@@ -85,16 +85,27 @@ async def mps_check(request: Request):
         print(f"Raw response text: {raw_response_text}")
         # Return the response from the external API
         return response.json()
-    except httpx.HTTPStatusError as http_exc:
-        print(f"HTTP error occurred: {http_exc.response.status_code} - {http_exc.response.text}")
-        return {"error": f"HTTP error occurred: {http_exc.response.status_code}"}
-    except httpx.RequestError as req_exc:
-        print(f"Request error occurred: {req_exc}")
-        return {"error": "Request error occurred"}
+    except Exception as e:
+         print(f"Unexpected error: {e}")
+         return {"error": "Unexpected error occurred"}
+
+@app.post("/sps")
+async def sps(request: Request):
+    try:
+        if not await request.body():
+            return {"error": "Request body is empty"}
+        body = await request.json()
+        print(f"Request body: {body}")
+        #return {"Testresponse": "Test"}
+        async with httpx.AsyncClient() as client:
+            response = await client.post(
+                "https://pull.bakuun.com/RDK220/spsnight",
+                headers={"Content-Type": "application/json"},
+                json=body
+            )
+
+        # Return the response from the external API
+        return response.json()
     except Exception as e:
         print(f"Unexpected error: {e}")
-        print(traceback.format_exc())
         return {"error": "Unexpected error occurred"}
-    # except Exception as e:
-    #     print(f"Unexpected error: {e}")
-    #     return {"error": "Unexpected error occurred"}
