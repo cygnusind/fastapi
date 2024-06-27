@@ -113,6 +113,32 @@ async def mpsc(request: Request):
     except Exception as e:
         print(f"Unexpected error: {e}")
         return {"error": "Unexpected error occurred"}
+
+
+#mps seacrch results
+@app.get("/mpsresult/{token}/results")
+async def mps_search(token : str,request: Request):
+    try:
+        if not await request.body():
+            return {"error": "Request body is empty"}
+        body = await request.json()
+        print(f"Request body: {body}")
+        #return {"Testresponse": "Test"}
+        async with httpx.AsyncClient() as client:
+            response = await client.get(
+                "https://pull.devbakuun.cloud/RDK381/mpsnight/"+token+"/results",
+                headers={"Content-Type": "application/json"},
+                json=body
+            )
+
+        # Return the response from the external API
+        return response.json()
+    except Exception as e:
+        print(f"Unexpected error: {e}")
+        return {"error": "Unexpected error occurred"}     
+
+        
+           
 @app.post("/sps")
 async def sps(request: Request):
     try:
