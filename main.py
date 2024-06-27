@@ -131,18 +131,10 @@ async def mps_search(token : str,request: Request):
             return {"error": "Request body is empty"}
         body = await request.json()
         response = requests.get(api_url, json=body, headers={"Content-Type": "application/json","Accept": "application/json"})
-        print(f"Response: {response.text}")
-        #print(f"Request body: {body}")
-        #return {"Testresponse": "Test"}
-        # async with httpx.AsyncClient() as client:
-        #     response = await client.get(
-        #         "https://pull.devbakuun.cloud/RDK381/mpsnight/"+token+"/results",
-        #         headers={"Content-Type": "application/json"},
-        #         json=body
-        #     )
+        print(f"Response: {response}")
 
         # Return the response from the external API
-        return response.json()
+        return response
     except Exception as e:
         print(f"Unexpected error: {e}")
         return {"error": "Unexpected error occurred"}     
