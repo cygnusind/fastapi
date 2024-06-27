@@ -167,11 +167,13 @@ async def sps(request: Request):
 async def sps_token(token : str,request: Request):
     api_url = "https://pull.bakuun.com/RDK220/spsnight/" + token +"/results"
     print(f"API URL: {api_url}")
+    body = await request.json()
+    print(f"Request body: {body}")
     try:
         if not await request.body():
             return {"error": "Request body is empty"}
-        body = await request.json()
-        print(f"Request body: {body}")
+        #body = await request.json()
+        print(f"Successfull Request body: {body}")
         #return {"Testresponse": "Test"}
         response = requests.get(api_url, json=body, headers={"Content-Type": "application/json","Accept": "application/json"})
         print(f"Response: {response.text}")
