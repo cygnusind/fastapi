@@ -118,18 +118,21 @@ async def mpsc(request: Request):
 #mps seacrch results
 @app.get("/mpsresult/{token}/results")
 async def mps_search(token : str,request: Request):
+    api_url ="https://pull.devbakuun.cloud/RDK381/mpsnight/"+token+"/results"
     try:
         if not await request.body():
             return {"error": "Request body is empty"}
         body = await request.json()
-        print(f"Request body: {body}")
+        response = requests.get(api_url, json=body, headers={"Content-Type": "application/json","Accept": "application/json"})
+        print(f"Response: {response.text}")
+        #print(f"Request body: {body}")
         #return {"Testresponse": "Test"}
-        async with httpx.AsyncClient() as client:
-            response = await client.get(
-                "https://pull.devbakuun.cloud/RDK381/mpsnight/"+token+"/results",
-                headers={"Content-Type": "application/json"},
-                json=body
-            )
+        # async with httpx.AsyncClient() as client:
+        #     response = await client.get(
+        #         "https://pull.devbakuun.cloud/RDK381/mpsnight/"+token+"/results",
+        #         headers={"Content-Type": "application/json"},
+        #         json=body
+        #     )
 
         # Return the response from the external API
         return response.json()
