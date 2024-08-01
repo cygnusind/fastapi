@@ -178,7 +178,7 @@ async def sps_token(token : str,request: Request):
 
     try:
         if not await request.body():
-            return {"error": "Request body is empty2"}
+            return {"error": "Request body is empty2"+request}
         body = await request.json()
         print(f"Successfull Request body: {body}")
         #return {"Testresponse": "Test"}
