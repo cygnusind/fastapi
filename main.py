@@ -118,6 +118,7 @@ async def mpsc(request: Request):
 #mps seacrch results
 @app.get("/mpsresult/{token}/results")
 async def mps_search(token : str,request: Request):
+        
     api_url ="https://pull.bakuun.com/RDK220/mpsnight/"+token+"/results"
     try:
         if not await request.body():
@@ -168,7 +169,7 @@ async def sps_token(token : str,request: Request):
     print(f"API URL: {api_url}")
     try:
         if not await request.body():
-            return {"error": "Request body is empty"}
+            return {"error": "Request body is empty1"}
         body = await request.json()
         print(f"Request body: {body}")
     except Exception as e:
@@ -176,7 +177,7 @@ async def sps_token(token : str,request: Request):
 
     try:
         if not await request.body():
-            return {"error": "Request body is empty"}
+            return {"error": "Request body is empty2"}
         body = await request.json()
         print(f"Successfull Request body: {body}")
         #return {"Testresponse": "Test"}
