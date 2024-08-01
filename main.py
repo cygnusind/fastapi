@@ -169,9 +169,10 @@ async def sps_token(token : str,request: Request):
     print(f"API URL: {api_url}")
     try:
         if not await request.body():
-            return {"error": "Request body is empty1"}
+            return {"error": "Request body is empty1:" +request}
         body = await request.json()
         print(f"Request body: {body}")
+
     except Exception as e:
         print(f"Unexpected error: {e}")
 
