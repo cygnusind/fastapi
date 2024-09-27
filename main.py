@@ -1,6 +1,6 @@
 from fastapi import FastAPI, Request
 import requests
-from fastapi.templating import Jinja2Templates
+from fastapi.responses import HTMLResponse
 from pydantic import BaseModel
 
 # import asyncio
@@ -8,18 +8,21 @@ import httpx
 #import traceback
 
 app = FastAPI()
-templates = Jinja2Templates(directory="templates")
 
-class BookingDetails(BaseModel):
+
+class BookingData(BaseModel):
     name: str
 
-@app.get("/booking-voucher")
-async def booking_voucher(details: BookingDetails):
-    print(f"Test booking")
-    return templates.TemplateResponse("index1.html", {
-        "request": {},
-        "name": details.name,
-    })
+@app.post("/booking-confirmation", response_class=HTMLResponse)
+async def booking_confirmation(data: BookingData):
+     # Open and read the HTML file
+     with open("index1.html", "r") as file:
+         html_content = file.read()
+    
+     # Replace the placeholder with the actual name
+     updated_html = html_content.replace("{{ name }}", data.name)
+
+     return HTMLResponse(content=updated_html)
 
 @app.get("/")
 async def root():
