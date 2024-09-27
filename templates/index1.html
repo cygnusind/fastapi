@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cygnus Booking Confirmation</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        color: #333;
+        margin: 0;
+        background-color: rgb(234, 225, 225);
+      }
+
+      .container {
+        max-width: 600px;
+        margin: 0 auto;
+        background-color: white;
+      }
+
+      .header {
+        background-color: #4052b4;
+        color: white;
+        text-align: center;
+        height: 200px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .container-content {
+        padding: 0 20px;
+      }
+
+      .logo {
+        width: 290.266px;
+        height: 66px;
+      }
+
+      .confirmation {
+        text-align: center;
+        margin: 40px 0;
+      }
+
+      .check-mark {
+        color: #4caf50;
+        font-size: 48px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .check-mark img {
+        width: 77.347px;
+        height: 73.922px;
+      }
+
+      .booking-details {
+        background-image: url("https://cygnus-elevate.s3.amazonaws.com/hotel+confirmation+vocuher+/Subtract.png");
+        background-size: contain;
+        background-repeat: no-repeat;
+        padding: 25px 25px 25px 25px;
+        border-radius: 10px;
+
+        margin-bottom: 40px;
+        max-width: 473px;
+
+        margin-left: 35px;
+        margin-right: 35px;
+      }
+
+      .booking-details h2 {
+        font-size: 20px;
+      }
+
+      .booking-details p {
+        font-size: 14px;
+        font-weight: 500;
+        font-family: "Manrope", sans-serif;
+      }
+
+      .booking-id {
+        max-width: 552px;
+        max-height: 40px;
+        background-color: #e8f0fe;
+        padding: 20px;
+        border-radius: 9px;
+        margin-bottom: 0px;
+        display: flex;
+        justify-content: space-between;
+      }
+      .booking-table {
+        background-color: #e8f0fe;
+        padding: 20px;
+        border-radius: 9px;
+        margin-bottom: 0px;
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .booking-number {
+        text-align: right;
+        font-weight: 600;
+        font-size: 12px;
+      }
+
+      .info-section {
+        margin-bottom: 0px;
+        margin-left: 20px;
+      }
+
+      .info-section h3 {
+        margin-bottom: 2px;
+      }
+
+      .info-section p {
+        margin-top: 1px;
+        margin-bottom: 10px;
+      }
+
+      .contact-section {
+        display: flex;
+        gap: 51px;
+        border-top: 2px solid rgba(138, 138, 138, 0.793);
+        padding-top: 10px;
+        margin-top: 35px;
+        margin-bottom: 23px;
+        margin-left: 20px;
+        padding-bottom: 20px;
+      }
+      .contact-section img {
+        margin: 0;
+        padding: 0;
+      }
+
+      .contact-section h3 {
+        margin: 5px 0;
+        padding: 0;
+      }
+
+      .contact-section p {
+        margin: 5px 0;
+        padding: 0;
+      }
+
+      .dear-text {
+        text-align: left;
+        padding-left: 43px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="header">
+        <img
+          src="https://cygnus-elevate.s3.amazonaws.com/hotel+confirmation+vocuher+/Group+1000001944.png"
+          alt="Cygnus Logo"
+          class="logo"
+        />
+      </div>
+      <div class="container-content">
+        <div class="confirmation">
+          <div class="check-mark">
+            <img
+              src="https://cygnus-elevate.s3.amazonaws.com/hotel+confirmation+vocuher+/tick.png"
+              alt="Cygnus Logo"
+              class="logo"
+            />
+          </div>
+          <h1 style="font-size: 30px">Your booking has been confirmed</h1>
+          <p class="dear-text">
+            Dear {{ name }}, Your booking is confirmed!<br />Thanks for choosing
+            Cygnus.
+          </p>
+        </div>
+
+        <div class="booking-details">
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+            "
+          >
+            <div>
+              <h3 style="font-weight: 500; font-size: 14px">CHECK-IN</h3>
+              <h2>THURSDAY</h2>
+              <p>29 Aug 2024</p>
+              <p>02:00:00 PM</p>
+            </div>
+            <div style="align-self: center">
+              5 night<br />
+              <img
+              src="https://cygnus-elevate.s3.amazonaws.com/hotel+confirmation+vocuher+/arrow-right.png"
+              alt="arrow-right"
+             
+            />
+            </div>
+            <div>
+              <h3 style="font-weight: 500; font-size: 14px">CHECK-OUT</h3>
+              <h2 style="font-size: 20px">TUESDAY</h2>
+              <p>03 Sep 2024</p>
+              <p>11:00:00 AM</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="booking-id">
+          <strong style="font-size: 12px">BOOKING ID #</strong>
+          <span class="booking-number">3171466</span>
+        </div>
+
+        <div class="table">
+          <table>
+            <tbody>
+              <tr>
+                <td align="left" style="padding-top: 20px">
+                  <div class="booking-table">
+                    <table
+                      cellspacing="0"
+                      cellpadding="0"
+                      border="0"
+                      style="
+                        border-collapse: collapse;
+                        table-layout: fixed;
+                        overflow-wrap: break-word;
+                        width: 100%;
+                        color: black;
+                        border: 0px solid black;
+                      "
+                    >
+                      <tbody>
+                        <tr>
+                          <td
+                            style="
+                              font-family: Open Sans, Helvetica, Arial,
+                                sans-serif;
+                              font-size: 16px;
+                              font-weight: 400;
+                              line-height: 24px;
+                              padding: 15px 10px 5px;
+                              width: 156px;
+                              text-align: left;
+                            "
+                          >
+                            <div>
+                              <b>Hotel Name</b>
+                              <br />
+                            </div>
+                          </td>
+                          <td
+                            style="
+                              font-family: Open Sans, Helvetica, Arial,
+                                sans-serif;
+                              font-size: 16px;
+                              font-weight: 400;
+                              line-height: 24px;
+                              padding: 15px 10px 5px;
+                              width: 141.8px;
+                              text-align: left;
+                            "
+                          >
+                            <div class="align-right" style="text-align: right">
+                              &nbsp; <b>HOTEL NAME</b>
+                              <br />
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td
+                            width="75%"
+                            align="left"
+                            style="
+                              font-family: Open Sans, Helvetica, Arial,
+                                sans-serif;
+                              font-size: 16px;
+                              font-weight: 400;
+                              line-height: 24px;
+                              padding: 15px 10px 5px;
+                              width: 156px;
+                              text-align: left;
+                            "
+                            class="align-left"
+                          >
+                            Hotel Address <br />
+                          </td>
+                          <td
+                            width="25%"
+                            align="left"
+                            style="
+                              font-family: Open Sans, Helvetica, Arial,
+                                sans-serif;
+                              font-size: 16px;
+                              font-weight: 400;
+                              line-height: 24px;
+                              padding: 15px 10px 5px;
+                              width: 141.8px;
+                              text-align: right;
+                            "
+                            class="align-right"
+                          >
+                            HOTEL ADDRESS&nbsp; <br />
+                          </td>
+                        </tr>
+                        <tr>
+                          <td
+                            width="75%"
+                            align="left"
+                            style="
+                              font-family: Open Sans, Helvetica, Arial,
+                                sans-serif;
+                              font-size: 16px;
+                              font-weight: 400;
+                              line-height: 24px;
+                              padding: 5px 10px;
+                              width: 156px;
+                            "
+                          >
+                            Hotel phone <br />
+                          </td>
+                          <td
+                            width="25%"
+                            align="left"
+                            style="
+                              font-family: Open Sans, Helvetica, Arial,
+                                sans-serif;
+                              font-size: 16px;
+                              font-weight: 400;
+                              line-height: 24px;
+                              padding: 5px 10px;
+                              width: 141.8px;
+                              text-align: right;
+                            "
+                            class="align-right"
+                          >
+                            PHONE NO&nbsp; <br />
+                          </td>
+                        </tr>
+                        <tr>
+                          <td
+                            width="75%"
+                            align="left"
+                            style="
+                              font-family: Open Sans, Helvetica, Arial,
+                                sans-serif;
+                              font-size: 16px;
+                              font-weight: 400;
+                              line-height: 24px;
+                              padding: 5px 10px;
+                              width: 156px;
+                            "
+                          >
+                            Hotel Location <br />
+                          </td>
+                          <td
+                            width="25%"
+                            align="left"
+                            style="
+                              font-family: Open Sans, Helvetica, Arial,
+                                sans-serif;
+                              font-size: 16px;
+                              font-weight: 400;
+                              line-height: 24px;
+                              padding: 5px 10px;
+                              width: 141.8px;
+                              text-align: right;
+                            "
+                            class="align-right"
+                          >
+                            GOOGLE LOCATION LINK&nbsp; <br />
+                          </td>
+                        </tr>
+                        <tr>
+                          <td
+                            width="75%"
+                            align="left"
+                            style="
+                              font-family: Open Sans, Helvetica, Arial,
+                                sans-serif;
+                              font-size: 16px;
+                              font-weight: 400;
+                              line-height: 24px;
+                              padding: 5px 10px;
+                              width: 156px;
+                            "
+                          >
+                            Photos <br />
+                          </td>
+                          <td
+                            width="25%"
+                            align="left"
+                            style="
+                              font-family: Open Sans, Helvetica, Arial,
+                                sans-serif;
+                              font-size: 16px;
+                              font-weight: 400;
+                              line-height: 24px;
+                              padding: 5px 10px;
+                              width: 141.8px;
+                              text-align: right;
+                            "
+                            class="align-right"
+                          >
+                            IMGLINK&nbsp; <br />
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- no of night starts -->
+              <tr>
+                <td align="left">
+                  <!-- <div>BOOKING_DETTAILS <br />
+                          </div> -->
+                  <table
+                    cellspacing="0"
+                    cellpadding="0"
+                    border="0"
+                    style="
+                      border-collapse: collapse;
+                      table-layout: fixed;
+                      overflow-wrap: break-word;
+                      width: 100%;
+                      color: black;
+                      border: 0px solid black;
+                      height: 196px;
+                    "
+                  >
+                    <tbody>
+                      <tr>
+                        <td align="left" style="padding-top: 3px">
+                          <div class="booking-table">
+                            <table
+                              cellspacing="0"
+                              cellpadding="0"
+                              border="0"
+                              style="
+                                border-collapse: collapse;
+                                table-layout: fixed;
+                                overflow-wrap: break-word;
+                                width: 100%;
+                                color: black;
+                                border: 0px solid black;
+                              "
+                            >
+                              <tbody>
+                                <tr>
+                                  <td
+                                    width="75%"
+                                    align="left"
+                                    style="
+                                      font-family: Open Sans, Helvetica, Arial,
+                                        sans-serif;
+                                      font-size: 16px;
+                                      font-weight: 400;
+                                      line-height: 24px;
+                                      padding: 15px 10px 5px;
+                                      width: 156px;
+                                      text-align: left;
+                                    "
+                                    class="align-left"
+                                  >
+                                    Nights <br />
+                                  </td>
+                                  <td
+                                    width="25%"
+                                    align="left"
+                                    style="
+                                      font-family: Open Sans, Helvetica, Arial,
+                                        sans-serif;
+                                      font-size: 16px;
+                                      font-weight: 400;
+                                      line-height: 24px;
+                                      padding: 15px 10px 5px;
+                                      width: 141.8px;
+                                      text-align: right;
+                                    "
+                                    class="align-right"
+                                  >
+                                    no of nigths&nbsp; <br />
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td
+                                    width="75%"
+                                    align="left"
+                                    style="
+                                      font-family: Open Sans, Helvetica, Arial,
+                                        sans-serif;
+                                      font-size: 16px;
+                                      font-weight: 400;
+                                      line-height: 24px;
+                                      padding: 5px 10px;
+                                      width: 156px;
+                                    "
+                                  >
+                                    Rooms <br />
+                                  </td>
+                                  <td
+                                    width="25%"
+                                    align="left"
+                                    style="
+                                      font-family: Open Sans, Helvetica, Arial,
+                                        sans-serif;
+                                      font-size: 16px;
+                                      font-weight: 400;
+                                      line-height: 24px;
+                                      padding: 5px 10px;
+                                      width: 141.8px;
+                                      text-align: right;
+                                    "
+                                    class="align-right"
+                                  >
+                                    NO OF ROOMS&nbsp; <br />
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td
+                                    width="75%"
+                                    align="left"
+                                    style="
+                                      font-family: Open Sans, Helvetica, Arial,
+                                        sans-serif;
+                                      font-size: 16px;
+                                      font-weight: 400;
+                                      line-height: 24px;
+                                      padding: 5px 10px;
+                                      width: 156px;
+                                    "
+                                  >
+                                    Guests <br />
+                                  </td>
+                                  <td
+                                    width="25%"
+                                    align="left"
+                                    style="
+                                      font-family: Open Sans, Helvetica, Arial,
+                                        sans-serif;
+                                      font-size: 16px;
+                                      font-weight: 400;
+                                      line-height: 24px;
+                                      padding: 5px 10px;
+                                      width: 141.8px;
+                                      text-align: right;
+                                    "
+                                    class="align-right"
+                                  >
+                                    NO OF GUEST&nbsp; <br />
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </td>
+              </tr>
+              <!-- GUEST DETIALS -->
+              <!-- <div class="booking-table"></div> -->
+
+              <tr>
+                <td align="left">
+                  <!-- payment details starts -->
+                  <div class="booking-table">
+                    <table
+                      cellspacing="0"
+                      cellpadding="0"
+                      border="0"
+                      width="100%"
+                      style="border-collapse: collapse"
+                    >
+                      <tbody>
+                        <tr>
+                          <td
+                            style="
+                              font-family: Open Sans, Helvetica, Arial,
+                                sans-serif;
+                              font-size: 16px;
+                              font-weight: 400;
+                              line-height: 24px;
+                              padding: 15px 10px 5px;
+                              width: 156px;
+                              text-align: left;
+                            "
+                          >
+                            <div>
+                              <b>Client Name </b>
+                              <br />
+                            </div>
+                          </td>
+                          <td
+                            style="
+                              font-family: Open Sans, Helvetica, Arial,
+                                sans-serif;
+                              font-size: 16px;
+                              font-weight: 400;
+                              line-height: 24px;
+                              padding: 15px 10px 5px;
+                              width: 141.8px;
+                              text-align: left;
+                            "
+                          >
+                            <div class="align-right" style="text-align: right">
+                              &nbsp; <b> CLIENTSGST</b>
+                              <br />
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td
+                            width="75%"
+                            align="left"
+                            style="
+                              font-family: Open Sans, Helvetica, Arial,
+                                sans-serif;
+                              font-size: 16px;
+                              font-weight: 400;
+                              line-height: 24px;
+                              padding: 15px 10px 5px;
+                              width: 156px;
+                              text-align: left;
+                            "
+                            class="align-left"
+                          >
+                            Room Charges<br />
+                          </td>
+                          <td
+                            width="25%"
+                            align="left"
+                            style="
+                              font-family: Open Sans, Helvetica, Arial,
+                                sans-serif;
+                              font-size: 16px;
+                              font-weight: 400;
+                              line-height: 24px;
+                              padding: 15px 10px 5px;
+                              width: 141.8px;
+                              text-align: right;
+                            "
+                            class="align-right"
+                          >
+                            ROOM_CHARGE&nbsp; <br />
+                          </td>
+                        </tr>
+                        <tr>
+                          <td
+                            width="75%"
+                            align="left"
+                            style="
+                              font-family: Open Sans, Helvetica, Arial,
+                                sans-serif;
+                              font-size: 16px;
+                              font-weight: 400;
+                              line-height: 24px;
+                              padding: 5px 10px;
+                              width: 156px;
+                            "
+                          >
+                            Inclusion IX <br />
+                          </td>
+                          <td
+                            width="25%"
+                            align="left"
+                            style="
+                              font-family: Open Sans, Helvetica, Arial,
+                                sans-serif;
+                              font-size: 16px;
+                              font-weight: 400;
+                              line-height: 24px;
+                              padding: 5px 10px;
+                              width: 141.8px;
+                              text-align: right;
+                            "
+                            class="align-right"
+                          >
+                            INCLUSIONS&nbsp; <br />
+                          </td>
+                        </tr>
+                        <tr>
+                          <td
+                            width="75%"
+                            align="left"
+                            style="
+                              font-family: Open Sans, Helvetica, Arial,
+                                sans-serif;
+                              font-size: 16px;
+                              font-weight: 400;
+                              line-height: 24px;
+                              padding: 5px 10px;
+                              width: 156px;
+                            "
+                          >
+                            Subtotal <br />
+                          </td>
+                          <td
+                            width="25%"
+                            align="left"
+                            style="
+                              font-family: Open Sans, Helvetica, Arial,
+                                sans-serif;
+                              font-size: 16px;
+                              font-weight: 400;
+                              line-height: 24px;
+                              padding: 5px 10px;
+                              width: 141.8px;
+                              text-align: right;
+                            "
+                            class="align-right"
+                          >
+                            SUBTOTAL&nbsp; <br />
+                          </td>
+                        </tr>
+                        <tr>
+                          <td
+                            width="75%"
+                            align="left"
+                            style="
+                              font-family: Open Sans, Helvetica, Arial,
+                                sans-serif;
+                              font-size: 16px;
+                              font-weight: 400;
+                              line-height: 24px;
+                              padding: 5px 10px;
+                              width: 156px;
+                            "
+                          >
+                            Tax<br />
+                          </td>
+                          <td
+                            width="25%"
+                            align="left"
+                            style="
+                              font-family: Open Sans, Helvetica, Arial,
+                                sans-serif;
+                              font-size: 16px;
+                              font-weight: 400;
+                              line-height: 24px;
+                              padding: 5px 10px;
+                              width: 141.8px;
+                              text-align: right;
+                            "
+                            class="align-right"
+                          >
+                            TAXL&nbsp; <br />
+                          </td>
+                        </tr>
+                        <!-- grand total  -->
+                        <tr>
+                          <td
+                            width="75%"
+                            align="left"
+                            style="
+                              font-family: Open Sans, Helvetica, Arial,
+                                sans-serif;
+                              font-size: 16px;
+                              font-weight: 800;
+                              line-height: 24px;
+                              padding: 10px;
+                              border-top: 3px solid rgb(165, 155, 155);
+                              border-bottom: 3px solid rgb(165, 155, 155);
+                              height: 51px;
+                            "
+                          >
+                            GRAND TOTAL <br />
+                          </td>
+                          <td
+                            width="25%"
+                            align="left"
+                            style="
+                              font-family: Open Sans, Helvetica, Arial,
+                                sans-serif;
+                              font-size: 16px;
+                              font-weight: 800;
+                              line-height: 24px;
+                              padding: 10px;
+                              border-top: 3px solid rgb(165, 155, 155);
+                              border-bottom: 3px solid rgb(165, 155, 155);
+                            "
+                          >
+                            AMT_TO_BE_PAID <br />
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="info-section">
+          <h3>Payment Mode: Bill to Company</h3>
+          <p>
+            <small
+              >*Any extra expenses/meals apart from Room rent will be payable at
+              the hotel</small
+            >
+          </p>
+        </div>
+
+        <div class="info-section">
+          <h3>Policies:</h3>
+          <p>
+            As per the Government of India, photographic identification is
+            mandatory for check-in (passport for international guests).
+          </p>
+        </div>
+
+        <div class="info-section">
+          <h3>Cancellation Policy:</h3>
+          <p>
+            A cancellation charge of the one-night amount applicable after the
+            27-Aug-2024 11:59 AM
+          </p>
+        </div>
+
+        <div class="info-section">
+          <h3>Support</h3>
+          <p>
+            <strong>Akshay Sharma</strong><br />
+            Account Manager<br />
+            Phone No: +919789892199<br />
+            Email: akshay@cygnusind.in
+          </p>
+        </div>
+
+        <div class="contact-section">
+          <div>
+            <img
+              src="https://cygnus-elevate.s3.amazonaws.com/hotel+confirmation+vocuher+/call.png"
+              alt="call sybmol"
+            />
+            <h3>Contact Us</h3>
+            <p>+91-74994 70402</p>
+          </div>
+          <div>
+            <img
+              src="https://cygnus-elevate.s3.amazonaws.com/hotel+confirmation+vocuher+/sms.png"
+              alt="call sybmol"
+            />
+            <h3>Email Us</h3>
+            <p>operations@bookcygnus.com</p>
+          </div>
+        </div>
+      </div>
+      <!-- End of container-content -->
+    </div>
+  </body>
+</html>

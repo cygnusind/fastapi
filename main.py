@@ -1,11 +1,25 @@
 from fastapi import FastAPI, Request
 import requests
+from fastapi.templating import Jinja2Templates
+from pydantic import BaseModel
 
 # import asyncio
 import httpx
 import traceback
 
 app = FastAPI()
+
+class BookingDetails(BaseModel):
+    name: str
+
+
+@app.get("/booking-voucher")
+async def booking_voucher(details: BookingDetails):
+    print(f"Test booking")
+    return templates.TemplateResponse("index1.html", {
+        "request": {},
+        "name": details.name,
+    })
 
 @app.get("/")
 async def root():
