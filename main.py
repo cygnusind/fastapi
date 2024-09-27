@@ -8,6 +8,7 @@ import httpx
 import traceback
 
 app = FastAPI()
+templates = Jinja2Templates(directory="templates")
 
 class BookingDetails(BaseModel):
     name: str
