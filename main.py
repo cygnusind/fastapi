@@ -5,14 +5,13 @@ from pydantic import BaseModel
 
 # import asyncio
 import httpx
-import traceback
+#import traceback
 
 app = FastAPI()
 templates = Jinja2Templates(directory="templates")
 
 class BookingDetails(BaseModel):
     name: str
-
 
 @app.get("/booking-voucher")
 async def booking_voucher(details: BookingDetails):
