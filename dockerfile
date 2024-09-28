@@ -5,11 +5,11 @@ RUN apt-get -y install python3-pip python3-cffi python3-brotli libpango-1.0-0 li
 
 WORKDIR /app
 
-RUN pip install pipenv
+# Copy requirements.txt
+COPY requirements.txt ./
 
-COPY Pipfile Pipfile.lock ./
-
-RUN pipenv install --deploy --ignore-pipfile
+# Install Python dependencies using pip
+RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . ./
 
