@@ -11,7 +11,10 @@
             "libjpeg62-turbo-dev",
             "libgdk-pixbuf2.0-0",
             "libffi-dev",
-            "shared-mime-info"
+            "shared-mime-info",
+            "libgirepository1.0-dev",
+            "gir1.2-pango-1.0",
+            "gobject-introspection"
           ]
         }
       }
