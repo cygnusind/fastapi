@@ -1,24 +1,7 @@
 {
   "$schema": "https://railway.app/railway.schema.json",
   "build": {
-    "builder": "NIXPACKS",
-    "nixpacks": {
-      "phases": {
-        "setup": {
-          "aptPkgs": [
-            "libpango-1.0-0",
-            "libcairo2",
-            "libjpeg62-turbo-dev",
-            "libgdk-pixbuf2.0-0",
-            "libffi-dev",
-            "shared-mime-info",
-            "libgirepository1.0-dev",
-            "gir1.2-pango-1.0",
-            "gobject-introspection"
-          ]
-        }
-      }
-    }
+    "builder": "NIXPACKS"
   },
   "deploy": {
     "startCommand": "hypercorn main:app --bind \"[::]:$PORT\""
