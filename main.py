@@ -2,6 +2,8 @@ from fastapi import FastAPI, Request
 import requests
 from fastapi.responses import HTMLResponse
 from pydantic import BaseModel
+from xhtml2pdf import pisa
+import io
 
 # import asyncio
 import httpx
@@ -13,7 +15,18 @@ app = FastAPI()
 class BookingData(BaseModel):
     name: str
 
-@app.post("/booking-confirmation", response_class=HTMLResponse)
+def convert_html_to_pdf(source_html):
+    result = io.BytesIO()
+    pisa_status = pisa.CreatePDF(io.StringIO(source_html), dest=result)
+
+    # Check for errors
+    if pisa_status.err:
+        return None
+
+    result.seek(0)
+    return result
+
+@app.post("/booking-confirmation")
 async def booking_confirmation(data: BookingData):
      # Open and read the HTML file
      with open("index1.html", "r") as file:
@@ -21,8 +34,11 @@ async def booking_confirmation(data: BookingData):
     
      # Replace the placeholder with the actual name
      updated_html = html_content.replace("{{ name }}", data.name)
-
-     return HTMLResponse(content=updated_html)
+     pdf = convert_html_to_pdf(updated_html)
+     if pdf:
+        return StreamingResponse(pdf, media_type="application/pdf", headers={"Content-Disposition": "inline; filename=booking_confirmation.pdf"})
+     else:
+        return {"error": "Failed to generate PDF"}
 
 @app.get("/")
 async def root():
