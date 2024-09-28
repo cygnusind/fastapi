@@ -2,8 +2,9 @@ from fastapi import FastAPI, Request
 import requests
 from fastapi.responses import HTMLResponse, StreamingResponse
 from pydantic import BaseModel
-from xhtml2pdf import pisa
+from weasyprint import HTML
 import io
+
 
 # import asyncio
 import httpx
@@ -15,16 +16,16 @@ app = FastAPI()
 class BookingData(BaseModel):
     name: str
 
-def convert_html_to_pdf(source_html):
-    result = io.BytesIO()
-    pisa_status = pisa.CreatePDF(io.StringIO(source_html), dest=result)
+def generate_pdf_from_html(html_content):
+    pdf_io = io.BytesIO()
+    
+    # Create a PDF from the HTML content
+    HTML(string=html_content).write_pdf(pdf_io)
+    
+    # Set the cursor back to the start of the BytesIO object
+    pdf_io.seek(0)
+    return pdf_io
 
-    # Check for errors
-    if pisa_status.err:
-        return None
-
-    result.seek(0)
-    return result
 
 @app.post("/booking-confirmation")
 async def booking_confirmation(data: BookingData):
@@ -34,11 +35,11 @@ async def booking_confirmation(data: BookingData):
     
      # Replace the placeholder with the actual name
      updated_html = html_content.replace("{{ name }}", data.name)
-     pdf = convert_html_to_pdf(updated_html)
-     if pdf:
-        return StreamingResponse(pdf, media_type="application/pdf", headers={"Content-Disposition": "inline; filename=booking_confirmation.pdf"})
-     else:
-        return {"error": "Failed to generate PDF"}
+     # Generate PDF
+     pdf = generate_pdf_from_html(updated_html)
+
+     # Return the PDF as a StreamingResponse
+     return StreamingResponse(pdf, media_type="application/pdf", headers={"Content-Disposition": "inline; filename=booking_confirmation.pdf"})
 
 @app.get("/")
 async def root():
