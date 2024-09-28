@@ -1,6 +1,6 @@
 from fastapi import FastAPI, Request
 import requests
-from fastapi.responses import HTMLResponse
+from fastapi.responses import HTMLResponse, StreamingResponse
 from pydantic import BaseModel
 from xhtml2pdf import pisa
 import io
