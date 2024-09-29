@@ -30,7 +30,7 @@ def generate_pdf_from_html(html_content):
 @app.post("/booking-confirmation")
 async def booking_confirmation(data: BookingData):
      # Open and read the HTML file
-     with open("index1.html", "r") as file:
+     with open("voucher.html", "r") as file:
          html_content = file.read()
     
      # Replace the placeholder with the actual name
