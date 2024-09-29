@@ -11,14 +11,13 @@
       }
       body {
         font-family: Arial, sans-serif;
-        line-height: 1.6;
+        line-height: 1;
         color: #333;
         margin: 0;
         background-color: rgb(234, 225, 225);
       }
 
       .container {
-        max-width: 600px;
         margin: 0 auto;
         background-color: white;
       }
@@ -61,14 +60,12 @@
 
       .booking-details {
         background-image: url("https://cygnus-elevate.s3.amazonaws.com/hotel+confirmation+vocuher+/Subtract.png");
-        background-size: contain;
+        background-size: cover;
         background-repeat: no-repeat;
+        background-position: center;
         padding: 25px 25px 25px 25px;
         border-radius: 10px;
-
         margin-bottom: 40px;
-        max-width: 473px;
-
         margin-left: 35px;
         margin-right: 35px;
       }
@@ -84,7 +81,6 @@
       }
 
       .booking-id {
-        max-width: 552px;
         max-height: 40px;
         background-color: #e8f0fe;
         padding: 20px;
@@ -163,7 +159,7 @@
       <div class="header">
         <img
           src="https://cygnus-elevate.s3.amazonaws.com/hotel+confirmation+vocuher+/Group+1000001944.png"
-          alt="Cygnus Logo"
+          alt="CYGNUS"
           class="logo"
         />
       </div>
@@ -187,7 +183,10 @@
           <div
             style="
               display: flex;
-              justify-content: space-between;
+                justify-content: space-between;
+                flex-grow: 1;
+                display: flex;
+                justify-content: space-around;
               align-items: center;
             "
           >
