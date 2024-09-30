@@ -14,7 +14,7 @@ app = FastAPI()
 
 
 class BookingData(BaseModel):
-    name: str
+    NAME: str
     CHECKIN:str
     CHECKOUT:str
 
@@ -38,7 +38,7 @@ async def booking_confirmation(data: BookingData):
          html_content = file.read()
          
          
-         updated_html = html_content.replace("{{ name }}", data.name)
+         updated_html = html_content.replace("{{ name }}", data.NAME)
          updated_html = updated_html.replace("{{checkindate}}", data.CHECKIN)
          updated_html = updated_html.replace("{{checkoutdate}}", data.CHECKOUT)
 
