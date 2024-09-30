@@ -15,8 +15,8 @@ app = FastAPI()
 
 class BookingData(BaseModel):
     name: str
-    checkindate:str
-    checkoutdate:str
+    CHECKIN:str
+    CHECKOUT:str
 
 
 
