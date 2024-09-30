@@ -40,7 +40,7 @@ class BookingData(BaseModel):
     DEFAULT_POLICES:str
     EMPNAME:str
     EMPPHONE:int
-    EMPEMAIL:str
+    # EMPEMAIL:str
 
 
     
@@ -100,7 +100,7 @@ async def booking_confirmation(data: BookingData):
 
          updated_html = updated_html.replace("{{EMPNAME}}", data.EMPNAME)
          updated_html = updated_html.replace("{{EMPPHONE}}", data.EMPPHONE)
-         updated_html = updated_html.replace("{{EMPEMAIL}}", data.EMPEMAIL)
+        #  updated_html = updated_html.replace("{{EMPEMAIL}}", data.EMPEMAIL)
 
 
 
