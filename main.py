@@ -36,11 +36,11 @@ async def booking_confirmation(data: BookingData):
      # Open and read the HTML file
      with open("voucher.html", "r") as file:
          html_content = file.read()
-    
-     # Replace the placeholder with the actual name
-     updated_html = html_content.replace("{{ name }}", data.name)
-     updated_html = html_content.replace("{{checkindate}}", data.CHECKIN)
-     updated_html = html_content.replace("{{checkoutdate}}", data.CHECKOUT)
+         
+         
+         updated_html = html_content.replace("{{ name }}", data.name)
+         updated_html = updated_html.replace("{{checkindate}}", data.CHECKIN)
+         updated_html = updated_html.replace("{{checkoutdate}}", data.CHECKOUT)
 
      # Generate PDF
      pdf = generate_pdf_from_html(updated_html)
