@@ -18,7 +18,6 @@
       }
 
       .container {
-        max-width :600px;
         margin: 0 auto;
         background-color: white;
       }
@@ -65,7 +64,6 @@
         background-repeat: no-repeat;
         background-position: center;
         padding: 25px 25px 25px 25px;
-        max-width: 473px;
         border-radius: 10px;
         margin-bottom: 40px;
         margin-left: 35px;
@@ -98,7 +96,7 @@
         margin-bottom: 0px;
         display: flex;
         justify-content: space-between;
-        width: 520px;
+        width: fill;
       }
 
       .booking-number {
@@ -147,8 +145,8 @@
       }
 
       .dear-text {
-        text-align: left;
-        padding-left: 43px;
+
+        
       }
       .content {
             page-break-after: avoid;
@@ -177,7 +175,8 @@
           </div>
           <h1 style="font-size: 30px">Your booking has been confirmed</h1>
           <p class="dear-text">
-            Dear {{ name }},Thanks for choosing Cygnus!<br /> Find your travel details below
+            Dear {{ name }}, <br>
+            Thanks for choosing Cygnus!<br /> Find your travel details below
           </p>
         </div>
 
@@ -792,8 +791,7 @@
                               border-bottom: 3px solid rgb(165, 155, 155);
                             "
                           >
-                            AMT_TO_BE_PAID <br />
-                          </td>
+                            AMT_TO_BE_PAID</td>
                         </tr>
                       </tbody>
                     </table>
