@@ -15,6 +15,10 @@ app = FastAPI()
 
 class BookingData(BaseModel):
     name: str
+    checkindate:str
+    checkoutdate:str
+
+
 
 def generate_pdf_from_html(html_content):
     pdf_io = io.BytesIO()
@@ -35,6 +39,9 @@ async def booking_confirmation(data: BookingData):
     
      # Replace the placeholder with the actual name
      updated_html = html_content.replace("{{ name }}", data.name)
+     updated_html = html_content.replace("{{checkindate}}", data.CHECKIN)
+     updated_html = html_content.replace("{{checkoutdate}}", data.CHECKOUT)
+
      # Generate PDF
      pdf = generate_pdf_from_html(updated_html)
 
