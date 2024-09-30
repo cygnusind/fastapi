@@ -14,27 +14,27 @@ app = FastAPI()
 
 
 class BookingData(BaseModel):
-    NAME: str
-    CHECKIN:str
-    CHECKOUT:str
-    DAYOF_CHECKIN:str
-    DAYOF_CHECKOUT11:str
-    NO_OF_NIGHTS:str
-    CHECK_IN_TIME:str
-    CHECK_OUT_TIME:str
-    HOTELNAME:str
-    HOTELADDRESS:str
-    HOTELPHONE:int
+    NAME: str = None
+    CHECKIN: str = None
+    CHECKOUT: str = None
+    DAYOF_CHECKIN: str = None
+    DAYOF_CHECKOUT11: str = None
+    NO_OF_NIGHTS: str = None
+    CHECK_IN_TIME: str = None
+    CHECK_OUT_TIME: str = None
+    HOTELNAME: str = None
+    HOTELADDRESS: str = None
+    HOTELPHONE: int = None
+    ROOMCOUNT: str = None
+    CLIENT: str = None
+    ROOM_CHARGES: str = None
+    INCLUSIONS: str = None
+    SUBTOTAL: str = None
+    GST_VALUE: str = None
+    AMT_TO_BE_PAID: str = None
+    PAYMENTMODE: str = None
     #LOCATIONLINK:str
     #IMGLINK:str
-    ROOMCOUNT:str
-    CLIENT:str
-    ROOM_CHARGES:str
-    INCLUSIONS:str
-    SUBTOTAL:str
-    GST_VALUE:str
-    AMT_TO_BE_PAID:str
-    PAYMENTMODE:str
     # CANCELLATIONPOLICY:str
     # ADDON_POLICES:str
     # DEFAULT_POLICES:str
@@ -73,27 +73,27 @@ async def booking_confirmation(data: BookingData):
          html_content = file.read()
          
          
-         updated_html = html_content.replace("{{ name }}", data.NAME)
-         updated_html = updated_html.replace("{{checkindate}}", data.CHECKIN)
-         updated_html = updated_html.replace("{{checkoutdate}}", data.CHECKOUT)
-         updated_html = updated_html.replace("{{dayofcheckin}}", data.DAYOF_CHECKIN)
-         updated_html = updated_html.replace("{{dayofcheckout}}", data.DAYOF_CHECKOUT11)
-         updated_html = updated_html.replace("{{no_of_night}}", data.NO_OF_NIGHTS)
-         updated_html = updated_html.replace("{{checkintime}}", data.CHECK_IN_TIME)
-         updated_html = updated_html.replace("{{checkouttime}}", data.CHECK_OUT_TIME)
-         updated_html = updated_html.replace("{{hotelname}}", data.HOTELNAME)
-         updated_html = updated_html.replace("{{hoteladdress}}", data.HOTELADDRESS)
-        # updated_html = updated_html.replace("{{location}}", data.LOCATIONLINK)
-         updated_html = updated_html.replace("{{hotelphone}}", data.HOTELPHONE)
-        # updated_html = updated_html.replace("{{imglink}}", data.IMGLINK)
-         updated_html = updated_html.replace("{{noofrooms}}", data.ROOMCOUNT)
-         updated_html = updated_html.replace("{{noofguest}}", data.CLIENT)
-         updated_html = updated_html.replace("{{roomcharges}}", data.ROOM_CHARGES)
-         updated_html = updated_html.replace("{{inclusions}}", data.INCLUSIONS)
-         updated_html = updated_html.replace("{{gst}}", data.GST_VALUE)
-         updated_html = updated_html.replace("{{SUBTOTAL}}", data.SUBTOTAL)
-         updated_html = updated_html.replace("{{grandtotal}}", data.AMT_TO_BE_PAID)
-         updated_html = updated_html.replace("{{PAYMENTMODE}}", data.PAYMENTMODE)
+         replacements = {
+            "{{ name }}": data.NAME,
+            "{{checkindate}}": data.CHECKIN,
+            "{{checkoutdate}}": data.CHECKOUT,
+            "{{dayofcheckin}}": data.DAYOF_CHECKIN,
+            "{{dayofcheckout}}": data.DAYOF_CHECKOUT11,
+            "{{no_of_night}}": data.NO_OF_NIGHTS,
+            "{{checkintime}}": data.CHECK_IN_TIME,
+            "{{checkouttime}}": data.CHECK_OUT_TIME,
+            "{{hotelname}}": data.HOTELNAME,
+            "{{hoteladdress}}": data.HOTELADDRESS,
+            "{{hotelphone}}": str(data.HOTELPHONE) if data.HOTELPHONE else "",
+            "{{noofrooms}}": data.ROOMCOUNT,
+            "{{noofguest}}": data.CLIENT,
+            "{{roomcharges}}": data.ROOM_CHARGES,
+            "{{inclusions}}": data.INCLUSIONS,
+            "{{gst}}": data.GST_VALUE,
+            "{{SUBTOTAL}}": data.SUBTOTAL,
+            "{{grandtotal}}": data.AMT_TO_BE_PAID,
+            "{{PAYMENTMODE}}": data.PAYMENTMODE,
+        }
         #  updated_html = updated_html.replace("{{ADDON_POLICES}}", data.ADDON_POLICES)
         #  updated_html = updated_html.replace("{{DEFAULT_POLICES}}", data.DEFAULT_POLICES)
          #updated_html = updated_html.replace("{{CANCELLATIONPOLICY}}", data.CANCELLATIONPOLICY)
@@ -101,14 +101,12 @@ async def booking_confirmation(data: BookingData):
         # updated_html = updated_html.replace("{{EMPNAME}}", data.EMPNAME)
         #  updated_html = updated_html.replace("{{EMPPHONE}}", data.EMPPHONE)
         #  updated_html = updated_html.replace("{{EMPEMAIL}}", data.EMPEMAIL)
-
-
-
- 
-         
+         for placeholder, value in replacements.items():
+            if value:
+                html_content = html_content.replace(placeholder, value)
 
      # Generate PDF
-     pdf = generate_pdf_from_html(updated_html)
+     pdf = generate_pdf_from_html(html_content)
 
      # Return the PDF as a StreamingResponse
      return StreamingResponse(pdf, media_type="application/pdf", headers={"Content-Disposition": "inline; filename=booking_confirmation.pdf"})
