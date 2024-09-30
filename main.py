@@ -35,7 +35,7 @@ class BookingData(BaseModel):
     GST_VALUE:str
     AMT_TO_BE_PAID:str
     PAYMENTMODE:str
-    CANCELLATIONPOLICY:str
+    # CANCELLATIONPOLICY:str
     # ADDON_POLICES:str
     # DEFAULT_POLICES:str
     # EMPNAME:str
@@ -96,7 +96,7 @@ async def booking_confirmation(data: BookingData):
          updated_html = updated_html.replace("{{PAYMENTMODE}}", data.PAYMENTMODE)
         #  updated_html = updated_html.replace("{{ADDON_POLICES}}", data.ADDON_POLICES)
         #  updated_html = updated_html.replace("{{DEFAULT_POLICES}}", data.DEFAULT_POLICES)
-         updated_html = updated_html.replace("{{CANCELLATIONPOLICY}}", data.CANCELLATIONPOLICY)
+         #updated_html = updated_html.replace("{{CANCELLATIONPOLICY}}", data.CANCELLATIONPOLICY)
 
         # updated_html = updated_html.replace("{{EMPNAME}}", data.EMPNAME)
         #  updated_html = updated_html.replace("{{EMPPHONE}}", data.EMPPHONE)
