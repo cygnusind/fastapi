@@ -42,7 +42,7 @@ async def booking_confirmation(data: BookingData):
          updated_html = updated_html.replace("{{checkindate}}", data.CHECKIN)
          updated_html = updated_html.replace("{{checkoutdate}}", data.CHECKOUT)
 
-         return updated_html
+         
 
      # Generate PDF
      pdf = generate_pdf_from_html(updated_html)
