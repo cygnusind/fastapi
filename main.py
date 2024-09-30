@@ -36,10 +36,10 @@ class BookingData(BaseModel):
     AMT_TO_BE_PAID:str
     PAYMENTMODE:str
     CANCELLATIONPOLICY:str
-    ADDON_POLICES:str
-    DEFAULT_POLICES:str
-    EMPNAME:str
-    EMPPHONE:int
+    # ADDON_POLICES:str
+    # DEFAULT_POLICES:str
+    # EMPNAME:str
+    # EMPPHONE:int
     # EMPEMAIL:str
 
 
@@ -94,12 +94,12 @@ async def booking_confirmation(data: BookingData):
          updated_html = updated_html.replace("{{SUBTOTAL}}", data.SUBTOTAL)
          updated_html = updated_html.replace("{{grandtotal}}", data.AMT_TO_BE_PAID)
          updated_html = updated_html.replace("{{PAYMENTMODE}}", data.PAYMENTMODE)
-         updated_html = updated_html.replace("{{ADDON_POLICES}}", data.ADDON_POLICES)
-         updated_html = updated_html.replace("{{DEFAULT_POLICES}}", data.DEFAULT_POLICES)
+        #  updated_html = updated_html.replace("{{ADDON_POLICES}}", data.ADDON_POLICES)
+        #  updated_html = updated_html.replace("{{DEFAULT_POLICES}}", data.DEFAULT_POLICES)
          updated_html = updated_html.replace("{{CANCELLATIONPOLICY}}", data.CANCELLATIONPOLICY)
 
-         updated_html = updated_html.replace("{{EMPNAME}}", data.EMPNAME)
-         updated_html = updated_html.replace("{{EMPPHONE}}", data.EMPPHONE)
+        # updated_html = updated_html.replace("{{EMPNAME}}", data.EMPNAME)
+        #  updated_html = updated_html.replace("{{EMPPHONE}}", data.EMPPHONE)
         #  updated_html = updated_html.replace("{{EMPEMAIL}}", data.EMPEMAIL)
 
 
