@@ -26,7 +26,7 @@ class BookingData(BaseModel):
     HOTELADDRESS:str
     HOTELPHONE:int
     LOCATIONLINK:str
-    IMGLINK:str
+    #IMGLINK:str
     ROOMCOUNT:str
     CLIENT:str
     ROOM_CHARGES:str
@@ -85,7 +85,7 @@ async def booking_confirmation(data: BookingData):
          updated_html = updated_html.replace("{{hoteladdress}}", data.HOTELADDRESS)
          updated_html = updated_html.replace("{{location}}", data.LOCATIONLINK)
          updated_html = updated_html.replace("{{hotelphone}}", data.HOTELPHONE)
-         updated_html = updated_html.replace("{{imglink}}", data.IMGLINK)
+        # updated_html = updated_html.replace("{{imglink}}", data.IMGLINK)
          updated_html = updated_html.replace("{{noofrooms}}", data.ROOMCOUNT)
          updated_html = updated_html.replace("{{noofguest}}", data.CLIENT)
          updated_html = updated_html.replace("{{roomcharges}}", data.ROOM_CHARGES)
