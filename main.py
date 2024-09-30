@@ -17,6 +17,41 @@ class BookingData(BaseModel):
     NAME: str
     CHECKIN:str
     CHECKOUT:str
+    DAYOF_CHECKIN:str
+    DAYOF_CHECKOUT11:str
+    NO_OF_NIGHTS:str
+    CHECK_IN_TIME:str
+    CHECK_OUT_TIME:str
+    HOTELNAME:str
+    HOTELADDRESS:str
+    HOTELPHONE:int
+    LOCATIONLINK:str
+    IMGLINK:str
+    ROOMCOUNT:str
+    CLIENT:str
+    ROOM_CHARGES:str
+    INCLUSIONS:str
+    SUBTOTAL:str
+    GST_VALUE:str
+    AMT_TO_BE_PAID:str
+    PAYMENTMODE:str
+    CANCELLATIONPOLICY:str
+    ADDON_POLICES:str
+    DEFAULT_POLICES:str
+    EMPNAME:str
+    EMPPHONE:int
+    EMPEMAIL:str
+
+
+    
+
+
+
+
+
+
+
+
 
 
 
@@ -41,7 +76,35 @@ async def booking_confirmation(data: BookingData):
          updated_html = html_content.replace("{{ name }}", data.NAME)
          updated_html = updated_html.replace("{{checkindate}}", data.CHECKIN)
          updated_html = updated_html.replace("{{checkoutdate}}", data.CHECKOUT)
+         updated_html = updated_html.replace("{{dayofcheckin}}", data.DAYOF_CHECKIN)
+         updated_html = updated_html.replace("{{dayofcheckout}}", data.DAYOF_CHECKOUT11)
+         updated_html = updated_html.replace("{{no_of_night}}", data.NO_OF_NIGHTS)
+         updated_html = updated_html.replace("{{checkintime}}", data.CHECK_IN_TIME)
+         updated_html = updated_html.replace("{{checkouttime}}", data.CHECK_OUT_TIME)
+         updated_html = updated_html.replace("{{hotelname}}", data.HOTELNAME)
+         updated_html = updated_html.replace("{{hoteladdress}}", data.HOTELADDRESS)
+         updated_html = updated_html.replace("{{location}}", data.LOCATIONLINK)
+         updated_html = updated_html.replace("{{hotelphone}}", data.HOTELPHONE)
+         updated_html = updated_html.replace("{{imglink}}", data.IMGLINK)
+         updated_html = updated_html.replace("{{noofrooms}}", data.ROOMCOUNT)
+         updated_html = updated_html.replace("{{noofguest}}", data.CLIENT)
+         updated_html = updated_html.replace("{{roomcharges}}", data.ROOM_CHARGES)
+         updated_html = updated_html.replace("{{inclusions}}", data.INCLUSIONS)
+         updated_html = updated_html.replace("{{gst}}", data.GST_VALUE)
+         updated_html = updated_html.replace("{{SUBTOTAL}}", data.SUBTOTAL)
+         updated_html = updated_html.replace("{{grandtotal}}", data.AMT_TO_BE_PAID)
+         updated_html = updated_html.replace("{{PAYMENTMODE}}", data.PAYMENTMODE)
+         updated_html = updated_html.replace("{{ADDON_POLICES}}", data.ADDON_POLICES)
+         updated_html = updated_html.replace("{{DEFAULT_POLICES}}", data.DEFAULT_POLICES)
+         updated_html = updated_html.replace("{{CANCELLATIONPOLICY}}", data.CANCELLATIONPOLICY)
 
+         updated_html = updated_html.replace("{{EMPNAME}}", data.EMPNAME)
+         updated_html = updated_html.replace("{{EMPPHONE}}", data.EMPPHONE)
+         updated_html = updated_html.replace("{{EMPEMAIL}}", data.EMPEMAIL)
+
+
+
+ 
          
 
      # Generate PDF

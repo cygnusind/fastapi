@@ -190,12 +190,12 @@
           >
             <div>
               <h3 style="font-weight: 500; font-size: 14px">CHECK-IN</h3>
-              <h2>THURSDAY</h2>
+              <h2>{{dayofcheckin}}</h2>
               <p>{{checkindate}}</p>
-              <p>02:00:00 PM</p>
+              <p>{{CHECK_IN_TIME}}</p>
             </div>
             <div style="align-self: center">
-              5 night<br />
+              {{no_of_night}} night<br />
               <img
               src="https://cygnus-elevate.s3.amazonaws.com/hotel+confirmation+vocuher+/arrow-right.png"
               alt="arrow-right"
@@ -204,9 +204,9 @@
             </div>
             <div>
               <h3 style="font-weight: 500; font-size: 14px">CHECK-OUT</h3>
-              <h2 style="font-size: 20px">TUESDAY</h2>
+              <h2 style="font-size: 20px">{{dayofcheckout}}</h2>
               <p>{{checkoutdate}}</p>
-              <p>11:00:00 AM</p>
+              <p>{{checkouttime}}</p>
             </div>
           </div>
         </div>
@@ -267,7 +267,7 @@
                             "
                           >
                             <div class="align-right" style="text-align: right">
-                              &nbsp; <b>HOTEL NAME</b>
+                              &nbsp; <b>{{hotelname}}</b>
                               <br />
                             </div>
                           </td>
@@ -305,7 +305,7 @@
                             "
                             class="align-right"
                           >
-                            HOTEL ADDRESS&nbsp; <br />
+                          {{hoteladdress}} <br />
                           </td>
                         </tr>
                         <tr>
@@ -339,7 +339,7 @@
                             "
                             class="align-right"
                           >
-                            PHONE NO&nbsp; <br />
+                          {{hotelphone}} <br />
                           </td>
                         </tr>
                         <tr>
@@ -373,7 +373,7 @@
                             "
                             class="align-right"
                           >
-                            GOOGLE LOCATION LINK&nbsp; <br />
+                          {{location}} <br />
                           </td>
                         </tr>
                         <tr>
@@ -407,7 +407,7 @@
                             "
                             class="align-right"
                           >
-                            IMGLINK&nbsp; <br />
+                          IMGLINK <br />
                           </td>
                         </tr>
                       </tbody>
@@ -486,7 +486,7 @@
                                     "
                                     class="align-right"
                                   >
-                                    no of nigths&nbsp; <br />
+                                  {{no_of_night}} <br />
                                   </td>
                                 </tr>
                                 <tr>
@@ -520,7 +520,7 @@
                                     "
                                     class="align-right"
                                   >
-                                    NO OF ROOMS&nbsp; <br />
+                                  {{noofrooms}} <br />
                                   </td>
                                 </tr>
                                 <tr>
@@ -554,7 +554,7 @@
                                     "
                                     class="align-right"
                                   >
-                                    NO OF GUEST&nbsp; <br />
+                                  {{noofguest}}&nbsp; <br />
                                   </td>
                                 </tr>
                               </tbody>
@@ -650,7 +650,7 @@
                             "
                             class="align-right"
                           >
-                            ROOM_CHARGE&nbsp; <br />
+                          {{roomcharges}} <br />
                           </td>
                         </tr>
                         <tr>
@@ -684,7 +684,7 @@
                             "
                             class="align-right"
                           >
-                            INCLUSIONS&nbsp; <br />
+                           {{inclusions}} <br />
                           </td>
                         </tr>
                         <tr>
@@ -718,7 +718,7 @@
                             "
                             class="align-right"
                           >
-                            SUBTOTAL&nbsp; <br />
+                          {{SUBTOTAL}} <br />
                           </td>
                         </tr>
                         <tr>
@@ -752,7 +752,7 @@
                             "
                             class="align-right"
                           >
-                            TAXL&nbsp; <br />
+                          {{gst}}; <br />
                           </td>
                         </tr>
                         <!-- grand total  -->
@@ -788,7 +788,7 @@
                               border-bottom: 3px solid rgb(165, 155, 155);
                             "
                           >
-                            AMT_TO_BE_PAID</td>
+                          {{grandtotal}}</td>
                         </tr>
                       </tbody>
                     </table>
@@ -800,7 +800,7 @@
         </div>
 
         <div class="info-section">
-          <h3>Payment Mode: Bill to Company</h3>
+          <h3>Payment Mode: {{PAYMENTMODE}}</h3>
           <p>
             <small
               >*Any extra expenses/meals apart from Room rent will be payable at
@@ -812,26 +812,25 @@
         <div class="info-section">
           <h3>Policies:</h3>
           <p>
-            As per the Government of India, photographic identification is
-            mandatory for check-in (passport for international guests).
+            {{ADDON_POLICES}}</p> <br/>
+            {{DEFAULT_POLICES}}
           </p>
         </div>
 
         <div class="info-section">
           <h3>Cancellation Policy:</h3>
           <p>
-            A cancellation charge of the one-night amount applicable after the
-            27-Aug-2024 11:59 AM
+            {{CANCELLATIONPOLICY}}
           </p>
         </div>
 
         <div class="info-section">
           <h3>Support</h3>
           <p>
-            <strong>Akshay Sharma</strong><br />
+            <strong>{{EMPNAME}}</strong><br />
             Account Manager<br />
-            Phone No: +919789892199<br />
-            Email: akshay@cygnusind.in
+            Phone No: {{EMPPHONE}}<br />
+            Email: {{EMPEMAIL}}
           </p>
         </div>
 
