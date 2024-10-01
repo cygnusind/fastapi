@@ -141,16 +141,20 @@ async def booking_confirmation(data: BookingData):
             })
         elif data.SHOWTRAIFF == "No":
             replacements.update({
-                "GRAND TOTAL": ""
-            })
-    else:
-        replacements.update({
             "<tr><td>Room Charges</td><td style='text-align: right'>{{roomcharges}}</td></tr>"
             "<tr><td>Inclusion IX</td><td style='text-align: right'>{{inclusions}}</td></tr>"
             "<tr><td>Subtotal</td><td style='text-align: right'>{{SUBTOTAL}}</td></tr>"
             "<tr><td>Tax</td><td style='text-align: right'>{{gst}}</td></tr>"
             "<tr><td><b>GRAND TOTAL</b></td><td style='text-align: right'><b>{{grandtotal}}</b></td></tr>": ""
         })
+    # else:
+    #     replacements.update({
+    #         "<tr><td>Room Charges</td><td style='text-align: right'>{{roomcharges}}</td></tr>"
+    #         "<tr><td>Inclusion IX</td><td style='text-align: right'>{{inclusions}}</td></tr>"
+    #         "<tr><td>Subtotal</td><td style='text-align: right'>{{SUBTOTAL}}</td></tr>"
+    #         "<tr><td>Tax</td><td style='text-align: right'>{{gst}}</td></tr>"
+    #         "<tr><td><b>GRAND TOTAL</b></td><td style='text-align: right'><b>{{grandtotal}}</b></td></tr>": ""
+    #     })
 
     for placeholder, value in replacements.items():
         if value:
