@@ -124,25 +124,25 @@ async def booking_confirmation(data: BookingData):
         "{{SHOWTRAIFF}}": data.SHOWTRAIFF
     }
 
-    if data.PAYMENTMODE == "Bill to Company":
-        if data.SHOWTRAIFF == "Yes":
-            replacements.update({
-                "{{roomcharges}}": data.ROOM_CHARGES,
-                "{{inclusions}}": data.INCLUSIONS,
-                "{{gst}}": data.GST_VALUE,
-                "{{SUBTOTAL}}": data.SUBTOTAL,
-                "{{grandtotal}}": data.AMT_TO_BE_PAID,
+    # if data.PAYMENTMODE == "Bill to Company":
+    #     if data.SHOWTRAIFF == "Yes":
+    #         replacements.update({
+    #             "{{roomcharges}}": data.ROOM_CHARGES,
+    #             "{{inclusions}}": data.INCLUSIONS,
+    #             "{{gst}}": data.GST_VALUE,
+    #             "{{SUBTOTAL}}": data.SUBTOTAL,
+    #             "{{grandtotal}}": data.AMT_TO_BE_PAID,
              
             
-            })
-        elif data.SHOWTRAIFF == "No":
-            replacements = {
-           """<tr><td>Room Charges</td><td style='text-align: right'>{{roomcharges}}</td></tr>
-            <tr><td>Inclusion IX</td><td style='text-align: right'>{{inclusions}}</td></tr>
-            <tr><td>Subtotal</td><td style='text-align: right'>{{SUBTOTAL}}</td></tr>
-            <tr><td>Tax</td><td style='text-align: right'>{{gst}}</td></tr>
-            <tr><td><b>GRAND TOTAL</b></td><td style='text-align: right'><b>{{grandtotal}}</b></td></tr>":"""
-            }
+    #         })
+    #     elif data.SHOWTRAIFF == "No":
+    #         replacements = {
+    #        """<tr><td>Room Charges</td><td style='text-align: right'>{{roomcharges}}</td></tr>
+    #         <tr><td>Inclusion IX</td><td style='text-align: right'>{{inclusions}}</td></tr>
+    #         <tr><td>Subtotal</td><td style='text-align: right'>{{SUBTOTAL}}</td></tr>
+    #         <tr><td>Tax</td><td style='text-align: right'>{{gst}}</td></tr>
+    #         <tr><td><b>GRAND TOTAL</b></td><td style='text-align: right'><b>{{grandtotal}}</b></td></tr>":"""
+    #         }
     # else:
     #     replacements.update({
     #        """<tr><td>Room Charges</td><td style='text-align: right'>{{roomcharges}}</td></tr>
