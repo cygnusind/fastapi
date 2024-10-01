@@ -141,7 +141,6 @@ async def booking_confirmation(data: BookingData):
             })
         elif data.SHOWTRAIFF == "No":
             replacements.update({
-             replacements.update({
            """<tr><td>Room Charges</td><td style='text-align: right'>{{roomcharges}}</td></tr>
             <tr><td>Inclusion IX</td><td style='text-align: right'>{{inclusions}}</td></tr>
             <tr><td>Subtotal</td><td style='text-align: right'>{{SUBTOTAL}}</td></tr>
