@@ -85,12 +85,12 @@ async def booking_confirmation(data: BookingData):
     occupancy = data.TABLEDATA.get("OCCUPANCY", [""])[i]
     meal_plan = data.TABLEDATA.get("MEALPLAN", [""])[i]
     new_row = f"""<tr>
-        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">"haren</td>
+        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">"haren"</td>
         <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{room_type}</td>
         <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{occupancy}</td>
         <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{meal_plan}</td>
     </tr>"""
-
+    table += new_row
 
     # Close the table
     table += "</table>"
