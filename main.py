@@ -37,7 +37,7 @@ class BookingData(BaseModel):
     GST_VALUE: str = None
     AMT_TO_BE_PAID: str = None
     PAYMENTMODE: str = None
-    #LOCATIONLINK:str
+    LOCATIONLINK:str
     #IMGLINK:str
     CANCELLATIONPOLICY:str=None
     ADDON_POLICES:str=None
@@ -122,6 +122,7 @@ async def booking_confirmation(data: BookingData):
         "{{EMPNAME}}": data.EMPNAME,
         "{{EMPPHONE}}": data.EMPPHONE,
         "{{EMPEMAIL}}": data.EMPEMAIL,
+        "{{location}}": data.LOCATIONLINK,
         "{{GUESTTABLE}}": table
     }
 
