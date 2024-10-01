@@ -115,6 +115,9 @@ async def booking_confirmation(data: BookingData):
         "{{SUBTOTAL}}": data.SUBTOTAL,
         "{{grandtotal}}": data.AMT_TO_BE_PAID,
         "{{PAYMENTMODE}}": data.PAYMENTMODE,
+        "{{ADDON_POLICES}}": data.ADDON_POLICES,
+        "{{DEFAULT_POLICES}}": data.DEFAULT_POLICES,
+
         "{{CANCELLATIONPOLICY}}":data.CANCELLATIONPOLICY,
         "{{EMPNAME}}": data.EMPNAME,
         "{{EMPPHONE}}": data.EMPPHONE,
