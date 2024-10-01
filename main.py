@@ -43,7 +43,7 @@ class BookingData(BaseModel):
     ADDON_POLICES:str=None
     # DEFAULT_POLICES:str
     EMPNAME:str = None
-    EMPPHONE:int = None
+    EMPPHONE:str = None
     EMPEMAIL:str =None
     TABLEDATA: Optional[Dict[str, list]] = None
 
