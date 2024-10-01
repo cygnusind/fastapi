@@ -27,6 +27,8 @@ class BookingData(BaseModel):
     HOTELPHONE: int = None
     ROOMCOUNT: str = None
     CLIENT: str = None
+ 
+    GUESTCOUNT:int = None
     ROOM_CHARGES: str = None
     INCLUSIONS: str = None
     SUBTOTAL: str = None
@@ -85,8 +87,9 @@ async def booking_confirmation(data: BookingData):
             "{{hotelname}}": data.HOTELNAME,
             "{{hoteladdress}}": data.HOTELADDRESS,
             "{{hotelphone}}": str(data.HOTELPHONE) if data.HOTELPHONE else "",
+
             "{{noofrooms}}": data.ROOMCOUNT,
-            "{{noofguest}}": data.CLIENT,
+            "{{noofguest}}": data.GUESTCOUNT,
             "{{roomcharges}}": data.ROOM_CHARGES,
             "{{inclusions}}": data.INCLUSIONS,
             "{{gst}}": data.GST_VALUE,

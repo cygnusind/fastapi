@@ -189,7 +189,7 @@
               <h3 style="font-weight: 500; font-size: 14px">CHECK-IN</h3>
               <h2>{{dayofcheckin}}</h2>
               <p>{{checkindate}}</p>
-              <p>{{CHECK_IN_TIME}}</p>
+              <p>{{checkintime}}</p>
             </div>
             <div style="align-self: center; style="padding: 5px;">
               {{no_of_night}} night<br />
@@ -199,8 +199,8 @@
              
             />
             </div>
-            <div style="text-align:right; padding-left: 5px;>
-              <h3 style="font-weight: 500; font-size: 14px">CHECK-OUT</h3>
+            <div style="text-align:right;padding-left: 5px>
+              <h3 style="font-weight: 500; font-size: 14px;">CHECK-OUT</h3>
               <h2 style="font-size: 20px">{{dayofcheckout}}</h2>
               <p>{{checkoutdate}}</p>
               <p>{{checkouttime}}</p>
@@ -217,24 +217,46 @@
           <table style="width: 100%;">
             <tbody>
               <tr>
-                <td><b>Hotel Name:</b></td>
-                <td style="text-align: right">{{ hotelname }}</td>
+                <td><b>Hotel Name</b></td>
+                <td style="text-align: right">{{hotelname}}</td>
               </tr>
               <tr>
-                <td>Hotel Address:</td>
-                <td style="text-align: right">{{ hoteladdress }}</td>
+                <td>Hotel Address</td>
+                <td style="text-align: right">{{hoteladdress}}</td>
               </tr>
               <tr>
-                <td>Hotel Phone:</td>
-                <td style="text-align: right">{{ hotelphone }}</td>
+                <td>Hotel Phone</td>
+                <td style="text-align: right">{{hotelphone}}</td>
               </tr>
               <tr>
-                <td>Hotel Location:</td>
-                <td style="text-align: right">{{ location }}</td>
+                <td>Hotel Location</td>
+                <td style="text-align: right">{{location}}</td>
               </tr>
             </tbody>
           </table>
         </div>
+
+        <!-- NO OF NIGHT -->
+        <div class="booking-table">
+          <table style="width: 100%;">
+            <tbody>
+              <tr>
+                <td><b>Nights</b></td>
+                <td style="text-align: right">{{no_of_night}}</td>
+              </tr>
+              <tr>
+                <td>No Of Rooms</td>
+                <td style="text-align: right">{{noofrooms}}</td>
+              </tr>
+              <tr>
+                <td>No Of Guest</td>
+                <td style="text-align: right">{{noofguest}}</td>
+              </tr>
+        
+            </tbody>
+          </table>
+        </div>
+
 
         <!-- Added Payment Details -->
         <div class="booking-table">
@@ -246,11 +268,11 @@
               </tr>
               <tr>
                 <td>Room Charges:</td>
-                <td style="text-align: right">{{ roomcharges }}</td>
+                <td style="text-align: right">{{roomcharges}}</td>
               </tr>
               <tr>
                 <td>Inclusion IX:</td>
-                <td style="text-align: right">{{ inclusions }}</td>
+                <td style="text-align: right">{{inclusions}}</td>
               </tr>
               <tr>
                 <td>Subtotal:</td>
