@@ -54,7 +54,7 @@ def generate_pdf_from_html(html_content):
     pdf_io = io.BytesIO()
     
     # Create a PDF from the HTML content
-    HTML(string=html_content).write_pdf(pdf_io)
+    HTML(string=html_content).write_pdf(pdf_io,presentational_hints=True)
     
     # Set the cursor back to the start of the BytesIO object
     pdf_io.seek(0)
