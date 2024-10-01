@@ -46,6 +46,7 @@ class BookingData(BaseModel):
     EMPPHONE:str = None
     EMPEMAIL:str =None
     TABLEDATA: Optional[Dict[str, list]] = None
+    SHOWTRAIFF: str = None
 
 
 
