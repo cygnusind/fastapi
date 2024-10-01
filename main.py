@@ -41,7 +41,7 @@ class BookingData(BaseModel):
     #IMGLINK:str
     CANCELLATIONPOLICY:str=None
     ADDON_POLICES:str=None
-    # DEFAULT_POLICES:str
+    DEFAULT_POLICES:str=None
     EMPNAME:str = None
     EMPPHONE:str = None
     EMPEMAIL:str =None
