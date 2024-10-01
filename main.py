@@ -4,6 +4,8 @@ from fastapi.responses import HTMLResponse, StreamingResponse
 from pydantic import BaseModel
 from weasyprint import HTML
 import io
+from typing import Optional, Dict
+
 
 
 # import asyncio
@@ -43,7 +45,7 @@ class BookingData(BaseModel):
     EMPNAME:str = None
     EMPPHONE:int = None
     EMPEMAIL:str =None
-    TABLEDATA:dict =None
+    TABLEDATA: Optional[Dict[str, list]] = None
 
 
 
@@ -78,15 +80,17 @@ async def booking_confirmation(data: BookingData):
 
     # Create a new row for each guest
     for i in range(num_rows):
-        new_row = f"""<tr>
-        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{data.TABLEDATA["GUESTNAME"][i]}</td>
-        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{data.TABLEDATA["ROOMTYPE"][i]}</td>
-        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{data.TABLEDATA["OCCUPANCY"][i]}</td>
-        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{data.TABLEDATA["MEALPLAN"][i]}</td>
-        </tr>"""
-        
-        # Add the new row to the table
-        table += new_row
+     guest_name = data.TABLEDATA.get("GUESTNAME", [""])[i]
+    room_type = data.TABLEDATA.get("ROOMTYPE", [""])[i]
+    occupancy = data.TABLEDATA.get("OCCUPANCY", [""])[i]
+    meal_plan = data.TABLEDATA.get("MEALPLAN", [""])[i]
+    new_row = f"""<tr>
+        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{guest_name}</td>
+        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{room_type}</td>
+        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{occupancy}</td>
+        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{meal_plan}</td>
+    </tr>"""
+
 
     # Close the table
     table += "</table>"
