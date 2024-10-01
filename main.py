@@ -43,7 +43,7 @@ class BookingData(BaseModel):
     EMPNAME:str = None
     EMPPHONE:int = None
     EMPEMAIL:str =None
-    TABLEDATA:str =None
+    TABLEDATA:dict =None
 
 
 
