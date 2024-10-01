@@ -83,7 +83,16 @@
         font-weight: 500;
         font-family: "Manrope", sans-serif;
       }
+      table {
+    width: 100%;
+    border-collapse: collapse;
+    page-break-inside: auto; 
+}
 
+td {
+    padding: 10px;
+    word-wrap: break-word; 
+}
 
       .booking-id {
         background-color: #e8f0fe;
@@ -113,6 +122,7 @@
         justify-content: space-between;
         border-top: 2px solid rgba(138, 138, 138, 0.793);
         padding-top: 20px;
+        page-break-inside: avoid
       }
 
       .contact-section img {
@@ -148,6 +158,14 @@
             page-break-after: avoid;
             overflow: hidden;
         }
+        
+        
+ @media print {
+    .container {
+        padding: 5mm; 
+    }
+.page-break {page-break-before: always;}
+}
     </style>
   </head>
 
