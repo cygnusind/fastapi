@@ -132,12 +132,8 @@ async def booking_confirmation(data: BookingData):
                 "{{gst}}": data.GST_VALUE,
                 "{{SUBTOTAL}}": data.SUBTOTAL,
                 "{{grandtotal}}": data.AMT_TO_BE_PAID,
-                "{{PAYMENTMODE}}": data.PAYMENTMODE,
-                "{{EMPNAME}}": data.EMPNAME,
-                "{{EMPPHONE}}": data.EMPPHONE,
-                "{{EMPEMAIL}}": data.EMPEMAIL,
-                "{{GUESTTABLE}}": table,
-                "{{SHOWTRAIFF}}": data.SHOWTRAIFF
+             
+            
             })
         elif data.SHOWTRAIFF == "No":
             replacements.update({
