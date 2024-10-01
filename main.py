@@ -39,8 +39,8 @@ class BookingData(BaseModel):
     PAYMENTMODE: str = None
     #LOCATIONLINK:str
     #IMGLINK:str
-    # CANCELLATIONPOLICY:str
-    # ADDON_POLICES:str
+    CANCELLATIONPOLICY:str=None
+    ADDON_POLICES:str=None
     # DEFAULT_POLICES:str
     EMPNAME:str = None
     EMPPHONE:int = None
@@ -82,10 +82,10 @@ async def booking_confirmation(data: BookingData):
     for i in range(num_rows):
      guest_name = data.TABLEDATA.get("GUESTNAME", [""])[i]
     room_type = data.TABLEDATA.get("ROOMTYPE", [""])[i]
-    occupancy = data.TABLEDATA.get("OCCUPANCY", [""])[i]
+    occupancy = data.TABLEDATA.get("OCC", [""])[i]
     meal_plan = data.TABLEDATA.get("MEALPLAN", [""])[i]
     new_row = f"""<tr>
-        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">"haren"</td>
+        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{guest_name}</td>
         <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{room_type}</td>
         <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{occupancy}</td>
         <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{meal_plan}</td>
