@@ -139,10 +139,8 @@ async def booking_confirmation(data: BookingData):
                 "{{GUESTTABLE}}": table,
                 "{{SHOWTRAIFF}}": data.SHOWTRAIFF
             }
-      
-
-    else:
-        if data.ROOM_CHARGES and data.INCLUSIONS and data.SUBTOTAL and data.GST_VALUE and data.AMT_TO_BE_PAID:
+        else: 
+            # if data.ROOM_CHARGES and data.INCLUSIONS and data.SUBTOTAL and data.GST_VALUE and data.AMT_TO_BE_PAID:
             html_content = html_content.replace(
             "<tr><td>Room Charges</td><td style='text-align: right'>{{roomcharges}}</td></tr>"
             "<tr><td>Inclusion IX</td><td style='text-align: right'>{{inclusions}}</td></tr>"
@@ -150,6 +148,7 @@ async def booking_confirmation(data: BookingData):
             "<tr><td>Tax</td><td style='text-align: right'>{{gst}}</td></tr>"
             "<tr><td><b>GRAND TOTAL</b></td><td style='text-align: right'><b>{{grandtotal}}</b></td></tr>", ""
         )
+       
         
 
     # Replace placeholders in the HTML content with actual values
