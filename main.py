@@ -28,7 +28,7 @@ class BookingData(BaseModel):
     ROOMCOUNT: str = None
     CLIENT: str = None
  
-    GUESTCOUNT:int = None
+    GUESTCOUNT:str = None
     ROOM_CHARGES: str = None
     INCLUSIONS: str = None
     SUBTOTAL: str = None
@@ -40,19 +40,9 @@ class BookingData(BaseModel):
     # CANCELLATIONPOLICY:str
     # ADDON_POLICES:str
     # DEFAULT_POLICES:str
-    # EMPNAME:str
-    # EMPPHONE:int
-    # EMPEMAIL:str
-
-
-    
-
-
-
-
-
-
-
+    EMPNAME:str = None
+    EMPPHONE:int = None
+    EMPEMAIL:str =None
 
 
 
@@ -96,6 +86,10 @@ async def booking_confirmation(data: BookingData):
             "{{SUBTOTAL}}": data.SUBTOTAL,
             "{{grandtotal}}": data.AMT_TO_BE_PAID,
             "{{PAYMENTMODE}}": data.PAYMENTMODE,
+            "{{EMPNAME}}": data.EMPNAME,
+            "{{EMPPHONE}}": data.EMPPHONE,
+            "{{EMPEMAIL}}": data.EMPEMAIL
+
         }
         #  updated_html = updated_html.replace("{{ADDON_POLICES}}", data.ADDON_POLICES)
         #  updated_html = updated_html.replace("{{DEFAULT_POLICES}}", data.DEFAULT_POLICES)
