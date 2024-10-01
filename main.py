@@ -43,11 +43,9 @@ class BookingData(BaseModel):
     # ADDON_POLICES:str
     # DEFAULT_POLICES:str
     EMPNAME:str = None
-    EMPPHONE:Optional[str, int] = None
+    EMPPHONE:int = None
     EMPEMAIL:str =None
     TABLEDATA: Optional[Dict[str, list]] = None
-    SHOWTRAIFF:str = None
-
 
 
 
@@ -70,29 +68,29 @@ async def booking_confirmation(data: BookingData):
         html_content = file.read()
 
     # HTML table structure
-    table = """<table style="border-collapse: collapse; width: 100%; border: 1px solid black; font-size:16px;">
+    table = """<table style="border-collapse: collapse; width: 100%; border: 1px solid #dddddd; font-size:16px;">
         <tr style="background-color: #f2f2f2;">
-        <th style="border: 1px solid black; text-align: left; padding: 8px;">Guest NAME</th>
-        <th style="border: 1px solid black; text-align: left; padding: 8px;">Room Type</th>
-        <th style="border: 1px solid black; text-align: left; padding: 8px;">Occupancy</th>
-        <th style="border: 1px solid black; text-align: left; padding: 8px;">Meal Plan</th>
+        <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Guest NAME</th>
+        <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Room Type</th>
+        <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Occupancy</th>
+        <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Meal Plan</th>
         </tr>"""
 
     num_rows = len(data.TABLEDATA["GUESTNAME"])
 
     # Create a new row for each guest
     for i in range(num_rows):
-        guest_name = data.TABLEDATA.get("GUESTNAME", [""])[i]
-        room_type = data.TABLEDATA.get("ROOMTYPE", [""])[i]
-        occupancy = data.TABLEDATA.get("OCC", [""])[i]
-        meal_plan = data.TABLEDATA.get("MEALPLAN", [""])[i]
-        new_row = f"""<tr>
-            <td style="border: 1px solid black; text-align: left; padding: 8px;">{guest_name}</td>
-            <td style="border: 1px solid black; text-align: left; padding: 8px;">{room_type}</td>
-            <td style="border: 1px solid black; text-align: left; padding: 8px;">{occupancy}</td>
-            <td style="border: 1px solid black; text-align: left; padding: 8px;">{meal_plan}</td>
-        </tr>"""
-        table += new_row
+     guest_name = data.TABLEDATA.get("GUESTNAME", [""])[i]
+    room_type = data.TABLEDATA.get("ROOMTYPE", [""])[i]
+    occupancy = data.TABLEDATA.get("OCCUPANCY", [""])[i]
+    meal_plan = data.TABLEDATA.get("MEALPLAN", [""])[i]
+    new_row = f"""<tr>
+        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">"haren"</td>
+        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{room_type}</td>
+        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{occupancy}</td>
+        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{meal_plan}</td>
+    </tr>"""
+    table += new_row
 
     # Close the table
     table += "</table>"
@@ -120,37 +118,9 @@ async def booking_confirmation(data: BookingData):
         "{{EMPNAME}}": data.EMPNAME,
         "{{EMPPHONE}}": data.EMPPHONE,
         "{{EMPEMAIL}}": data.EMPEMAIL,
-        "{{GUESTTABLE}}": table,
-        "{{SHOWTRAIFF}}": data.SHOWTRAIFF
-    }
+        "{{GUESTTABLE}}":table
 
-    # if data.PAYMENTMODE == "Bill to Company":
-    #     if data.SHOWTRAIFF == "Yes":
-    #         replacements.update({
-    #             "{{roomcharges}}": data.ROOM_CHARGES,
-    #             "{{inclusions}}": data.INCLUSIONS,
-    #             "{{gst}}": data.GST_VALUE,
-    #             "{{SUBTOTAL}}": data.SUBTOTAL,
-    #             "{{grandtotal}}": data.AMT_TO_BE_PAID,
-             
-            
-    #         })
-    #     elif data.SHOWTRAIFF == "No":
-    #         replacements = {
-    #        """<tr><td>Room Charges</td><td style='text-align: right'>{{roomcharges}}</td></tr>
-    #         <tr><td>Inclusion IX</td><td style='text-align: right'>{{inclusions}}</td></tr>
-    #         <tr><td>Subtotal</td><td style='text-align: right'>{{SUBTOTAL}}</td></tr>
-    #         <tr><td>Tax</td><td style='text-align: right'>{{gst}}</td></tr>
-    #         <tr><td><b>GRAND TOTAL</b></td><td style='text-align: right'><b>{{grandtotal}}</b></td></tr>":"""
-    #         }
-    # else:
-    #     replacements.update({
-    #        """<tr><td>Room Charges</td><td style='text-align: right'>{{roomcharges}}</td></tr>
-    #         <tr><td>Inclusion IX</td><td style='text-align: right'>{{inclusions}}</td></tr>
-    #         <tr><td>Subtotal</td><td style='text-align: right'>{{SUBTOTAL}}</td></tr>
-    #         <tr><td>Tax</td><td style='text-align: right'>{{gst}}</td></tr>
-    #         <tr><td><b>GRAND TOTAL</b></td><td style='text-align: right'><b>{{grandtotal}}</b></td></tr>":"""
-    #     })
+    }
 
     for placeholder, value in replacements.items():
         if value:
