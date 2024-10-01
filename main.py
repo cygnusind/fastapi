@@ -43,6 +43,7 @@ class BookingData(BaseModel):
     EMPNAME:str = None
     EMPPHONE:int = None
     EMPEMAIL:str =None
+    TABLEDATA:str =None
 
 
 
@@ -60,53 +61,73 @@ def generate_pdf_from_html(html_content):
 
 @app.post("/booking-confirmation")
 async def booking_confirmation(data: BookingData):
-     # Open and read the HTML file
-     with open("voucher.html", "r") as file:
-         html_content = file.read()
-         
-         
-         replacements = {
-            "{{ name }}": data.NAME,
-            "{{checkindate}}": data.CHECKIN,
-            "{{checkoutdate}}": data.CHECKOUT,
-            "{{dayofcheckin}}": data.DAYOF_CHECKIN,
-            "{{dayofcheckout}}": data.DAYOF_CHECKOUT11,
-            "{{no_of_night}}": data.NO_OF_NIGHTS,
-            "{{checkintime}}": data.CHECK_IN_TIME,
-            "{{checkouttime}}": data.CHECK_OUT_TIME,
-            "{{hotelname}}": data.HOTELNAME,
-            "{{hoteladdress}}": data.HOTELADDRESS,
-            "{{hotelphone}}": str(data.HOTELPHONE) if data.HOTELPHONE else "",
+    # Open and read the HTML file
+    with open("voucher.html", "r") as file:
+        html_content = file.read()
 
-            "{{noofrooms}}": data.ROOMCOUNT,
-            "{{noofguest}}": data.GUESTCOUNT,
-            "{{roomcharges}}": data.ROOM_CHARGES,
-            "{{inclusions}}": data.INCLUSIONS,
-            "{{gst}}": data.GST_VALUE,
-            "{{SUBTOTAL}}": data.SUBTOTAL,
-            "{{grandtotal}}": data.AMT_TO_BE_PAID,
-            "{{PAYMENTMODE}}": data.PAYMENTMODE,
-            "{{EMPNAME}}": data.EMPNAME,
-            "{{EMPPHONE}}": data.EMPPHONE,
-            "{{EMPEMAIL}}": data.EMPEMAIL
+    # HTML table structure
+    table = """<table style="border-collapse: collapse; width: 100%; border: 1px solid #dddddd; font-size:16px;">
+        <tr style="background-color: #f2f2f2;">
+        <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Guest NAME</th>
+        <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Room Type</th>
+        <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Occupancy</th>
+        <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Meal Plan</th>
+        </tr>"""
 
-        }
-        #  updated_html = updated_html.replace("{{ADDON_POLICES}}", data.ADDON_POLICES)
-        #  updated_html = updated_html.replace("{{DEFAULT_POLICES}}", data.DEFAULT_POLICES)
-         #updated_html = updated_html.replace("{{CANCELLATIONPOLICY}}", data.CANCELLATIONPOLICY)
+    num_rows = len(data.TABLEDATA["GUESTNAME"])
 
-        # updated_html = updated_html.replace("{{EMPNAME}}", data.EMPNAME)
-        #  updated_html = updated_html.replace("{{EMPPHONE}}", data.EMPPHONE)
-        #  updated_html = updated_html.replace("{{EMPEMAIL}}", data.EMPEMAIL)
-         for placeholder, value in replacements.items():
-            if value:
-                html_content = html_content.replace(placeholder, value)
+    # Create a new row for each guest
+    for i in range(num_rows):
+        new_row = f"""<tr>
+        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{data.TABLEDATA["GUESTNAME"][i]}</td>
+        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{data.TABLEDATA["ROOMTYPE"][i]}</td>
+        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{data.TABLEDATA["OCCUPANCY"][i]}</td>
+        <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{data.TABLEDATA["MEALPLAN"][i]}</td>
+        </tr>"""
+        
+        # Add the new row to the table
+        table += new_row
 
-     # Generate PDF
-     pdf = generate_pdf_from_html(html_content)
+    # Close the table
+    table += "</table>"
 
-     # Return the PDF as a StreamingResponse
-     return StreamingResponse(pdf, media_type="application/pdf", headers={"Content-Disposition": "inline; filename=booking_confirmation.pdf"})
+    replacements = {
+        "{{ name }}": data.NAME,
+        "{{checkindate}}": data.CHECKIN,
+        "{{checkoutdate}}": data.CHECKOUT,
+        "{{dayofcheckin}}": data.DAYOF_CHECKIN,
+        "{{dayofcheckout}}": data.DAYOF_CHECKOUT11,
+        "{{no_of_night}}": data.NO_OF_NIGHTS,
+        "{{checkintime}}": data.CHECK_IN_TIME,
+        "{{checkouttime}}": data.CHECK_OUT_TIME,
+        "{{hotelname}}": data.HOTELNAME,
+        "{{hoteladdress}}": data.HOTELADDRESS,
+        "{{hotelphone}}": str(data.HOTELPHONE) if data.HOTELPHONE else "",
+        "{{noofrooms}}": data.ROOMCOUNT,
+        "{{noofguest}}": data.GUESTCOUNT,
+        "{{roomcharges}}": data.ROOM_CHARGES,
+        "{{inclusions}}": data.INCLUSIONS,
+        "{{gst}}": data.GST_VALUE,
+        "{{SUBTOTAL}}": data.SUBTOTAL,
+        "{{grandtotal}}": data.AMT_TO_BE_PAID,
+        "{{PAYMENTMODE}}": data.PAYMENTMODE,
+        "{{EMPNAME}}": data.EMPNAME,
+        "{{EMPPHONE}}": data.EMPPHONE,
+        "{{EMPEMAIL}}": data.EMPEMAIL,
+        "{{GUESTTABLE}}":table
+
+    }
+
+    for placeholder, value in replacements.items():
+        if value:
+            html_content = html_content.replace(placeholder, value)
+
+    # Generate PDF
+    pdf = generate_pdf_from_html(html_content)
+
+    # Return the PDF as a StreamingResponse
+    return StreamingResponse(pdf, media_type="application/pdf", headers={"Content-Disposition": "inline; filename=booking_confirmation.pdf"})
+
 
 @app.get("/")
 async def root():
