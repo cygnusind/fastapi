@@ -27,7 +27,7 @@ class BookingData(BaseModel):
     CHECK_OUT_TIME: str = None
     HOTELNAME: str = None
     HOTELADDRESS: str = None
-    HOTELPHONE: int = None
+    HOTELPHONE: str = None
     ROOMCOUNT: str = None
     CLIENT: str = None
  
