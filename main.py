@@ -161,7 +161,7 @@ async def booking_confirmation(data: BookingData):
     pdf = generate_pdf_from_html(html_content)
     filename1 = data.FILENAME+".pdf"
     # Return the PDF as a StreamingResponse
-    return StreamingResponse(pdf, media_type="application/pdf", headers={"Content-Disposition": "inline; filename=filename1"})
+    return StreamingResponse(pdf, media_type="application/pdf", headers={"Content-Disposition": "inline; filename=filename1.pdf"})
 
 
 
