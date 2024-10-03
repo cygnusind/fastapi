@@ -70,12 +70,12 @@ async def booking_confirmation(data: BookingData):
         html_content = file.read()
 
     # HTML table structure
-    table = """<table style="border-collapse: collapse; width: 100%; border: 1px solid #dddddd; font-size:16px;">
+    table = """<table style="border-collapse: collapse; width: 100%; border: 0px solid #dddddd; font-size:16px;">
         <tr style="background-color: #f2f2f2;">
-        <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Guest NAME</th>
-        <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Room Type</th>
-        <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Occupancy</th>
-        <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Meal Plan</th>
+        <th style="border: 0px solid #dddddd; text-align: left; padding: 8px;">Guest Name</th>
+        <th style="border: 0px solid #dddddd; text-align: left; padding: 8px;">Room Type</th>
+        <th style="border: 0px solid #dddddd; text-align: left; padding: 8px;">Occupancy</th>
+        <th style="border: 0px solid #dddddd; text-align: left; padding: 8px;">Meal Plan</th>
         </tr>"""
 
     num_rows = len(data.TABLEDATA["GUESTNAME"])
