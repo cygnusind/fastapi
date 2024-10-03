@@ -38,7 +38,7 @@ class BookingData(BaseModel):
     GST_VALUE: str = None
     AMT_TO_BE_PAID: str = None
     PAYMENTMODE: str = None
-    LOCATIONLINK:str
+    LOCATIONLINK:str = None
     #IMGLINK:str
     CANCELLATIONPOLICY:str=None
     ADDON_POLICES:str=None
@@ -48,6 +48,7 @@ class BookingData(BaseModel):
     EMPEMAIL:str =None
     TABLEDATA: Optional[Dict[str, list]] = None
     SHOWTRAIFF: str = None
+    CLIENT_GST:str = None
 
 
 
@@ -124,7 +125,9 @@ async def booking_confirmation(data: BookingData):
         "{{EMPPHONE}}": data.EMPPHONE,
         "{{EMPEMAIL}}": data.EMPEMAIL,
         "{{location}}": data.LOCATIONLINK,
-        "{{GUESTTABLE}}": table
+        "{{GUESTTABLE}}": table,
+        "{{client}}": data.CLIENT,
+        "{{clientgst}}": data.CLIENT_GST
     }
 
     if data.PAYMENTMODE == "Bill to Company":
