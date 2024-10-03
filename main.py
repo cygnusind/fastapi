@@ -49,6 +49,7 @@ class BookingData(BaseModel):
     TABLEDATA: Optional[Dict[str, list]] = None
     SHOWTRAIFF: str = None
     CLIENT_GST:str = None
+    FILENAME:str = None
 
 
 
@@ -158,9 +159,9 @@ async def booking_confirmation(data: BookingData):
 
     # Generate PDF
     pdf = generate_pdf_from_html(html_content)
-
+    filename1 = data.FILENAME+".pdf"
     # Return the PDF as a StreamingResponse
-    return StreamingResponse(pdf, media_type="application/pdf", headers={"Content-Disposition": "inline; filename=booking_confirmation.pdf"})
+    return StreamingResponse(pdf, media_type="application/pdf", headers={"Content-Disposition": "inline; filename=filename1"})
 
 
 
