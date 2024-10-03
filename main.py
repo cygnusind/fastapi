@@ -3,7 +3,7 @@ import requests
 from fastapi.responses import HTMLResponse, StreamingResponse
 from pydantic import BaseModel
 from weasyprint import HTML,css
-from weasyprint.fonts import FontConfiguration
+
 import io
 from typing import Optional, Dict
 
