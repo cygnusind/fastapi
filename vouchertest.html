@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cygnus Booking Confirmation</title>
+    <!-- <style>
+      @page {
+    size: A4;
+    margin: 0mm;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    margin: 0;
+    background-color: rgb(255, 255, 255);
+}
+
+.container {
+    max-width: 100%;
+    margin: 0 auto;
+    background-color: white;
+    padding: 20px;
+}
+
+.header {
+    background-color: #4052b4;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo {
+    width: 290px;
+    height: 66px;
+}
+
+.confirmation {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.check-mark img {
+    width: 60px;
+    height: auto;
+}
+
+h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.dear-text {
+    text-align: left;
+}
+
+.booking-details {
+    background-image: url("https://cygnus-elevate.s3.amazonaws.com/hotel+confirmation+vocuher+/backgroundimage.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    padding: 25px;
+    border-radius: 10px;
+    margin-bottom: 40px;
+}
+
+.booking-details h2 {
+    font-size: 20px;
+    text-align: left;
+}
+
+.booking-details h3,
+.booking-details p {
+    text-align: left;
+    font-size: 14px;
+    font-weight: 500;
+    font-family: "Manrope", sans-serif;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+td {
+    padding: 10px;
+    word-wrap: break-word;
+}
+
+.booking-id {
+    background-color: #e8f0fe;
+    padding: 15px;
+    border-radius: 9px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.booking-table {
+    background-color: #e8f0fe;
+    padding: 15px;
+    border-radius: 9px;
+    margin-bottom: 20px;
+}
+
+.booking-table td {
+    padding: 10px 0;
+}
+
+.info-section {
+    margin-bottom: 20px;
+}
+.info-section h3 {
+    margin-bottom: 2px;
+}
+.info-section p {
+    margin-top: 0; /* Remove any top margin on paragraphs */
+    margin-bottom: 10px; /* Adjust this value as needed for spacing */
+}
+
+.contact-section {
+    display: flex;
+    justify-content: space-between;
+    border-top: 2px solid rgba(138, 138, 138, 0.793);
+    padding-top: 20px;
+}
+
+.contact-section img {
+    width: 20px;
+    height: auto;
+}
+
+.contact-section div {
+    text-align: center;
+    flex-grow: 1;
+    line-height: 0.4;
+}
+
+/* Mobile view styles */
+@media only screen and (max-width: 768px) {
+    .booking-details {
+     
+        padding: 10px;
+        background-size: cover;
+        margin-bottom: 40px;
+    }
+
+    .booking-details h2,
+    .booking-details h3,
+    .booking-details p {
+        text-align: center;
+        font-size: 90%;
+    }
+
+    .booking-details div {
+        display: block;
+        text-align: center;
+    }
+
+    .booking-details h2 {
+        font-size: 15px;
+    }
+
+    .booking-details h3 {
+        font-size: 12px;
+    }
+
+    .booking-details p {
+        font-size: 13px;
+    }
+
+    .booking-details img {
+        width: 50px;
+    }
+
+    .contact-section {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .container {
+        padding: 10px;
+    }
+}
+
+/* Print styles */
+@media print {
+    .container {
+        padding: 5mm;
+    }
+
+    .page-break {
+        page-break-before: always;
+    }
+
+    .no-print {
+        display: none;
+    }
+}
+
+    </style> -->
+  </head>
+
+  <body>
+    <div class="header">
+        <img
+          src="https://cygnus-elevate.s3.amazonaws.com/hotel+confirmation+vocuher+/Group+1000001944.png"
+          alt="Cygnus Logo"
+          class="logo"
+        />
+      </div>
+
+    <div class="container">
+      
+      <div class="container-content">
+        <div class="confirmation">
+          <div class="check-mark">
+            <img
+              src="https://cygnus-elevate.s3.amazonaws.com/hotel+confirmation+vocuher+/tick.png"
+              alt="Confirmation Tick"
+            />
+          </div>
+          <h1>Your booking has been confirmed</h1>
+          <p class="dear-text">Dear {{ name }}, <br/>
+           Thanks for choosing Cygnus</p>
+        </div>
+        <div class="booking-details">
+          <div
+            style="
+                justify-content: center;
+                flex-grow: 1;
+                display: flex;
+               
+              align-items: center;
+            "
+          >
+            <div style="text-align:left;padding-right: 2px;">
+              <h3 style="font-weight: 500; font-size: 14px">CHECK-IN</h3>
+              <h2>{{dayofcheckin}}</h2>
+              <p>{{checkindate}}</p>
+              <p>{{checkintime}}</p>
+            </div>
+            <div style="align-self: center; padding: 5px;">
+              {{no_of_night}} night<br />
+              <img
+              src="https://cygnus-elevate.s3.amazonaws.com/hotel+confirmation+vocuher+/arrow-right.png"
+              alt="arrow-right"
+             
+            />
+            </div>
+            <div style="text-align:right;padding-left: 2px">
+              <h3 style="font-weight: 500; font-size: 14px;">CHECK-OUT</h3>
+              <h2 >{{dayofcheckout}}</h2>
+              <p>{{checkoutdate}}</p>
+              <p>{{checkouttime}}</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="booking-id">
+          <strong>BOOKING ID #</strong>
+          <span>{{ booking_id }}</span>
+        </div>
+
+        <div class="booking-table">
+          <table style="width: 100%;">
+            <tbody>
+              <tr>
+                <td><b>Hotel Name</b></td>
+                <td style="text-align: right">{{hotelname}}</td>
+              </tr>
+              <tr>
+                <td>Hotel Address</td>
+                <td style="text-align: right;width:25%;">{{hoteladdress}}</td>
+              </tr>
+              <tr>
+                <td>Hotel Phone</td>
+                <td style="text-align: right">{{hotelphone}}</td>
+              </tr>
+              <tr>
+                <td>Hotel Location</td>
+                <td style="text-align: right">{{location}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- NO OF NIGHT -->
+        <div class="booking-table">
+          <table style="width: 100%;">
+            <tbody>
+              <tr>
+                <td>Nights</td>
+                <td style="text-align: right">{{no_of_night}}</td>
+              </tr>
+              <tr>
+                <td>No Of Rooms</td>
+                <td style="text-align: right">{{noofrooms}}</td>
+              </tr>
+              <tr>
+                <td>No Of Guest</td>
+                <td style="text-align: right">{{noofguest}}</td>
+              </tr>
+        
+            </tbody>
+          </table>
+        </div>
+
+        <div class="booking-table">
+          {{GUESTTABLE}}
+        </div>
+
+        <!-- Added Payment Details -->
+        <div class="booking-table"><table style="width: 100%;"><tbody><tr><td><b>Client Name</b></td><td style="text-align: right">{{CLIENTSGST}}</td></tr><tr><td>Room Charges</td><td style="text-align: right">{{roomcharges}}</td></tr><tr><td>Inclusion IX</td><td style="text-align: right">{{inclusions}}</td></tr><tr><td>Subtotal</td><td style="text-align: right">{{SUBTOTAL}}</td></tr><tr><td>Tax</td><td style="text-align: right">{{gst}}</td></tr><tr><td><b>GRAND TOTAL</b></td><td style="text-align: right"><b>{{grandtotal}}</b></td></tr></tbody></table></div>
+
+
+        <div class="info-section">
+          <h3>Payment Mode:{{PAYMENTMODE}}</h3>
+          <p>
+            <small
+              >*Any extra expenses/meals apart from Room rent will be payable at
+              the hotel</small
+            >
+          </p>
+        </div>
+
+        <div class="info-section">
+          <h3>Policies:</h3>
+          <p>{{ADDON_POLICES}} <br />{{DEFAULT_POLICES}}</p>
+        </div>
+
+        <div class="info-section">
+          <h3>Cancellation Policy:</h3>
+          <p>{{CANCELLATIONPOLICY}}</p>
+        </div>
+
+        <div class="info-section">
+          <h3>Support</h3>
+          <p>
+            <strong>{{EMPNAME}}</strong><br />Account Manager<br />Phone No:
+            {{EMPPHONE}}<br />Email: {{EMPEMAIL}}
+          </p>
+        </div>
+
+        <div class="contact-section">
+          <div>
+            <img
+              src="https://cygnus-elevate.s3.amazonaws.com/hotel+confirmation+vocuher+/call.png"
+              alt="call symbol"
+            />
+            <h3>Contact Us</h3>
+            <p>+91-74994 70402</p>
+          </div>
+          <div>
+            <img
+              src="https://cygnus-elevate.s3.amazonaws.com/hotel+confirmation+vocuher+/sms.png"
+              alt="email symbol"
+            />
+            <h3>Email Us</h3>
+            <p>operations@bookcygnus.com</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

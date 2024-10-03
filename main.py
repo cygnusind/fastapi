@@ -2,7 +2,7 @@ from fastapi import FastAPI, Request
 import requests
 from fastapi.responses import HTMLResponse, StreamingResponse
 from pydantic import BaseModel
-from weasyprint import HTML,css
+from weasyprint import HTML,CSS
 
 import io
 from typing import Optional, Dict
@@ -163,318 +163,312 @@ async def booking_confirmation(data: BookingData):
 
 
 # ## copy of above function
-# def generate_pdf_from_html1(html_content):
-#     pdf_io = io.BytesIO()
+def generate_pdf_from_html1(html_content):
+    pdf_io = io.BytesIO()
      
-#     font_config = FontConfiguration()
+    # font_config = FontConfiguration()
 
-#     # Create a PDF from the HTML content
-#     HTML(string=html_content).write_pdf(pdf_io, stylesheets=[
-#         CSS(string='''
-#             @page {
-#     size: A4;
-#     margin: 0mm;
-# }
+    # Create a PDF from the HTML content
+    HTML(string=html_content).write_pdf(pdf_io, stylesheets=[
+        CSS(string='''
+            @page {
+    size: A4;
+    margin: 0mm;
+}
 
-# body {
-#     font-family: Arial, sans-serif;
-#     line-height: 1.6;
-#     color: #333;
-#     margin: 0;
-#     background-color: rgb(255, 255, 255);
-# }
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    margin: 0;
+    background-color: rgb(255, 255, 255);
+}
 
-# .container {
-#     max-width: 100%;
-#     margin: 0 auto;
-#     background-color: white;
-#     padding: 20px;
-# }
+.container {
+    max-width: 100%;
+    margin: 0 auto;
+    background-color: white;
+    padding: 20px;
+}
 
-# .header {
-#     background-color: #4052b4;
-#     color: white;
-#     text-align: center;
-#     padding: 20px 0;
-#     height: 200px;
-#     display: flex;
-#     align-items: center;
-#     justify-content: center;
-# }
+.header {
+    background-color: #4052b4;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
-# .logo {
-#     width: 290px;
-#     height: 66px;
-# }
+.logo {
+    width: 290px;
+    height: 66px;
+}
 
-# .confirmation {
-#     text-align: center;
-#     margin: 20px 0;
-# }
+.confirmation {
+    text-align: center;
+    margin: 20px 0;
+}
 
-# .check-mark img {
-#     width: 60px;
-#     height: auto;
-# }
+.check-mark img {
+    width: 60px;
+    height: auto;
+}
 
-# h1 {
-#     font-size: 24px;
-#     margin-bottom: 10px;
-# }
+h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
 
-# .dear-text {
-#     text-align: left;
-# }
+.dear-text {
+    text-align: left;
+}
 
-# .booking-details {
-#     background-image: url("https://cygnus-elevate.s3.amazonaws.com/hotel+confirmation+vocuher+/backgroundimage.png");
-#     background-size: contain;
-#     background-repeat: no-repeat;
-#     background-position: center;
-#     padding: 25px;
-#     border-radius: 10px;
-#     margin-bottom: 40px;
-# }
+.booking-details {
+    background-image: url("https://cygnus-elevate.s3.amazonaws.com/hotel+confirmation+vocuher+/backgroundimage.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    padding: 25px;
+    border-radius: 10px;
+    margin-bottom: 40px;
+}
 
-# .booking-details h2 {
-#     font-size: 20px;
-#     text-align: left;
-# }
+.booking-details h2 {
+    font-size: 20px;
+    text-align: left;
+}
 
-# .booking-details h3,
-# .booking-details p {
-#     text-align: left;
-#     font-size: 14px;
-#     font-weight: 500;
-#     font-family: "Manrope", sans-serif;
-# }
+.booking-details h3,
+.booking-details p {
+    text-align: left;
+    font-size: 14px;
+    font-weight: 500;
+    font-family: "Manrope", sans-serif;
+}
 
-# table {
-#     width: 100%;
-#     border-collapse: collapse;
-# }
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
 
-# td {
-#     padding: 10px;
-#     word-wrap: break-word;
-# }
+td {
+    padding: 10px;
+    word-wrap: break-word;
+}
 
-# .booking-id {
-#     background-color: #e8f0fe;
-#     padding: 15px;
-#     border-radius: 9px;
-#     margin-bottom: 20px;
-#     text-align: center;
-# }
+.booking-id {
+    background-color: #e8f0fe;
+    padding: 15px;
+    border-radius: 9px;
+    margin-bottom: 20px;
+    text-align: center;
+}
 
-# .booking-table {
-#     background-color: #e8f0fe;
-#     padding: 15px;
-#     border-radius: 9px;
-#     margin-bottom: 20px;
-# }
+.booking-table {
+    background-color: #e8f0fe;
+    padding: 15px;
+    border-radius: 9px;
+    margin-bottom: 20px;
+}
 
-# .booking-table td {
-#     padding: 10px 0;
-# }
+.booking-table td {
+    padding: 10px 0;
+}
 
-# .info-section {
-#     margin-bottom: 20px;
-# }
-# .info-section h3 {
-#     margin-bottom: 2px;
-# }
-# .info-section p {
-#     margin-top: 0; /* Remove any top margin on paragraphs */
-#     margin-bottom: 10px; /* Adjust this value as needed for spacing */
-# }
+.info-section {
+    margin-bottom: 20px;
+}
+.info-section h3 {
+    margin-bottom: 2px;
+}
+.info-section p {
+    margin-top: 0; /* Remove any top margin on paragraphs */
+    margin-bottom: 10px; /* Adjust this value as needed for spacing */
+}
 
-# .contact-section {
-#     display: flex;
-#     justify-content: space-between;
-#     border-top: 2px solid rgba(138, 138, 138, 0.793);
-#     padding-top: 20px;
-# }
+.contact-section {
+    display: flex;
+    justify-content: space-between;
+    border-top: 2px solid rgba(138, 138, 138, 0.793);
+    padding-top: 20px;
+}
 
-# .contact-section img {
-#     width: 20px;
-#     height: auto;
-# }
+.contact-section img {
+    width: 20px;
+    height: auto;
+}
 
-# .contact-section div {
-#     text-align: center;
-#     flex-grow: 1;
-#     line-height: 0.4;
-# }
+.contact-section div {
+    text-align: center;
+    flex-grow: 1;
+    line-height: 0.4;
+}
 
-# /* Mobile view styles */
-# @media only screen and (max-width: 768px) {
-#     .booking-details {
+/* Mobile view styles */
+@media only screen and (max-width: 768px) {
+    .booking-details {
      
-#         padding: 10px;
-#         background-size: cover;
-#         margin-bottom: 40px;
-#     }
+        padding: 10px;
+        background-size: cover;
+        margin-bottom: 40px;
+    }
 
-#     .booking-details h2,
-#     .booking-details h3,
-#     .booking-details p {
-#         text-align: center;
-#         font-size: 90%;
-#     }
+    .booking-details h2,
+    .booking-details h3,
+    .booking-details p {
+        text-align: center;
+        font-size: 90%;
+    }
 
-#     .booking-details div {
-#         display: block;
-#         text-align: center;
-#     }
+    .booking-details div {
+        display: block;
+        text-align: center;
+    }
 
-#     .booking-details h2 {
-#         font-size: 15px;
-#     }
+    .booking-details h2 {
+        font-size: 15px;
+    }
 
-#     .booking-details h3 {
-#         font-size: 12px;
-#     }
+    .booking-details h3 {
+        font-size: 12px;
+    }
 
-#     .booking-details p {
-#         font-size: 13px;
-#     }
+    .booking-details p {
+        font-size: 13px;
+    }
 
-#     .booking-details img {
-#         width: 50px;
-#     }
+    .booking-details img {
+        width: 50px;
+    }
 
-#     .contact-section {
-#         flex-direction: column;
-#         gap: 10px;
-#     }
+    .contact-section {
+        flex-direction: column;
+        gap: 10px;
+    }
 
-#     .container {
-#         padding: 10px;
-#     }
-# }
+    .container {
+        padding: 10px;
+    }
+}
 
-# /* Print styles */
-# @media print {
-#     .container {
-#         padding: 5mm;
-#     }
+/* Print styles */
+@media print {
+    .container {
+        padding: 5mm;
+    }
 
-#     .page-break {
-#         page-break-before: always;
-#     }
+    .page-break {
+        page-break-before: always;
+    }
 
-#     .no-print {
-#         display: none;
-#     }
-# }
-
-
-#             /* Add all other internal CSS rules here */
-#         ''', font_config=font_config)
-#     ],
-#     zoom=1.0  # Keep zoom at 1 for correct scaling
-#     )
+    .no-print {
+        display: none;
+    }
+}
+        ''', )])
     
-#     # Set the cursor back to the start of the BytesIO object
-#     pdf_io.seek(0)
-#     return pdf_io
+    # Set the cursor back to the start of the BytesIO object
+    pdf_io.seek(0)
+    return pdf_io
 
-# @app.post("/booking-confirmation-testing")
-# async def booking_confirmation(data: BookingData):
-#     # Open and read the HTML file
-#     with open("voucher.html", "r") as file:
-#         html_content = file.read()
+@app.post("/booking-confirmation-testing")
+async def booking_confirmation(data: BookingData):
+    # Open and read the HTML file
+    with open("vouchertest.html", "r") as file:
+        html_content = file.read()
 
-#     # HTML table structure
-#     table = """<table style="border-collapse: collapse; width: 100%; border: 1px solid #dddddd; font-size:16px;">
-#         <tr style="background-color: #f2f2f2;">
-#         <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Guest NAME</th>
-#         <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Room Type</th>
-#         <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Occupancy</th>
-#         <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Meal Plan</th>
-#         </tr>"""
+    # HTML table structure
+    table = """<table style="border-collapse: collapse; width: 100%; border: 1px solid #dddddd; font-size:16px;">
+        <tr style="background-color: #f2f2f2;">
+        <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Guest NAME</th>
+        <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Room Type</th>
+        <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Occupancy</th>
+        <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Meal Plan</th>
+        </tr>"""
 
-#     num_rows = len(data.TABLEDATA["GUESTNAME"])
+    num_rows = len(data.TABLEDATA["GUESTNAME"])
 
-#     # Create a new row for each guest
-#     for i in range(num_rows):
-#         guest_name = data.TABLEDATA.get("GUESTNAME", [""])[i]
-#         room_type = data.TABLEDATA.get("ROOMTYPE", [""])[i]
-#         occupancy = data.TABLEDATA.get("OCC", [""])[i]
-#         meal_plan = data.TABLEDATA.get("MEALPLAN", [""])[i]
-#         new_row = f"""<tr>
-#             <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{guest_name}</td>
-#             <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{room_type}</td>
-#             <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{occupancy}</td>
-#             <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{meal_plan}</td>
-#         </tr>"""
-#         table += new_row
+    # Create a new row for each guest
+    for i in range(num_rows):
+        guest_name = data.TABLEDATA.get("GUESTNAME", [""])[i]
+        room_type = data.TABLEDATA.get("ROOMTYPE", [""])[i]
+        occupancy = data.TABLEDATA.get("OCC", [""])[i]
+        meal_plan = data.TABLEDATA.get("MEALPLAN", [""])[i]
+        new_row = f"""<tr>
+            <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{guest_name}</td>
+            <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{room_type}</td>
+            <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{occupancy}</td>
+            <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{meal_plan}</td>
+        </tr>"""
+        table += new_row
 
-#     # Close the table
-#     table += "</table>"
+    # Close the table
+    table += "</table>"
 
-#     replacements = {
-#         "{{ name }}": data.NAME,
-#         "{{checkindate}}": data.CHECKIN,
-#         "{{checkoutdate}}": data.CHECKOUT,
-#         "{{dayofcheckin}}": data.DAYOF_CHECKIN,
-#         "{{dayofcheckout}}": data.DAYOF_CHECKOUT11,
-#         "{{no_of_night}}": data.NO_OF_NIGHTS,
-#         "{{checkintime}}": data.CHECK_IN_TIME,
-#         "{{checkouttime}}": data.CHECK_OUT_TIME,
-#         "{{hotelname}}": data.HOTELNAME,
-#         "{{hoteladdress}}": data.HOTELADDRESS,
-#         "{{hotelphone}}": str(data.HOTELPHONE) if data.HOTELPHONE else "",
-#         "{{noofrooms}}": data.ROOMCOUNT,
-#         "{{noofguest}}": data.GUESTCOUNT,
-#         "{{roomcharges}}": data.ROOM_CHARGES,
-#         "{{inclusions}}": data.INCLUSIONS,
-#         "{{gst}}": data.GST_VALUE,
-#         "{{SUBTOTAL}}": data.SUBTOTAL,
-#         "{{grandtotal}}": data.AMT_TO_BE_PAID,
-#         "{{PAYMENTMODE}}": data.PAYMENTMODE,
-#         "{{ADDON_POLICES}}": data.ADDON_POLICES,
-#         "{{DEFAULT_POLICES}}": data.DEFAULT_POLICES,
-#         "{{CANCELLATIONPOLICY}}": data.CANCELLATIONPOLICY,
-#         "{{EMPNAME}}": data.EMPNAME,
-#         "{{EMPPHONE}}": data.EMPPHONE,
-#         "{{EMPEMAIL}}": data.EMPEMAIL,
-#         "{{location}}": data.LOCATIONLINK,
-#         "{{GUESTTABLE}}": table
-#     }
+    replacements = {
+        "{{ name }}": data.NAME,
+        "{{checkindate}}": data.CHECKIN,
+        "{{checkoutdate}}": data.CHECKOUT,
+        "{{dayofcheckin}}": data.DAYOF_CHECKIN,
+        "{{dayofcheckout}}": data.DAYOF_CHECKOUT11,
+        "{{no_of_night}}": data.NO_OF_NIGHTS,
+        "{{checkintime}}": data.CHECK_IN_TIME,
+        "{{checkouttime}}": data.CHECK_OUT_TIME,
+        "{{hotelname}}": data.HOTELNAME,
+        "{{hoteladdress}}": data.HOTELADDRESS,
+        "{{hotelphone}}": str(data.HOTELPHONE) if data.HOTELPHONE else "",
+        "{{noofrooms}}": data.ROOMCOUNT,
+        "{{noofguest}}": data.GUESTCOUNT,
+        "{{roomcharges}}": data.ROOM_CHARGES,
+        "{{inclusions}}": data.INCLUSIONS,
+        "{{gst}}": data.GST_VALUE,
+        "{{SUBTOTAL}}": data.SUBTOTAL,
+        "{{grandtotal}}": data.AMT_TO_BE_PAID,
+        "{{PAYMENTMODE}}": data.PAYMENTMODE,
+        "{{ADDON_POLICES}}": data.ADDON_POLICES,
+        "{{DEFAULT_POLICES}}": data.DEFAULT_POLICES,
+        "{{CANCELLATIONPOLICY}}": data.CANCELLATIONPOLICY,
+        "{{EMPNAME}}": data.EMPNAME,
+        "{{EMPPHONE}}": data.EMPPHONE,
+        "{{EMPEMAIL}}": data.EMPEMAIL,
+        "{{location}}": data.LOCATIONLINK,
+        "{{GUESTTABLE}}": table
+    }
 
-#     if data.PAYMENTMODE == "Bill to Company":
-#         if data.SHOWTRAIFF == "Yes":
-#             replacements = {
-#                 "{{roomcharges}}": data.ROOM_CHARGES,
-#                 "{{inclusions}}": data.INCLUSIONS,
-#                 "{{gst}}": data.GST_VALUE,
-#                 "{{SUBTOTAL}}": data.SUBTOTAL,
-#                 "{{grandtotal}}": data.AMT_TO_BE_PAID,
-#                 "{{PAYMENTMODE}}": data.PAYMENTMODE,
-#                 "{{EMPNAME}}": data.EMPNAME,
-#                 "{{EMPPHONE}}": data.EMPPHONE,
-#                 "{{EMPEMAIL}}": data.EMPEMAIL,
-#                 "{{GUESTTABLE}}": table,
-#                 "{{SHOWTRAIFF}}": data.SHOWTRAIFF
-#             }
-#         else: 
-#             # if data.ROOM_CHARGES and data.INCLUSIONS and data.SUBTOTAL and data.GST_VALUE and data.AMT_TO_BE_PAID:
-#             html_content = html_content.replace("""<div class="booking-table"><table style="width: 100%;"><tbody><tr><td><b>Client Name</b></td><td style="text-align: right">{{CLIENTSGST}}</td></tr><tr><td>Room Charges</td><td style="text-align: right">{{roomcharges}}</td></tr><tr><td>Inclusion IX</td><td style="text-align: right">{{inclusions}}</td></tr><tr><td>Subtotal</td><td style="text-align: right">{{SUBTOTAL}}</td></tr><tr><td>Tax</td><td style="text-align: right">{{gst}}</td></tr><tr><td><b>GRAND TOTAL</b></td><td style="text-align: right"><b>{{grandtotal}}</b></td></tr></tbody></table></div>""", "")
+    if data.PAYMENTMODE == "Bill to Company":
+        if data.SHOWTRAIFF == "Yes":
+            replacements = {
+                "{{roomcharges}}": data.ROOM_CHARGES,
+                "{{inclusions}}": data.INCLUSIONS,
+                "{{gst}}": data.GST_VALUE,
+                "{{SUBTOTAL}}": data.SUBTOTAL,
+                "{{grandtotal}}": data.AMT_TO_BE_PAID,
+                "{{PAYMENTMODE}}": data.PAYMENTMODE,
+                "{{EMPNAME}}": data.EMPNAME,
+                "{{EMPPHONE}}": data.EMPPHONE,
+                "{{EMPEMAIL}}": data.EMPEMAIL,
+                "{{GUESTTABLE}}": table,
+                "{{SHOWTRAIFF}}": data.SHOWTRAIFF
+            }
+        else: 
+            # if data.ROOM_CHARGES and data.INCLUSIONS and data.SUBTOTAL and data.GST_VALUE and data.AMT_TO_BE_PAID:
+            html_content = html_content.replace("""<div class="booking-table"><table style="width: 100%;"><tbody><tr><td><b>Client Name</b></td><td style="text-align: right">{{CLIENTSGST}}</td></tr><tr><td>Room Charges</td><td style="text-align: right">{{roomcharges}}</td></tr><tr><td>Inclusion IX</td><td style="text-align: right">{{inclusions}}</td></tr><tr><td>Subtotal</td><td style="text-align: right">{{SUBTOTAL}}</td></tr><tr><td>Tax</td><td style="text-align: right">{{gst}}</td></tr><tr><td><b>GRAND TOTAL</b></td><td style="text-align: right"><b>{{grandtotal}}</b></td></tr></tbody></table></div>""", "")
        
         
 
-#     # Replace placeholders in the HTML content with actual values
-#     for placeholder, value in replacements.items():
-#         if value:
-#             html_content = html_content.replace(placeholder, value)
+    # Replace placeholders in the HTML content with actual values
+    for placeholder, value in replacements.items():
+        if value:
+            html_content = html_content.replace(placeholder, value)
 
-#     # Generate PDF
-#     pdf = generate_pdf_from_html1(html_content)
+    # Generate PDF
+    pdf = generate_pdf_from_html1(html_content)
 
-#     # Return the PDF as a StreamingResponse
-#     return StreamingResponse(pdf, media_type="application/pdf", headers={"Content-Disposition": "inline; filename=booking_confirmation.pdf"})
+    # Return the PDF as a StreamingResponse
+    return StreamingResponse(pdf, media_type="application/pdf", headers={"Content-Disposition": "inline; filename=booking_confirmation.pdf"})
 
 
 @app.get("/")
