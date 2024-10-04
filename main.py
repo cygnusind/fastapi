@@ -168,7 +168,104 @@ async def booking_confirmation(data: BookingData):
     return StreamingResponse(pdf, media_type="application/pdf", headers={"Content-Disposition": "inline; filename="+filename1})
 
 
+#for vochuer for email
+@app.post("/booking-confirmation-mail")
+async def booking_confirmation(data: BookingData):
+    # Open and read the HTML file
+    with open("voucher.html", "r") as file:
+        html_content = file.read()
 
+    # HTML table structure
+    table = """<table style="border-collapse: collapse; width: 100%; border: 0px solid #dddddd; font-size:16px;">
+        <tr>
+        <th style="border: 0px solid #dddddd; text-align: left; padding: 8px;">S.no</th>
+        <th style="border: 0px solid #dddddd; text-align: left; padding: 8px;">Guest Name</th>
+        <th style="border: 0px solid #dddddd; text-align: left; padding: 8px;">Room Type</th>
+        <th style="border: 0px solid #dddddd; text-align: left; padding: 8px;">Occupancy</th>
+        <th style="border: 0px solid #dddddd; text-align: left; padding: 8px;">Meal Plan</th>
+        </tr>"""
+
+    num_rows = len(data.TABLEDATA["GUESTNAME"])
+
+    # Create a new row for each guest
+    for i in range(num_rows):
+        s_no = i + 1
+        guest_name = data.TABLEDATA.get("GUESTNAME", [""])[i]
+        room_type = data.TABLEDATA.get("ROOMTYPE", [""])[i]
+        occupancy = data.TABLEDATA.get("OCC", [""])[i]
+        meal_plan = data.TABLEDATA.get("MEALPLAN", [""])[i]
+        new_row = f"""<tr>
+            <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{S_no}</td>
+            <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{guest_name}</td>
+            <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{room_type}</td>
+            <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{occupancy}</td>
+            <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{meal_plan}</td>
+        </tr>"""
+        table += new_row
+
+    # Close the table
+    table += "</table>"
+
+    replacements = {
+        "{{ name }}": data.NAME,
+        "{{checkindate}}": data.CHECKIN,
+        "{{checkoutdate}}": data.CHECKOUT,
+        "{{dayofcheckin}}": data.DAYOF_CHECKIN,
+        "{{dayofcheckout}}": data.DAYOF_CHECKOUT11,
+        "{{no_of_night}}": data.NO_OF_NIGHTS,
+        "{{checkintime}}": data.CHECK_IN_TIME,
+        "{{checkouttime}}": data.CHECK_OUT_TIME,
+        "{{hotelname}}": data.HOTELNAME,
+        "{{hoteladdress}}": data.HOTELADDRESS,
+        "{{hotelphone}}": str(data.HOTELPHONE) if data.HOTELPHONE else "",
+        "{{noofrooms}}": data.ROOMCOUNT,
+        "{{noofguest}}": data.GUESTCOUNT,
+        "{{roomcharges}}": data.ROOM_CHARGES,
+        "{{inclusions}}": data.INCLUSIONS,
+        "{{gst}}": data.GST_VALUE,
+        "{{SUBTOTAL}}": data.SUBTOTAL,
+        "{{grandtotal}}": data.AMT_TO_BE_PAID,
+        "{{PAYMENTMODE}}": data.PAYMENTMODE,
+        "{{ADDON_POLICES}}": data.ADDON_POLICES,
+        "{{DEFAULT_POLICES}}": data.DEFAULT_POLICES,
+        "{{CANCELLATIONPOLICY}}": data.CANCELLATIONPOLICY,
+        "{{EMPNAME}}": data.EMPNAME,
+        "{{EMPPHONE}}": data.EMPPHONE,
+        "{{EMPEMAIL}}": data.EMPEMAIL,
+        "{{location}}": data.LOCATIONLINK,
+        "{{GUESTTABLE}}": table,
+        "{{client}}": data.CLIENT,
+        "{{clientgst}}": data.CLIENT_GST
+    }
+
+    if data.PAYMENTMODE == "Bill to Company":
+        if data.SHOWTRAIFF == "Yes":
+            replacements = {
+                "{{roomcharges}}": data.ROOM_CHARGES,
+                "{{inclusions}}": data.INCLUSIONS,
+                "{{gst}}": data.GST_VALUE,
+                "{{SUBTOTAL}}": data.SUBTOTAL,
+                "{{grandtotal}}": data.AMT_TO_BE_PAID,
+                "{{PAYMENTMODE}}": data.PAYMENTMODE,
+                "{{EMPNAME}}": data.EMPNAME,
+                "{{EMPPHONE}}": data.EMPPHONE,
+                "{{EMPEMAIL}}": data.EMPEMAIL,
+                "{{GUESTTABLE}}": table,
+                "{{SHOWTRAIFF}}": data.SHOWTRAIFF
+            }
+        else: 
+            html_content = html_content.replace("""<div class="booking-table"><table style="width: 100%;"><tbody><tr><td><b>Client Name</b></td><td style="text-align: right">{{CLIENTSGST}}</td></tr><tr><td>Room Charges</td><td style="text-align: right">{{roomcharges}}</td></tr><tr><td>Inclusion IX</td><td style="text-align: right">{{inclusions}}</td></tr><tr><td>Subtotal</td><td style="text-align: right">{{SUBTOTAL}}</td></tr><tr><td>Tax</td><td style="text-align: right">{{gst}}</td></tr><tr><td><b>GRAND TOTAL</b></td><td style="text-align: right"><b>{{grandtotal}}</b></td></tr></tbody></table></div>""", "")
+       
+        
+
+    # Replace placeholders in the HTML content with actual values
+    for placeholder, value in replacements.items():
+        if value:
+            html_content = html_content.replace(placeholder, value)
+
+   
+    
+    return html_content
 
 
 
