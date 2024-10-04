@@ -91,7 +91,7 @@ async def booking_confirmation(data: BookingData):
         occupancy = data.TABLEDATA.get("OCC", [""])[i]
         meal_plan = data.TABLEDATA.get("MEALPLAN", [""])[i]
         new_row = f"""<tr>
-            <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{S_no}</td>
+            <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{s_no}</td>
             <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{guest_name}</td>
             <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{room_type}</td>
             <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{occupancy}</td>
@@ -234,7 +234,7 @@ async def booking_confirmation1(data: BookingDataMail):
         occupancy = data.TABLEDATA.get("OCC", [""])[i]
         meal_plan = data.TABLEDATA.get("MEALPLAN", [""])[i]
         new_row = f"""<tr>
-            <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{S_no}</td>
+            <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{s_no}</td>
             <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{guest_name}</td>
             <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{room_type}</td>
             <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{occupancy}</td>
