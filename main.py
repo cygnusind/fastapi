@@ -169,8 +169,47 @@ async def booking_confirmation(data: BookingData):
 
 
 #for vochuer for email
+class BookingDataMail(BaseModel):
+    NAME: str = None
+    CHECKIN: str = None
+    CHECKOUT: str = None
+    DAYOF_CHECKIN: str = None
+    DAYOF_CHECKOUT11: str = None
+    NO_OF_NIGHTS: str = None
+    CHECK_IN_TIME: str = None
+    CHECK_OUT_TIME: str = None
+    HOTELNAME: str = None
+    HOTELADDRESS: str = None
+    HOTELPHONE: str = None
+    ROOMCOUNT: str = None
+    CLIENT: str = None
+ 
+    GUESTCOUNT:str = None
+    ROOM_CHARGES: str = None
+    INCLUSIONS: str = None
+    SUBTOTAL: str = None
+    GST_VALUE: str = None
+    AMT_TO_BE_PAID: str = None
+    PAYMENTMODE: str = None
+    LOCATIONLINK:str = None
+    #IMGLINK:str
+    CANCELLATIONPOLICY:str=None
+    ADDON_POLICES:str=None
+    DEFAULT_POLICES:str=None
+    EMPNAME:str = None
+    EMPPHONE:str = None
+    EMPEMAIL:str =None
+    TABLEDATA: Optional[Dict[str, list]] = None
+    SHOWTRAIFF: str = None
+    CLIENT_GST:str = None
+    FILENAME:str = None
+
+
+
+
+
 @app.post("/booking-confirmation-mail")
-async def booking_confirmation(data: BookingData):
+async def booking_confirmation1(data: BookingDataMail):
     # Open and read the HTML file
     with open("voucher.html", "r") as file:
         html_content = file.read()
