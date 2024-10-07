@@ -57,31 +57,27 @@
            Thanks for choosing Cygnus</p>
         </div>
         <!-- booking Details -->
-        <div class="booking-details" style="background-image:url(https://cygnus-elevate.s3.amazonaws.com/hotel+confirmation+vocuher+/backgroundimage.png); background-position:center; background-repeat:no-repeat; background-size:contain; border-radius:10px; margin-bottom:40px; padding:25px">
-          <div style="
-                justify-content: center;
-                flex-grow: 1;
-                display: flex;
-               
-              align-items: center;
-            ">
-            <div style="text-align:left;padding-right: 2px;">
-              <h3 style='font-family:"Manrope", sans-serif; font-size:14px; font-weight:500; text-align:left' align="left">CHECK-IN</h3>
-              <h2 style="font-size:20px; text-align:left" align="left">{{dayofcheckin}}</h2>
-              <p style='font-family:"Manrope", sans-serif; font-size:14px; font-weight:500; text-align:left' align="left">{{checkindate}}</p>
-              <p style='font-family:"Manrope", sans-serif; font-size:14px; font-weight:500; text-align:left' align="left">{{checkintime}}</p>
-            </div>
-            <div style="align-self: center; padding: 5px;">
-              {{no_of_night}} night<br>
-              <img src="https://cygnus-elevate.s3.amazonaws.com/hotel+confirmation+vocuher+/arrow-right.png" alt="arrow-right">
-            </div>
-            <div style="text-align:right;padding-left: 2px">
-              <h3 style='font-family:"Manrope", sans-serif; font-size:14px; font-weight:500; text-align:left' align="left">CHECK-OUT</h3>
-              <h2 style="font-size:20px; text-align:left" align="left">{{dayofcheckout}}</h2>
-              <p style='font-family:"Manrope", sans-serif; font-size:14px; font-weight:500; text-align:left' align="left">{{checkoutdate}}</p>
-              <p style='font-family:"Manrope", sans-serif; font-size:14px; font-weight:500; text-align:left' align="left">{{checkouttime}}</p>
-            </div>
-          </div>
+        <div class="booking-details" style="background-color:#f3f4f6; background-image:url(https://cygnus-elevate.s3.amazonaws.com/hotel+confirmation+vocuher+/backgroundimage.png); background-position:center; background-repeat:no-repeat; background-size:cover; border-radius:10px; margin-bottom:40px; padding:20px; text-align:left;">
+          <table style="width:100%; border-spacing:0;">
+            <tr>
+              <td style="text-align:left; vertical-align:top; padding:10px;">
+                <h3 style='font-family:"Manrope", sans-serif; font-size:14px; font-weight:500;'>CHECK-IN</h3>
+                <h2 style="font-size:18px;">{{dayofcheckin}}</h2>
+                <p style='font-family:"Manrope", sans-serif; font-size:14px; font-weight:500;'>{{checkindate}}</p>
+                <p style='font-family:"Manrope", sans-serif; font-size:14px; font-weight:500;'>{{checkintime}}</p>
+              </td>
+              <td style="text-align:center; vertical-align:middle; padding:10px;">
+                {{no_of_night}} Night<br>
+                <img src="https://cygnus-elevate.s3.amazonaws.com/hotel+confirmation+vocuher+/arrow-right.png" alt="arrow-right">
+              </td>
+              <td style="text-align:left; vertical-align:top; padding:10px;">
+                <h3 style='font-family:"Manrope", sans-serif; font-size:14px; font-weight:500;'>CHECK-OUT</h3>
+                <h2 style="font-size:18px;">{{dayofcheckout}}</h2>
+                <p style='font-family:"Manrope", sans-serif; font-size:14px; font-weight:500;'>{{checkoutdate}}</p>
+                <p style='font-family:"Manrope", sans-serif; font-size:14px; font-weight:500;'>{{checkouttime}}</p>
+              </td>
+            </tr>
+          </table>
         </div>
 
         <div class="booking-id" style="background-color:#e8f0fe; border-radius:9px; margin-bottom:20px; padding:15px; text-align:center" bgcolor="#e8f0fe" align="center">
