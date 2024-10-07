@@ -230,35 +230,29 @@ td {
           <p class="dear-text">Dear {{ name }}, <br/>
            Thanks for choosing Cygnus</p>
         </div>
-        <div class="booking-details">
-          <div
-            style="
+        <div class="booking-details" style="background-image:url(https://cygnus-elevate.s3.amazonaws.com/hotel+confirmation+vocuher+/backgroundimage.png); background-position:center; background-repeat:no-repeat; background-size:contain; border-radius:10px; margin-bottom:40px; padding:25px">
+          <div style="
                 justify-content: center;
                 flex-grow: 1;
                 display: flex;
                
               align-items: center;
-            "
-          >
+            ">
             <div style="text-align:left;padding-right: 2px;">
-              <h3 style="font-weight: 500; font-size: 14px">CHECK-IN</h3>
-              <h2>{{dayofcheckin}}</h2>
-              <p>{{checkindate}}</p>
-              <p>{{checkintime}}</p>
+              <h3 style='font-family:"Manrope", sans-serif; font-size:14px; font-weight:500; text-align:left' align="left">CHECK-IN</h3>
+              <h2 style="font-size:20px; text-align:left" align="left">{{dayofcheckin}}</h2>
+              <p style='font-family:"Manrope", sans-serif; font-size:14px; font-weight:500; text-align:left' align="left">{{checkindate}}</p>
+              <p style='font-family:"Manrope", sans-serif; font-size:14px; font-weight:500; text-align:left' align="left">{{checkintime}}</p>
             </div>
             <div style="align-self: center; padding: 5px;">
-              {{no_of_night}} night<br />
-              <img
-              src="https://cygnus-elevate.s3.amazonaws.com/hotel+confirmation+vocuher+/arrow-right.png"
-              alt="arrow-right"
-             
-            />
+              {{no_of_night}} night<br>
+              <img src="https://cygnus-elevate.s3.amazonaws.com/hotel+confirmation+vocuher+/arrow-right.png" alt="arrow-right">
             </div>
             <div style="text-align:right;padding-left: 2px">
-              <h3 style="font-weight: 500; font-size: 14px;">CHECK-OUT</h3>
-              <h2 >{{dayofcheckout}}</h2>
-              <p>{{checkoutdate}}</p>
-              <p>{{checkouttime}}</p>
+              <h3 style='font-family:"Manrope", sans-serif; font-size:14px; font-weight:500; text-align:left' align="left">CHECK-OUT</h3>
+              <h2 style="font-size:20px; text-align:left" align="left">{{dayofcheckout}}</h2>
+              <p style='font-family:"Manrope", sans-serif; font-size:14px; font-weight:500; text-align:left' align="left">{{checkoutdate}}</p>
+              <p style='font-family:"Manrope", sans-serif; font-size:14px; font-weight:500; text-align:left' align="left">{{checkouttime}}</p>
             </div>
           </div>
         </div>
