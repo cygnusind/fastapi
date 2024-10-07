@@ -304,7 +304,7 @@ async def booking_confirmation1(data: BookingDataMail):
 
    
     
-    return html_content
+    return HTMLResponse(content=html_content, status_code=200)
 
 
 
