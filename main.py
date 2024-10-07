@@ -211,7 +211,7 @@ class BookingDataMail(BaseModel):
 @app.post("/booking-confirmation-mail")
 async def booking_confirmation1(data: BookingDataMail):
     # Open and read the HTML file
-    with open("voucher.html", "r") as file:
+    with open("voucherMail.html", "r") as file:
         html_content = file.read()
 
     # HTML table structure

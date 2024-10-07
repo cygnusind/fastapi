@@ -4,11 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cygnus Booking Confirmation</title>
-    <!-- <style>
-      @page {
-    size: A4;
-    margin: 0mm;
-}
+    <style>
+
 
 body {
     font-family: Arial, sans-serif;
@@ -121,6 +118,7 @@ td {
 .info-section p {
     margin-top: 0; /* Remove any top margin on paragraphs */
     margin-bottom: 10px; /* Adjust this value as needed for spacing */
+    font-size: x-small;
 }
 
 .contact-section {
@@ -141,10 +139,10 @@ td {
     line-height: 0.4;
 }
 
+
 /* Mobile view styles */
 @media only screen and (max-width: 768px) {
     .booking-details {
-     
         padding: 10px;
         background-size: cover;
         margin-bottom: 40px;
@@ -203,7 +201,7 @@ td {
     }
 }
 
-    </style> -->
+    </style>
   </head>
 
   <body>
@@ -250,7 +248,6 @@ td {
               <img
               src="https://cygnus-elevate.s3.amazonaws.com/hotel+confirmation+vocuher+/arrow-right.png"
               alt="arrow-right"
-             
             />
             </div>
             <div style="text-align:right;padding-left: 2px">
@@ -316,7 +313,7 @@ td {
         </div>
 
         <!-- Added Payment Details -->
-        <div class="booking-table"><table style="width: 100%;"><tbody><tr><td><b>Client Name</b></td><td style="text-align: right">{{CLIENTSGST}}</td></tr><tr><td>Room Charges</td><td style="text-align: right">{{roomcharges}}</td></tr><tr><td>Inclusion IX</td><td style="text-align: right">{{inclusions}}</td></tr><tr><td>Subtotal</td><td style="text-align: right">{{SUBTOTAL}}</td></tr><tr><td>Tax</td><td style="text-align: right">{{gst}}</td></tr><tr><td><b>GRAND TOTAL</b></td><td style="text-align: right"><b>{{grandtotal}}</b></td></tr></tbody></table></div>
+        <div class="booking-table"><table style="width: 100%;"><tbody><tr><td><b>{{client}}</b></td><td style="text-align: right">{{clientgst}}</td></tr><tr><td>Room Charges</td><td style="text-align: right">{{roomcharges}}</td></tr><tr><td>Inclusion IX</td><td style="text-align: right">{{inclusions}}</td></tr><tr><td>Subtotal</td><td style="text-align: right">{{SUBTOTAL}}</td></tr><tr><td>Tax</td><td style="text-align: right">{{gst}}</td></tr><tr><td><b>GRAND TOTAL</b></td><td style="text-align: right"><b>{{grandtotal}}</b></td></tr></tbody></table></div>
 
 
         <div class="info-section">
