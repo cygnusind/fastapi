@@ -82,6 +82,9 @@ h1 {
     font-weight: 500;
     font-family: "Manrope", sans-serif;
 }
+.booking-table tr {
+    page-break-inside: avoid;
+  }
 
 table {
     width: 100%;
@@ -215,7 +218,7 @@ td {
           class="logo"
         />
       </div>
-      <div class="booking-id" style="border-radius:9px; margin-bottom:20px; padding:15px;" bgcolor="#e8f0fe" align="space-between">
+      <div class="booking-id" style="border-radius:9px; margin-bottom:20px; padding:15px;"  align="space-between">
         <table style="border-collapse:collapse; width:100%" width="100%">
           <tbody>
             <tr>
@@ -275,11 +278,11 @@ td {
             </div>
           </div>
         </div>
-
+<!-- 
         <div class="booking-id">
           <strong>BOOKING ID #</strong>
           <span>{{ booking_id }}</span>
-        </div>
+        </div> -->
 
         <div class="booking-table">
           <table style="width: 100%;">
@@ -379,6 +382,7 @@ td {
             <p>operations@bookcygnus.com</p>
           </div>
         </div>
+        <p style="font-size: x-small;">{{Brid}}</p>
       </div>
     </div>
   </body>

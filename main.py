@@ -52,6 +52,7 @@ class BookingData(BaseModel):
     FILENAME:str = None
     Booking_Date:str = None
     Booking_Id:str = None
+    Brid:str=None
 
 
 
@@ -135,7 +136,8 @@ async def booking_confirmation(data: BookingData):
         "{{client}}": data.CLIENT,
         "{{clientgst}}": data.CLIENT_GST,
         "{{booking_date}}": data.Booking_Date,
-        "{{booking_id}}": data.Booking_Id
+        "{{booking_id}}": data.Booking_Id,
+        "{{Brid}}":data.Brid
     }
 
     if data.PAYMENTMODE == "Bill to Company":
@@ -210,6 +212,7 @@ class BookingDataMail(BaseModel):
     FILENAME:str = None
     Booking_Date:str = None
     Booking_Id:str = None
+    Brid:str=None
 
 
 
@@ -283,7 +286,8 @@ async def booking_confirmation1(data: BookingDataMail):
         "{{client}}": data.CLIENT,
         "{{clientgst}}": data.CLIENT_GST,
         "{{booking_date}}": data.Booking_Date,
-        "{{booking_id}}": data.Booking_Id
+        "{{booking_id}}": data.Booking_Id,
+        "{{BRID}}":data.Brid
     }
 
     if data.PAYMENTMODE == "Bill to Company":
