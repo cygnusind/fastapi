@@ -64,15 +64,32 @@
         </td>
       </tr>
     </table>
+    <div class="booking-id" style="border-radius:9px; margin-bottom:20px; padding:15px;" bgcolor="#e8f0fe" align="space-between">
+      <table style="border-collapse:collapse; width:100%" width="100%">
+        <tbody>
+          <tr>
+            <td style="padding:10px 0; word-wrap:break-word">
+              <strong>BOOKING ID # {{ booking_id }} </strong>
+            </td>
+            <td style="padding:10px 0; word-wrap:break-word; text-align:right" align="right">
+              Date of Booking  : {{ booking_date }}
+            </td>
+          </tr>
+        </tbody>
+      </table>       
+    </div>
     <div class="container" style="background-color:white; margin:0 auto; max-width:100%; padding:20px" bgcolor="white">
       <div class="container-content">
         <div class="confirmation" style="margin:20px 0; text-align:center" align="center">
           <div class="check-mark">
             <img src="https://cygnus-elevate.s3.amazonaws.com/hotel+confirmation+vocuher+/tick.png" alt="Confirmation Tick" style="height:auto; width:60px" height="auto" width="60">
           </div>
+          
           <h1 style="font-size:24px; margin-bottom:10px">Your booking has been confirmed</h1>
-          <p class="dear-text" style="text-align:left" align="left">Dear {{ name }}, <br> Thanks for choosing Cygnus </p>
+          
+          <!--p class="dear-text" style="text-align:left" align="left">Dear {{ name }}, <br> Thanks for choosing Cygnus </p-->
         </div>
+        
         <!-- booking Details -->
         <div class="booking-details" style="background-image:url(https://cygnus-elevate.s3.amazonaws.com/hotel+confirmation+vocuher+/backgroundimage.png); background-position:center; background-repeat:no-repeat; background-size: contain; border-radius:10px; margin-bottom:40px;margin-left:auto; margin-right:auto;padding:20px; max-width:552px; text-align:center">
           <table style="width:100%; border-spacing:0;">
@@ -96,10 +113,7 @@
             </tr>
           </table>
         </div>
-        <div class="booking-id" style="background-color:#e8f0fe; border-radius:9px; margin-bottom:20px; padding:15px; text-align:center" bgcolor="#e8f0fe" align="center">
-          <strong>BOOKING ID #</strong>
-          <span>{{ booking_id }}</span>
-        </div>
+        
         <div class="booking-table" style="background-color:#e8f0fe; border-radius:9px; margin-bottom:20px; padding:15px" bgcolor="#e8f0fe">
           <table style="border-collapse:collapse; width:100%" width="100%">
             <tbody>
@@ -119,7 +133,7 @@
               </tr>
               <tr>
                 <td style="padding:10px 0; word-wrap:break-word">Hotel Location</td>
-                <td style="padding:10px 0; word-wrap:break-word; text-align:right" align="right">{{location}}</td>
+                <td style="padding:10px 0; word-wrap:break-word; text-align:right" align="right"><a href="{{location}}">Get Directions</a></td>
               </tr>
             </tbody>
           </table>
@@ -218,19 +232,21 @@
             <h3>Email Us</h3>
             <p>operations@bookcygnus.com</p>
           </div> -->
+          <p class="dear-text" style="text-align:center" align="center">Thank you for choosing Cygnus!</p>
 
           <div class="contact-section" style="border-top:2px solid rgba(138, 138, 138, 0.793); display:flex; justify-content:space-between; padding-top:20px;">
-            <div style="flex-grow:1; text-align:center; padding-bottom: 20px;line-height:0.4;">
+            <div style="flex-grow:1; text-align:center; padding: 10px;line-height:0.4">
               <img src="https://cygnus-elevate.s3.amazonaws.com/hotel+confirmation+vocuher+/call.png" alt="call symbol" style="height:auto; width:20px;">
               <h3 style="margin: 10px 0;">Contact Us</h3>
               <p style="margin: 10px 0;">+91-74994 70402</p>
             </div>
-            <div style="flex-grow:1; text-align:center; padding-bottom: 20px;line-height:0.4;">
+            <div style="flex-grow:1; text-align:center; padding: 10px;line-height:0.4;">
               <img src="https://cygnus-elevate.s3.amazonaws.com/hotel+confirmation+vocuher+/sms.png" alt="email symbol" style="height:auto; width:20px;">
               <h3 style="margin: 10px 0;">Email Us</h3>
               <p style="margin: 10px 0;">operations@bookcygnus.com</p>
             </div>
           </div>
+          
           
         </div>
       </div>
