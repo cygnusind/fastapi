@@ -119,8 +119,8 @@ td {
     margin-bottom: 2px;
 }
 .info-section p {
-    margin-top: 0; /* Remove any top margin on paragraphs */
-    margin-bottom: 10px; /* Adjust this value as needed for spacing */
+    margin-top: 0; 
+    margin-bottom: 10px; 
     font-size: x-small;
 }
 
@@ -215,7 +215,20 @@ td {
           class="logo"
         />
       </div>
-
+      <div class="booking-id" style="border-radius:9px; margin-bottom:20px; padding:15px;" bgcolor="#e8f0fe" align="space-between">
+        <table style="border-collapse:collapse; width:100%" width="100%">
+          <tbody>
+            <tr>
+              <td style="padding:10px 0; word-wrap:break-word">
+                <strong>BOOKING ID # {{booking_id}} </strong>
+              </td>
+              <td style="padding:10px 0; word-wrap:break-word; text-align:right" align="right">
+                Date of Booking  : {{booking_date}}
+              </td>
+            </tr>
+          </tbody>
+        </table>       
+      </div>
     <div class="container">
       
       <div class="container-content">
@@ -227,8 +240,8 @@ td {
             />
           </div>
           <h1>Your booking has been confirmed</h1>
-          <p class="dear-text">Dear {{ name }}, <br/>
-           Thanks for choosing Cygnus</p>
+          <!-- <p class="dear-text">Dear {{ name }}, <br/>
+           Thanks for choosing Cygnus</p> -->
         </div>
         <div class="booking-details">
           <div
@@ -347,7 +360,7 @@ td {
             {{EMPPHONE}}<br />Email: {{EMPEMAIL}}
           </p>
         </div>
-
+        <p class="dear-text" style="text-align:center" align="center">Thank you for choosing Cygnus!</p>
         <div class="contact-section">
           <div>
             <img

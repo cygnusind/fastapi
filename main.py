@@ -50,6 +50,8 @@ class BookingData(BaseModel):
     SHOWTRAIFF: str = None
     CLIENT_GST:str = None
     FILENAME:str = None
+    Booking_Date:str = None
+    Booking_Id:str = None
 
 
 
@@ -131,7 +133,9 @@ async def booking_confirmation(data: BookingData):
         "{{location}}": data.LOCATIONLINK,
         "{{GUESTTABLE}}": table,
         "{{client}}": data.CLIENT,
-        "{{clientgst}}": data.CLIENT_GST
+        "{{clientgst}}": data.CLIENT_GST,
+        "{{booking_date}}": data.Booking_Date,
+        "{{booking_id}}": data.Booking_Id
     }
 
     if data.PAYMENTMODE == "Bill to Company":
