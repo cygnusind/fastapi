@@ -68,15 +68,14 @@ h1 {
     padding: 20px;
     border-radius: 10px;
     margin-bottom: 40px;
-    max-width:552px;
 }
 
 .booking-details h2 {
-    font-size: 18px;
+    font-size: 20px;
     text-align: left;
 }
 
-
+.booking-details h3,
 .booking-details p {
     text-align: left;
     font-size: 14px;
@@ -247,18 +246,41 @@ td {
           <!-- <p class="dear-text">Dear {{ name }}, <br/>
            Thanks for choosing Cygnus</p> -->
         </div>
-        <div class="booking-details">
+
+         <!-- booking Details -->
+         <div class="booking-details" style="background-image:url(https://cygnus-elevate.s3.amazonaws.com/hotel+confirmation+vocuher+/backgroundimage.png); background-position:center; background-repeat:no-repeat; background-size: contain; border-radius:10px; margin-bottom:40px;margin-left:auto; margin-right:auto;padding:20px; max-width:552px; text-align:center">
+          <table style="width:100%; border-spacing:0;">
+            <tr>
+              <td style="text-align:left; vertical-align:top; padding-left:25px;">
+                <h3 style='font-family:"Manrope", sans-serif; font-size:14px; font-weight:500;'>CHECK-IN</h3>
+                <h2 style="font-size:18px;">{{dayofcheckin}}</h2>
+                <p style='font-family:"Manrope", sans-serif; font-size:14px; font-weight:500;'>{{checkindate}}</p>
+                <p style='font-family:"Manrope", sans-serif; font-size:14px; font-weight:500;'>{{checkintime}}</p>
+              </td>
+              <td style="text-align:center; vertical-align:middle; padding:7px;">
+                {{no_of_night}} Night <br>
+                <img src="https://cygnus-elevate.s3.amazonaws.com/hotel+confirmation+vocuher+/arrow-right.png" alt="arrow-right">
+              </td>
+              <td style="text-align:right; vertical-align:top; padding-right:25px;">
+                <h3 style='font-family:"Manrope", sans-serif; font-size:14px; font-weight:500;'>CHECK-OUT</h3>
+                <h2 style="font-size:18px;">{{dayofcheckout}}</h2>
+                <p style='font-family:"Manrope", sans-serif; font-size:14px; font-weight:500;'>{{checkoutdate}}</p>
+                <p style='font-family:"Manrope", sans-serif; font-size:14px; font-weight:500;'>{{checkouttime}}</p>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <!-- <div class="booking-details">
           <div
             style="
                 justify-content: center;
                 flex-grow: 1;
                 display: flex;
                
-              align-items: center;
-            "
+              align-items: center; "
           >
             <div style="text-align:left;padding-right: 2px;">
-              <h3 style="font-weight: 500; font-size: 14px;font-family: Manrope, sans-serif;">CHECK-IN</h3>
+              <h3 style="font-weight: 500; font-size: 14px">CHECK-IN</h3>
               <h2>{{dayofcheckin}}</h2>
               <p>{{checkindate}}</p>
               <p>{{checkintime}}</p>
@@ -278,7 +300,7 @@ td {
               <p>{{checkouttime}}</p>
             </div>
           </div>
-        </div>
+        </div> -->
 <!-- 
         <div class="booking-id">
           <strong>BOOKING ID #</strong>
