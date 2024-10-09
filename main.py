@@ -41,8 +41,8 @@ class BookingData(BaseModel):
     LOCATIONLINK:str = None
     #IMGLINK:str
     CANCELLATIONPOLICY:str=None
-    ADDON_POLICES:str=None
-    DEFAULT_POLICES:str=None
+    ADDON_POLICES:Optional[str] = ""
+    DEFAULT_POLICES:Optional[str] = ""    
     EMPNAME:str = None
     EMPPHONE:str = None
     EMPEMAIL:str =None
@@ -53,6 +53,7 @@ class BookingData(BaseModel):
     Booking_Date:str = None
     Booking_Id:str = None
     Brid:str=None
+    GST_PRECENT:str =None
 
 
 
@@ -77,11 +78,11 @@ async def booking_confirmation(data: BookingData):
     # HTML table structure
     table = """<table style="border-collapse: collapse; width: 100%; border: 0px solid #dddddd; font-size:16px;">
         <tr>
-        <th style="border: 0px solid #dddddd; text-align: left; padding: 8px;">S.no</th>
-        <th style="border: 0px solid #dddddd; text-align: left; padding: 8px;">Guest Name</th>
-        <th style="border: 0px solid #dddddd; text-align: left; padding: 8px;">Room Type</th>
-        <th style="border: 0px solid #dddddd; text-align: left; padding: 8px;">Occupancy</th>
-        <th style="border: 0px solid #dddddd; text-align: left; padding: 8px;">Meal Plan</th>
+        <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">S.no</th>
+        <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">Guest Name</th>
+        <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">Room Type</th>
+        <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">Occupancy</th>
+        <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">Meal Plan</th>
         </tr>"""
 
     num_rows = len(data.TABLEDATA["GUESTNAME"])
@@ -94,11 +95,11 @@ async def booking_confirmation(data: BookingData):
         occupancy = data.TABLEDATA.get("OCC", [""])[i]
         meal_plan = data.TABLEDATA.get("MEALPLAN", [""])[i]
         new_row = f"""<tr>
-            <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{s_no}</td>
-            <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{guest_name}</td>
-            <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{room_type}</td>
-            <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{occupancy}</td>
-            <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{meal_plan}</td>
+            <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{s_no}</td>
+            <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{guest_name}</td>
+            <td style="border: 0px solid #dddddd; text-align:center; padding: 8px;">{room_type}</td>
+            <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{occupancy}</td>
+            <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{meal_plan}</td>
         </tr>"""
         table += new_row
 
@@ -137,7 +138,8 @@ async def booking_confirmation(data: BookingData):
         "{{clientgst}}": data.CLIENT_GST,
         "{{booking_date}}": data.Booking_Date,
         "{{booking_id}}": data.Booking_Id,
-        "{{Brid}}":data.Brid
+        "{{Brid}}":data.Brid,
+        "{{gstpre}}":data.GST_PRECENT
     }
 
     if data.PAYMENTMODE == "Bill to Company":
@@ -227,11 +229,11 @@ async def booking_confirmation1(data: BookingDataMail):
     # HTML table structure
     table = """<table style="border-collapse: collapse; width: 100%; border: 0px solid #dddddd; font-size:16px;">
         <tr>
-        <th style="border: 0px solid #dddddd; text-align: left; padding: 8px;">S.no</th>
-        <th style="border: 0px solid #dddddd; text-align: left; padding: 8px;">Guest Name</th>
-        <th style="border: 0px solid #dddddd; text-align: left; padding: 8px;">Room Type</th>
-        <th style="border: 0px solid #dddddd; text-align: left; padding: 8px;">Occupancy</th>
-        <th style="border: 0px solid #dddddd; text-align: left; padding: 8px;">Meal Plan</th>
+        <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">S.no</th>
+        <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">Guest Name</th>
+        <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">Room Type</th>
+        <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">Occupancy</th>
+        <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">Meal Plan</th>
         </tr>"""
 
     num_rows = len(data.TABLEDATA["GUESTNAME"])
@@ -244,11 +246,11 @@ async def booking_confirmation1(data: BookingDataMail):
         occupancy = data.TABLEDATA.get("OCC", [""])[i]
         meal_plan = data.TABLEDATA.get("MEALPLAN", [""])[i]
         new_row = f"""<tr>
-            <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{s_no}</td>
-            <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{guest_name}</td>
-            <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{room_type}</td>
-            <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{occupancy}</td>
-            <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{meal_plan}</td>
+            <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{s_no}</td>
+            <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{guest_name}</td>
+            <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{room_type}</td>
+            <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{occupancy}</td>
+            <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{meal_plan}</td>
         </tr>"""
         table += new_row
 
