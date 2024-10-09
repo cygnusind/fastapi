@@ -215,7 +215,7 @@ class BookingDataMail(BaseModel):
     Booking_Date:str = None
     Booking_Id:str = None
     Brid:str=None
-    GST_PRECENT:str =None
+    GST_PRECENT:str = None
 
 
 
