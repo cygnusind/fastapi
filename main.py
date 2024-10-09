@@ -215,6 +215,7 @@ class BookingDataMail(BaseModel):
     Booking_Date:str = None
     Booking_Id:str = None
     Brid:str=None
+    GST_PRECENT:str =None
 
 
 
@@ -289,7 +290,9 @@ async def booking_confirmation1(data: BookingDataMail):
         "{{clientgst}}": data.CLIENT_GST,
         "{{booking_date}}": data.Booking_Date,
         "{{booking_id}}": data.Booking_Id,
-        "{{BRID}}":data.Brid
+        "{{BRID}}":data.Brid,
+        "{{GST_PRECENT}}":data.GST_PRECENT
+    
     }
 
     if data.PAYMENTMODE == "Bill to Company":
