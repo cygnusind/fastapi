@@ -152,6 +152,7 @@ td {
         padding: 10px;
         background-size: cover;
         margin-bottom: 40px;
+        max-width:552px;
     }
 
     .booking-details h2,
@@ -352,14 +353,16 @@ td {
         </div>
 
         <div class="booking-table">
+          <table style="width: 100%;"><tbody><tr><td><b>{{client}}</b></td><td style="text-align: right">{{clientgst}}</td></tr></tbody></table>
           {{GUESTTABLE}}
         </div>
 
         <!-- Added Payment Details -->
-        <div class="booking-table"><table style="width: 100%;"><tbody><tr><td><b>{{client}}</b></td><td style="text-align: right">{{clientgst}}</td></tr><tr><td>Room Charges</td><td style="text-align: right">{{roomcharges}}</td></tr><tr><td>Inclusion IX</td><td style="text-align: right">{{inclusions}}</td></tr><tr><td>Subtotal</td><td style="text-align: right">{{SUBTOTAL}}</td></tr><tr><td>Tax({{gstpre}})</td><td style="text-align: right">{{gst}}</td></tr><tr><td><b>GRAND TOTAL</b></td><td style="text-align: right"><b>{{grandtotal}}</b></td></tr></tbody></table></div>
+        <div class="booking-table"><table style="width: 100%;"><tbody><tr><td><b>{{client}}</b></td><td style="text-align: right">{{clientgst}}</td></tr><tr><td>Room Charges</td><td style="text-align: right">{{roomcharges}}</td></tr><tr><td>Inclusion IX</td><td style="text-align: right">{{inclusions}}</td></tr><tr><td>Subtotal</td><td style="text-align: right">{{SUBTOTAL}}</td></tr><tr><td>Tax({{gstpre}})</td><td style="text-align: right">{{gst}}</td></tr><tr><td><b>GRAND TOTAL</b></td><td style="text-align: right"><b>{{grandtotal}}</b></td></tr></tbody></table><div class="info-section"><h3>Payment Mode:{{PAYMENTMODE}}</h3><p><small>*Any extra expenses/meals apart from Room rent will be payable at the hotel</small></p></div>
+      </div>
 
 
-        <div class="info-section">
+        <!-- <div class="info-section">
           <h3>Payment Mode:{{PAYMENTMODE}}</h3>
           <p>
             <small
@@ -367,7 +370,7 @@ td {
               the hotel</small
             >
           </p>
-        </div>
+        </div> -->
 
         <div class="info-section">
           <h4>Policies:</h4>
@@ -386,7 +389,7 @@ td {
             {{EMPPHONE}}<br />Email: {{EMPEMAIL}}
           </p>
         </div>
-        <p class="dear-text" style="text-align:center" align="center">Thank you for choosing Cygnus!</p>
+        
         <div class="contact-section">
           <div>
             <img
@@ -405,6 +408,7 @@ td {
             <p>operations@bookcygnus.com</p>
           </div>
         </div>
+        <p class="dear-text" style="text-align:center" align="center">Thank you for choosing Cygnus!</p>
         <p style="font-size: x-small;">{{Brid}}</p>
       </div>
     </div>
