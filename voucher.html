@@ -121,6 +121,9 @@ td {
 }
 
 .info-section {
+  max-width: 552px;
+  margin-left: auto;
+  margin-right: auto;
     margin-bottom: 20px;
 }
 .info-section h3 {
@@ -363,7 +366,7 @@ td {
         </div>
 
         <!-- Added Payment Details -->
-        <div class="booking-table"><table style="max-width:552px;width:100%;"><tbody><tr><td><b>{{client}}</b></td><td style="text-align: right">{{clientgst}}</td></tr><tr><td>Room Charges</td><td style="text-align: right">{{roomcharges}}</td></tr><tr><td>Inclusion</td><td style="text-align: right">{{inclusions}}</td></tr><tr><td>Subtotal</td><td style="text-align: right">{{SUBTOTAL}}</td></tr><tr><td>Tax({{gstpre}})</td><td style="text-align: right">GST</td></tr><tr><td><b>GRAND TOTAL</b></td><td style="text-align: right"><b>{{grandtotal}}</b></td></tr></tbody></table><div class="info-section"><h3>Payment Mode:{{PAYMENTMODE}}</h3><p><small>*Any extra expenses/meals apart from Room rent will be payable at the hotel</small></p></div>
+        <div class="booking-table"><table style="max-width:552px;width:100%;"><tbody><tr><td>Room Charges</td><td style="text-align: right">{{roomcharges}}</td></tr><tr><td>Inclusion</td><td style="text-align: right">{{inclusions}}</td></tr><tr><td>Subtotal</td><td style="text-align: right">{{SUBTOTAL}}</td></tr><tr><td>Tax(gst)</td><td style="text-align: right">{{gst}}</td></tr><tr><td><b>GRAND TOTAL</b></td><td style="text-align: right"><b>{{grandtotal}}</b></td></tr></tbody></table><div class="info-section"><h3>Payment Mode:{{PAYMENTMODE}}</h3><p><small>*Any extra expenses/meals apart from Room rent will be payable at the hotel</small></p></div>
       </div>
 
 
@@ -377,10 +380,7 @@ td {
           </p>
         </div> -->
 
-        <div class="info-section">
-          <h4>Policies:</h4>
-          <p>{{ADDON_POLICES}} <br />{{DEFAULT_POLICES}}</p>
-        </div>
+        <div class="info-section"><h4>Policies:</h4><p>{{ADDON_POLICES}} <br />{{DEFAULT_POLICES}}</p></div>
 
         <div class="info-section">
           <h4>Cancellation Policy:</h4>

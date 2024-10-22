@@ -41,8 +41,8 @@ class BookingData(BaseModel):
     LOCATIONLINK:str = None
     #IMGLINK:str
     CANCELLATIONPOLICY:str=None
-    ADDON_POLICES:Optional[str] = ""
-    DEFAULT_POLICES:Optional[str] = ""    
+    ADDON_POLICES:str = None 
+    DEFAULT_POLICES:str = None    
     EMPNAME:str = None
     EMPPHONE:str = None
     EMPEMAIL:str =None
@@ -161,7 +161,10 @@ async def booking_confirmation(data: BookingData):
             # if data.ROOM_CHARGES and data.INCLUSIONS and data.SUBTOTAL and data.GST_VALUE and data.AMT_TO_BE_PAID:
             html_content = html_content.replace("""<div class="booking-table"><table style="width: 100%;"><tbody><tr><td><b>Client Name</b></td><td style="text-align: right">{{CLIENTSGST}}</td></tr><tr><td>Room Charges</td><td style="text-align: right">{{roomcharges}}</td></tr><tr><td>Inclusion IX</td><td style="text-align: right">{{inclusions}}</td></tr><tr><td>Subtotal</td><td style="text-align: right">{{SUBTOTAL}}</td></tr><tr><td>Tax</td><td style="text-align: right">{{gst}}</td></tr><tr><td><b>GRAND TOTAL</b></td><td style="text-align: right"><b>{{grandtotal}}</b></td></tr></tbody></table></div>""", "")
        
-        
+
+    if not data.ADDON_POLICES and not data.DEFAULT_POLICES:
+        html_content = html_content.replace("""<div class="info-section"><h4>Policies:</h4><p>{{ADDON_POLICES}} <br />{{DEFAULT_POLICES}}</p></div>""", "")
+
 
     # Replace placeholders in the HTML content with actual values
     for placeholder, value in replacements.items():
@@ -311,7 +314,7 @@ async def booking_confirmation1(data: BookingDataMail):
                 "{{SHOWTRAIFF}}": data.SHOWTRAIFF
             }
         else: 
-            html_content = html_content.replace("""<div class="booking-table" style="background-color:#e8f0fe; border-radius:9px; margin-bottom:20px; padding:15px" bgcolor="#e8f0fe"><table style="border-collapse:collapse; width:100%" width="100%"><tbody><tr><td style="padding:10px 0; word-wrap:break-word"><b>{{client}}</b></td><td style="padding:10px 0; word-wrap:break-word; text-align:right" align="right">{{clientgst}}</td></tr><tr><td style="padding:10px 0; word-wrap:break-word">Room Charges</td><td style="padding:10px 0; word-wrap:break-word; text-align:right" align="right">{{roomcharges}}</td></tr><tr><td style="padding:10px 0; word-wrap:break-word">Inclusion IX</td><td style="padding:10px 0; word-wrap:break-word; text-align:right" align="right">{{inclusions}}</td></tr><tr><td style="padding:10px 0; word-wrap:break-word">Subtotal</td><td style="padding:10px 0; word-wrap:break-word; text-align:right" align="right">{{SUBTOTAL}}</td></tr><tr><td style="padding:10px 0; word-wrap:break-word">Tax( {{GST_PRECENT}} )</td><td style="padding:10px 0; word-wrap:break-word; text-align:right" align="right">{{gst}}</td></tr><tr><td style="padding:10px 0; word-wrap:break-word"><b>GRAND TOTAL</b></td><td style="padding:10px 0; word-wrap:break-word; text-align:right" align="right"><b>{{grandtotal}}</b></td></tr></tbody></table></div>""", "")
+            html_content = html_content.replace("""<div class="booking-table" style="background-color:#e8f0fe; border-radius:9px; margin-bottom:20px; padding:15px" bgcolor="#e8f0fe"><table style="border-collapse:collapse; width:100%" width="100%"><tbody><tr><td style="padding:10px 0; word-wrap:break-word">Room Charges</td><td style="padding:10px 0; word-wrap:break-word; text-align:right" align="right">{{roomcharges}}</td></tr><tr><td style="padding:10px 0; word-wrap:break-word">Inclusion IX</td><td style="padding:10px 0; word-wrap:break-word; text-align:right" align="right">{{inclusions}}</td></tr><tr><td style="padding:10px 0; word-wrap:break-word">Subtotal</td><td style="padding:10px 0; word-wrap:break-word; text-align:right" align="right">{{SUBTOTAL}}</td></tr><tr><td style="padding:10px 0; word-wrap:break-word">Tax(gst)</td><td style="padding:10px 0; word-wrap:break-word; text-align:right" align="right">{{gst}}</td></tr><tr><td style="padding:10px 0; word-wrap:break-word"><b>GRAND TOTAL</b></td><td style="padding:10px 0; word-wrap:break-word; text-align:right" align="right"><b>{{grandtotal}}</b></td></tr></tbody></table></div>""", "")
        
         
 
