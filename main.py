@@ -159,7 +159,7 @@ async def booking_confirmation(data: BookingData):
             }
         else: 
             # if data.ROOM_CHARGES and data.INCLUSIONS and data.SUBTOTAL and data.GST_VALUE and data.AMT_TO_BE_PAID:
-            html_content = html_content.replace("""<div class="booking-table"><table style="width: 100%;"><tbody><tr><td><b>Client Name</b></td><td style="text-align: right">{{CLIENTSGST}}</td></tr><tr><td>Room Charges</td><td style="text-align: right">{{roomcharges}}</td></tr><tr><td>Inclusion IX</td><td style="text-align: right">{{inclusions}}</td></tr><tr><td>Subtotal</td><td style="text-align: right">{{SUBTOTAL}}</td></tr><tr><td>Tax</td><td style="text-align: right">{{gst}}</td></tr><tr><td><b>GRAND TOTAL</b></td><td style="text-align: right"><b>{{grandtotal}}</b></td></tr></tbody></table></div>""", "")
+            html_content = html_content.replace("""<table style="max-width:552px;width:100%;"><tbody><tr><td>Room Charges</td><td style="text-align: right">{{roomcharges}}</td></tr><tr><td>Inclusion</td><td style="text-align: right">{{inclusions}}</td></tr><tr><td>Subtotal</td><td style="text-align: right">{{SUBTOTAL}}</td></tr><tr><td>Tax(gst)</td><td style="text-align: right">{{gst}}</td></tr><tr><td><b>GRAND TOTAL</b></td><td style="text-align: right"><b>{{grandtotal}}</b></td></tr></tbody></table>""", "")
        
 
     if not data.ADDON_POLICES and not data.DEFAULT_POLICES:
