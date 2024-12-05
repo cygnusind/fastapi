@@ -541,7 +541,7 @@ async def booking(request: Request):
         print(f"Unexpected error: {e}")
         return {"error": "Unexpected error occurred"}
 
-@app.post("/ack-booking")
+@app.post("/ackbooking")
 async def ackbooking(request: Request):
     try:
         if not await request.body():
