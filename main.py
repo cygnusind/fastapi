@@ -542,8 +542,9 @@ async def booking(request: Request):
         return {"error": "Unexpected error occurred"}
 
 
-@app.post("/ackbooking")
-async def ackbooking(request: Request):
+@app.post("/ackbooking/{partid}")
+async def ackbooking(request: Request,partid: str):
+    api_url = "https://api.bakuun.com/ratedockAPI/RDK220/booking?"+partid
     try:
         if not await request.body():
             return {"error": "Request body is empty"}
@@ -552,7 +553,7 @@ async def ackbooking(request: Request):
         #return {"Testresponse": "Test"}
         async with httpx.AsyncClient() as client:
             response = await client.post(
-                "https://api.bakuun.com/ratedockAPI/RDK220/booking?partnerName=Test Cygnus RD",
+                api_url",
                 headers={"Content-Type": "application/json"},
                 json=body
             )
