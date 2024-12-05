@@ -542,9 +542,9 @@ async def booking(request: Request):
         return {"error": "Unexpected error occurred"}
 
 
-@app.post("/ackbooking/{partid}")
+@app.post("/ackbooking")
 async def ackbooking(request: Request,partid: str):
-    api_url = "https://api.bakuun.com/ratedockAPI/RDK220/booking?partnerName="+partid
+    api_url = "https://api.bakuun.com/ratedockAPI/RDK220/booking?partnerName=Test Cygnus RD"
     print(api_url)
 
     try:
