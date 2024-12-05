@@ -547,7 +547,7 @@ async def ackbooking(request: Request):
         if not await request.body():
             return {"error": "Request body is empty"}
         body = await request.json()
-        print(f"Request body: {body}")
+        print(f"Request body[ACK]: {body}")
         #return {"Testresponse": "Test"}
         async with httpx.AsyncClient() as client:
             response = await client.post(
