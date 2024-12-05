@@ -553,7 +553,7 @@ async def ackbooking(request: Request,partid: str):
         #return {"Testresponse": "Test"}
         async with httpx.AsyncClient() as client:
             response = await client.post(
-                api_url",
+                api_url,
                 headers={"Content-Type": "application/json"},
                 json=body
             )
