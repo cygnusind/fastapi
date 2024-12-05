@@ -544,7 +544,9 @@ async def booking(request: Request):
 
 @app.post("/ackbooking/{partid}")
 async def ackbooking(request: Request,partid: str):
-    api_url = "https://api.bakuun.com/ratedockAPI/RDK220/booking?"+partid
+    api_url = "https://api.bakuun.com/ratedockAPI/RDK220/booking?partnerName="+partid
+    print(api_url)
+
     try:
         if not await request.body():
             return {"error": "Request body is empty"}
