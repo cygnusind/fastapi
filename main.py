@@ -541,13 +541,14 @@ async def booking(request: Request):
         print(f"Unexpected error: {e}")
         return {"error": "Unexpected error occurred"}
 
+
 @app.post("/ackbooking")
 async def ackbooking(request: Request):
     try:
         if not await request.body():
             return {"error": "Request body is empty"}
         body = await request.json()
-        print(f"Request body[ACK]: {body}")
+        print(f"Request body: {body}")
         #return {"Testresponse": "Test"}
         async with httpx.AsyncClient() as client:
             response = await client.post(
@@ -561,4 +562,3 @@ async def ackbooking(request: Request):
     except Exception as e:
         print(f"Unexpected error: {e}")
         return {"error": "Unexpected error occurred"}
-
