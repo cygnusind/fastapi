@@ -458,7 +458,7 @@ async def mps_search(token : str,request: Request):
         print(f"Response: {response}")
 
         # Return the response from the external API
-        return response
+        return response.json()
     except Exception as e:
         print(f"Unexpected error: {e}")
         return {"error": "Unexpected error occurred"}     
