@@ -552,7 +552,7 @@ async def ackbooking(request: Request):
         #return {"Testresponse": "Test"}
         async with httpx.AsyncClient() as client:
             response = await client.post(
-                "https://api.bakuun.com/ratedockAPI/RDK220/booking?partnerName=Test Cygnus RD",
+                "https://api.bakuun.com/ratedockAPI/RDK220/booking?partnerName=TestCygnusRD",
                 headers={"Content-Type": "application/json"},
                 json=body
             )
