@@ -439,7 +439,7 @@ async def mpsc(request: Request):
 
 
 #mps seacrch results
-@app.get("/mpsresult/{token}/results")
+@app.post("/mpsresult/{token}/results")
 async def mps_search(token : str,request: Request):
         
     api_url ="https://pull.bakuun.com/RDK220/mpsnight/"+token+"/results"
