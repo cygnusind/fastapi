@@ -543,7 +543,7 @@ async def booking(request: Request):
 
 
 @app.post("/ackbooking")
-async def ackbooking(request: Request,partid: str):
+async def ackbooking(request: Request):
     api_url = "https://api.bakuun.com/ratedockAPI/RDK220/booking?partnerName=Test Cygnus RD"
     print(api_url)
 
