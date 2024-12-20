@@ -1,184 +1,202 @@
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, Request, HTTPException
 import requests
 from fastapi.responses import HTMLResponse, StreamingResponse
-from pydantic import BaseModel
-from weasyprint import HTML,CSS
-
+from pydantic import BaseModel, Field
+from weasyprint import HTML, CSS
+from functools import lru_cache
 import io
-from typing import Optional, Dict
-
-
-
-# import asyncio
+from typing import Optional, Dict, List
 import httpx
-#import traceback
 
 app = FastAPI()
 
+# Optimize the Pydantic model with better typing and validation
+class GuestInfo(BaseModel):
+    name: str
+    room_type: str
+    occupancy: str
+    meal_plan: str
 
 class BookingData(BaseModel):
-    NAME: str = None
-    CHECKIN: str = None
-    CHECKOUT: str = None
-    DAYOF_CHECKIN: str = None
-    DAYOF_CHECKOUT11: str = None
-    NO_OF_NIGHTS: str = None
-    CHECK_IN_TIME: str = None
-    CHECK_OUT_TIME: str = None
-    HOTELNAME: str = None
-    HOTELADDRESS: str = None
-    HOTELPHONE: str = None
-    ROOMCOUNT: str = None
-    CLIENT: str = None
- 
-    GUESTCOUNT:str = None
-    ROOM_CHARGES: str = None
-    INCLUSIONS: str = None
-    SUBTOTAL: str = None
-    GST_VALUE: str = None
-    AMT_TO_BE_PAID: str = None
-    PAYMENTMODE: str = None
-    LOCATIONLINK:str = None
-    #IMGLINK:str
-    CANCELLATIONPOLICY:str=None
-    ADDON_POLICES:str = None 
-    DEFAULT_POLICES:str = None    
-    EMPNAME:str = None
-    EMPPHONE:str = None
-    EMPEMAIL:str =None
+    NAME: Optional[str] = Field(None, description="Guest name")
+    CHECKIN: Optional[str] = Field(None, description="Check-in date")
+    CHECKOUT: Optional[str] = Field(None, description="Check-out date")
+    DAYOF_CHECKIN: Optional[str] = None
+    DAYOF_CHECKOUT11: Optional[str] = None
+    NO_OF_NIGHTS: Optional[str] = None
+    CHECK_IN_TIME: Optional[str] = None
+    CHECK_OUT_TIME: Optional[str] = None
+    HOTELNAME: Optional[str] = None
+    HOTELADDRESS: Optional[str] = None
+    HOTELPHONE: Optional[str] = None
+    ROOMCOUNT: Optional[str] = None
+    CLIENT: Optional[str] = None
+    GUESTCOUNT: Optional[str] = None
+    ROOM_CHARGES: Optional[str] = None
+    INCLUSIONS: Optional[str] = None
+    SUBTOTAL: Optional[str] = None
+    GST_VALUE: Optional[str] = None
+    AMT_TO_BE_PAID: Optional[str] = None
+    PAYMENTMODE: Optional[str] = None
+    LOCATIONLINK: Optional[str] = None
+    CANCELLATIONPOLICY: Optional[str] = None
+    ADDON_POLICES: Optional[str] = None
+    DEFAULT_POLICES: Optional[str] = None
+    EMPNAME: Optional[str] = None
+    EMPPHONE: Optional[str] = None
+    EMPEMAIL: Optional[str] = None
     TABLEDATA: Optional[Dict[str, list]] = None
-    SHOWTRAIFF: str = None
-    CLIENT_GST:str = None
-    FILENAME:str = None
-    Booking_Date:str = None
-    Booking_Id:str = None
-    Brid:str=None
-    GST_PRECENT:str =None
+    SHOWTRAIFF: Optional[str] = None
+    CLIENT_GST: Optional[str] = None
+    FILENAME: Optional[str] = None
+    Booking_Date: Optional[str] = None
+    Booking_Id: Optional[str] = None
+    Brid: Optional[str] = None
+    GST_PRECENT: Optional[str] = None
 
+    class Config:
+        schema_extra = {
+            "example": {
+                "NAME": "John Doe",
+                "CHECKIN": "2024-01-01",
+                # Add other example values as needed
+            }
+        }
 
+# Cache the HTML template reading
+@lru_cache(maxsize=1)
+def get_html_template(template_name: str) -> str:
+    try:
+        with open(template_name, "r") as file:
+            return file.read()
+    except FileNotFoundError:
+        raise HTTPException(status_code=500, detail=f"Template file {template_name} not found")
 
+# Optimize PDF generation with error handling
+def generate_pdf_from_html(html_content: str) -> io.BytesIO:
+    try:
+        pdf_io = io.BytesIO()
+        HTML(string=html_content).write_pdf(pdf_io, presentational_hints=True)
+        pdf_io.seek(0)
+        return pdf_io
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"PDF generation failed: {str(e)}")
 
-def generate_pdf_from_html(html_content):
-    pdf_io = io.BytesIO()
-    
-    # Create a PDF from the HTML content
-    HTML(string=html_content).write_pdf(pdf_io,presentational_hints=True)
-    
-    # Set the cursor back to the start of the BytesIO object
-    pdf_io.seek(0)
-    return pdf_io
+# Optimize table generation with list comprehension and join
+def generate_guest_table(table_data: Dict[str, list]) -> str:
+    if not table_data or "GUESTNAME" not in table_data:
+        return ""
 
-
-@app.post("/booking-confirmation")
-async def booking_confirmation(data: BookingData):
-    bodyB = await data.json()
-    print(f"request body[vo]:{bodyB}")
-    # Open and read the HTML file
-    with open("voucher.html", "r") as file:
-        html_content = file.read()
-
-    # HTML table structure
-    table = """<table style="border-collapse: collapse; width: 100%; border: 0px solid #dddddd; font-size:16px;">
+    header = '''<table style="border-collapse: collapse; width: 100%; border: 0px solid #dddddd; font-size:16px;">
         <tr>
         <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">S.no</th>
         <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">Guest Name</th>
         <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">Room Type</th>
         <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">Occupancy</th>
         <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">Meal Plan</th>
-        </tr>"""
+        </tr>'''
 
-    num_rows = len(data.TABLEDATA["GUESTNAME"])
-
-    # Create a new row for each guest
-    for i in range(num_rows):
-        s_no = i + 1
-        guest_name = data.TABLEDATA.get("GUESTNAME", [""])[i]
-        room_type = data.TABLEDATA.get("ROOMTYPE", [""])[i]
-        occupancy = data.TABLEDATA.get("OCC", [""])[i]
-        meal_plan = data.TABLEDATA.get("MEALPLAN", [""])[i]
-        new_row = f"""<tr>
-            <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{s_no}</td>
+    rows = []
+    for i, guest_name in enumerate(table_data["GUESTNAME"], 1):
+        row = f'''<tr>
+            <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{i}</td>
             <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{guest_name}</td>
-            <td style="border: 0px solid #dddddd; text-align:center; padding: 8px;">{room_type}</td>
-            <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{occupancy}</td>
-            <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{meal_plan}</td>
-        </tr>"""
-        table += new_row
+            <td style="border: 0px solid #dddddd; text-align:center; padding: 8px;">{table_data.get("ROOMTYPE", [""])[i-1]}</td>
+            <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{table_data.get("OCC", [""])[i-1]}</td>
+            <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{table_data.get("MEALPLAN", [""])[i-1]}</td>
+        </tr>'''
+        rows.append(row)
 
-    # Close the table
-    table += "</table>"
+    return header + "".join(rows) + "</table>"
 
-    replacements = {
-        "{{ name }}": data.NAME,
-        "{{checkindate}}": data.CHECKIN,
-        "{{checkoutdate}}": data.CHECKOUT,
-        "{{dayofcheckin}}": data.DAYOF_CHECKIN,
-        "{{dayofcheckout}}": data.DAYOF_CHECKOUT11,
-        "{{no_of_night}}": data.NO_OF_NIGHTS,
-        "{{checkintime}}": data.CHECK_IN_TIME,
-        "{{checkouttime}}": data.CHECK_OUT_TIME,
-        "{{hotelname}}": data.HOTELNAME,
-        "{{hoteladdress}}": data.HOTELADDRESS,
-        "{{hotelphone}}": str(data.HOTELPHONE) if data.HOTELPHONE else "",
-        "{{noofrooms}}": data.ROOMCOUNT,
-        "{{noofguest}}": data.GUESTCOUNT,
-        "{{roomcharges}}": data.ROOM_CHARGES,
-        "{{inclusions}}": data.INCLUSIONS,
-        "{{gst}}": data.GST_VALUE,
-        "{{SUBTOTAL}}": data.SUBTOTAL,
-        "{{grandtotal}}": data.AMT_TO_BE_PAID,
-        "{{PAYMENTMODE}}": data.PAYMENTMODE,
-        "{{ADDON_POLICES}}": data.ADDON_POLICES,
-        "{{DEFAULT_POLICES}}": data.DEFAULT_POLICES,
-        "{{CANCELLATIONPOLICY}}": data.CANCELLATIONPOLICY,
-        "{{EMPNAME}}": data.EMPNAME,
-        "{{EMPPHONE}}": data.EMPPHONE,
-        "{{EMPEMAIL}}": data.EMPEMAIL,
-        "{{location}}": data.LOCATIONLINK,
-        "{{GUESTTABLE}}": table,
-        "{{client}}": data.CLIENT,
-        "{{clientgst}}": data.CLIENT_GST,
-        "{{booking_date}}": data.Booking_Date,
-        "{{booking_id}}": data.Booking_Id,
-        "{{Brid}}":data.Brid,
-        "{{gstpre}}":data.GST_PRECENT
-    }
+@app.post("/booking-confirmation")
+async def booking_confirmation(data: BookingData):
+    try:
+        # Get cached template
+        html_content = get_html_template("voucher.html")
+        
+        # Generate guest table
+        table = generate_guest_table(data.TABLEDATA)
 
-    if data.PAYMENTMODE == "Bill to Company":
-        if data.SHOWTRAIFF == "Yes":
-            replacements = {
+        # Create replacements dict with only non-None values
+        replacements = {
+            key: str(value) if value is not None else ""
+            for key, value in {
+                "{{ name }}": data.NAME,
+                "{{checkindate}}": data.CHECKIN,
+                "{{checkoutdate}}": data.CHECKOUT,
+                "{{dayofcheckin}}": data.DAYOF_CHECKIN,
+                "{{dayofcheckout}}": data.DAYOF_CHECKOUT11,
+                "{{no_of_night}}": data.NO_OF_NIGHTS,
+                "{{checkintime}}": data.CHECK_IN_TIME,
+                "{{checkouttime}}": data.CHECK_OUT_TIME,
+                "{{hotelname}}": data.HOTELNAME,
+                "{{hoteladdress}}": data.HOTELADDRESS,
+                "{{hotelphone}}": data.HOTELPHONE,
+                "{{noofrooms}}": data.ROOMCOUNT,
+                "{{noofguest}}": data.GUESTCOUNT,
                 "{{roomcharges}}": data.ROOM_CHARGES,
                 "{{inclusions}}": data.INCLUSIONS,
                 "{{gst}}": data.GST_VALUE,
                 "{{SUBTOTAL}}": data.SUBTOTAL,
                 "{{grandtotal}}": data.AMT_TO_BE_PAID,
                 "{{PAYMENTMODE}}": data.PAYMENTMODE,
+                "{{ADDON_POLICES}}": data.ADDON_POLICES,
+                "{{DEFAULT_POLICES}}": data.DEFAULT_POLICES,
+                "{{CANCELLATIONPOLICY}}": data.CANCELLATIONPOLICY,
                 "{{EMPNAME}}": data.EMPNAME,
                 "{{EMPPHONE}}": data.EMPPHONE,
                 "{{EMPEMAIL}}": data.EMPEMAIL,
+                "{{location}}": data.LOCATIONLINK,
                 "{{GUESTTABLE}}": table,
-                "{{SHOWTRAIFF}}": data.SHOWTRAIFF
-            }
-        else: 
-            # if data.ROOM_CHARGES and data.INCLUSIONS and data.SUBTOTAL and data.GST_VALUE and data.AMT_TO_BE_PAID:
-            html_content = html_content.replace("""<table style="max-width:552px;width:100%;"><tbody><tr><td>Room Charges</td><td style="text-align: right">{{roomcharges}}</td></tr><tr><td>Inclusion</td><td style="text-align: right">{{inclusions}}</td></tr><tr><td>Subtotal</td><td style="text-align: right">{{SUBTOTAL}}</td></tr><tr><td>Tax(gst)</td><td style="text-align: right">{{gst}}</td></tr><tr><td><b>GRAND TOTAL</b></td><td style="text-align: right"><b>{{grandtotal}}</b></td></tr></tbody></table>""", "")
-       
+                "{{client}}": data.CLIENT,
+                "{{clientgst}}": data.CLIENT_GST,
+                "{{booking_date}}": data.Booking_Date,
+                "{{booking_id}}": data.Booking_Id,
+                "{{Brid}}": data.Brid,
+                "{{gstpre}}": data.GST_PRECENT
+            }.items()
+        }
 
-    if not data.ADDON_POLICES and not data.DEFAULT_POLICES:
-        html_content = html_content.replace("""<div class="info-section"><h4>Policies:</h4><p>{{ADDON_POLICES}} <br />{{DEFAULT_POLICES}}</p></div>""", "")
+        # Handle Bill to Company case
+        if data.PAYMENTMODE == "Bill to Company":
+            if data.SHOWTRAIFF == "Yes":
+                # Keep only relevant fields for Bill to Company with shown tariff
+                replacements = {k: v for k, v in replacements.items() if k in {
+                    "{{roomcharges}}", "{{inclusions}}", "{{gst}}", "{{SUBTOTAL}}",
+                    "{{grandtotal}}", "{{PAYMENTMODE}}", "{{EMPNAME}}", "{{EMPPHONE}}",
+                    "{{EMPEMAIL}}", "{{GUESTTABLE}}", "{{SHOWTRAIFF}}"
+                }}
+            else:
+                # Remove tariff table if not shown
+                html_content = html_content.replace(
+                    '''<table style="max-width:552px;width:100%;"><tbody><tr><td>Room Charges</td><td style="text-align: right">{{roomcharges}}</td></tr><tr><td>Inclusion</td><td style="text-align: right">{{inclusions}}</td></tr><tr><td>Subtotal</td><td style="text-align: right">{{SUBTOTAL}}</td></tr><tr><td>Tax(gst)</td><td style="text-align: right">{{gst}}</td></tr><tr><td><b>GRAND TOTAL</b></td><td style="text-align: right"><b>{{grandtotal}}</b></td></tr></tbody></table>''',
+                    ""
+                )
 
+        # Remove policies section if no policies
+        if not data.ADDON_POLICES and not data.DEFAULT_POLICES:
+            html_content = html_content.replace(
+                '''<div class="info-section"><h4>Policies:</h4><p>{{ADDON_POLICES}} <br />{{DEFAULT_POLICES}}</p></div>''',
+                ""
+            )
 
-    # Replace placeholders in the HTML content with actual values
-    for placeholder, value in replacements.items():
-        if value:
+        # Replace placeholders
+        for placeholder, value in replacements.items():
             html_content = html_content.replace(placeholder, value)
 
-    # Generate PDF
-    pdf = generate_pdf_from_html(html_content)
-    filename1 = data.FILENAME+".pdf"
-    # Return the PDF as a StreamingResponse
-    
-    return StreamingResponse(pdf, media_type="application/pdf", headers={"Content-Disposition": "inline; filename="+filename1})
+        # Generate PDF
+        pdf = generate_pdf_from_html(html_content)
+        filename = f"{data.FILENAME}.pdf" if data.FILENAME else "booking_confirmation.pdf"
+
+        return StreamingResponse(
+            pdf,
+            media_type="application/pdf",
+            headers={"Content-Disposition": f"inline; filename={filename}"}
+        )
+
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
 
 
 #for vochuer for email
