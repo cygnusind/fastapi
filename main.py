@@ -71,7 +71,8 @@ def generate_pdf_from_html(html_content):
 
 @app.post("/booking-confirmation")
 async def booking_confirmation(data: BookingData):
-    print(data)
+    bodyB = await data.json()
+    print(f"request body[vo]:{bodyB}")
     # Open and read the HTML file
     with open("voucher.html", "r") as file:
         html_content = file.read()
