@@ -158,7 +158,7 @@ async def booking_confirmation(data: BookingData):
                 "{{gstpre}}": data.GST_PRECENT
             }.items()
         }
-
+        print(replacements)
         # Handle Bill to Company case
         if data.PAYMENTMODE == "Bill to Company":
             if data.SHOWTRAIFF == "Yes":
@@ -186,6 +186,10 @@ async def booking_confirmation(data: BookingData):
         for placeholder, value in replacements.items():
             html_content = html_content.replace(placeholder, value)
 
+
+
+        
+           
         # Generate PDF
         pdf = generate_pdf_from_html(html_content)
         filename = f"{data.FILENAME}.pdf" if data.FILENAME else "booking_confirmation.pdf"
