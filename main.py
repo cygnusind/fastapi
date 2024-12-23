@@ -112,6 +112,7 @@ def generate_guest_table(table_data: Dict[str, list]) -> str:
 @app.post("/booking-confirmation")
 async def booking_confirmation(data: BookingData):
     try:
+        print(data.dict()) 
         # Get cached template
         html_content = get_html_template("voucher.html")
         
