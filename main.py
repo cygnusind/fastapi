@@ -149,7 +149,6 @@ async def booking_confirmation(data: BookingData):
                 "{{EMPPHONE}}": data.EMPPHONE,
                 "{{EMPEMAIL}}": data.EMPEMAIL,
                 "{{location}}": data.LOCATIONLINK,
-                "{{GUESTTABLE}}": table,
                 "{{client}}": data.CLIENT,
                 "{{clientgst}}": data.CLIENT_GST,
                 "{{booking_date}}": data.Booking_Date,
