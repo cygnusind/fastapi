@@ -183,10 +183,13 @@ async def booking_confirmation(data: BookingData):
 
         # Replace placeholders
         for placeholder, value in replacements.items():
+            if placeholder in html_content:
+                print(f"Replaced {placeholder} with {value}")
+            else:
+                print(f"Placeholder {placeholder} not found in template.")
+       
             html_content = html_content.replace(placeholder, value)
-        
-
-        print(html_content)
+    
 
 
         
