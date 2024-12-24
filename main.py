@@ -184,7 +184,9 @@ async def booking_confirmation(data: BookingData):
         # Replace placeholders
         for placeholder, value in replacements.items():
             html_content = html_content.replace(placeholder, value)
+        
 
+        print(html_content)
 
 
         
