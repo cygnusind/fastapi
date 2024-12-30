@@ -161,19 +161,22 @@ async def booking_confirmation(data: BookingData):
         print(replacements)
         # Handle Bill to Company case
         if data.PAYMENTMODE == "Bill to Company":
-            if data.SHOWTRAIFF == "Yes":
-                # Keep only relevant fields for Bill to Company with shown tariff
-                replacements = {k: v for k, v in replacements.items() if k in {
-                    "{{roomcharges}}", "{{inclusions}}", "{{gst}}", "{{SUBTOTAL}}",
-                    "{{grandtotal}}", "{{PAYMENTMODE}}", "{{EMPNAME}}", "{{EMPPHONE}}",
-                    "{{EMPEMAIL}}", "{{GUESTTABLE}}", "{{SHOWTRAIFF}}"
-                }}
-            else:
-                # Remove tariff table if not shown
+            if data.SHOWTRAIFF == "":
                 html_content = html_content.replace(
                     '''<table style="max-width:552px;width:100%;"><tbody><tr><td>Room Charges</td><td style="text-align: right">{{roomcharges}}</td></tr><tr><td>Inclusion</td><td style="text-align: right">{{inclusions}}</td></tr><tr><td>Subtotal</td><td style="text-align: right">{{SUBTOTAL}}</td></tr><tr><td>Tax(gst)</td><td style="text-align: right">{{gst}}</td></tr><tr><td><b>GRAND TOTAL</b></td><td style="text-align: right"><b>{{grandtotal}}</b></td></tr></tbody></table>''',
                     ""
                 )
+                # Keep only relevant fields for Bill to Company with shown tariff
+                #replacements = {k: v for k, v in replacements.items() if k in {
+                #   "{{ name }}","{{checkindate}}", "{{checkoutdate}}", "{{dayofcheckin}}","{{dayofcheckout}}","{{no_of_night}}","{{checkintime}}","{{checkouttime}}","{{hotelname}}","{{hoteladdress}}","{{hotelphone}}","{{noofrooms}}","{{noofguest}}","{{roomcharges}}", "{{inclusions}}", "{{gst}}", "{{SUBTOTAL}}","{{grandtotal}}", "{{PAYMENTMODE}}", "{{EMPNAME}}", "{{EMPPHONE}}","{{EMPEMAIL}}", "{{GUESTTABLE}}", "{{SHOWTRAIFF}}", "{{client}}", "{{clientgst}}", "{{booking_date}}", "{{booking_id}}", "{{Brid}}", "{{gstpre}}",
+                #}}
+            else:
+                print("Bill to Company with shown tariff")
+                # Remove tariff table if not shown
+                #html_content = html_content.replace(
+                #    '''<table style="max-width:552px;width:100%;"><tbody><tr><td>Room Charges</td><td style="text-align: right">{{roomcharges}}</td></tr><tr><td>Inclusion</td><td style="text-align: right">{{inclusions}}</td></tr><tr><td>Subtotal</td><td style="text-align: right">{{SUBTOTAL}}</td></tr><tr><td>Tax(gst)</td><td style="text-align: right">{{gst}}</td></tr><tr><td><b>GRAND TOTAL</b></td><td style="text-align: right"><b>{{grandtotal}}</b></td></tr></tbody></table>''',
+                #    ""
+                #)
 
         # Remove policies section if no policies
         if not data.ADDON_POLICES and not data.DEFAULT_POLICES:
