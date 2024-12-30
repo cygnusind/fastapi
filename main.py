@@ -145,6 +145,7 @@ async def booking_confirmation(data: BookingData):
                 "{{ADDON_POLICES}}": data.ADDON_POLICES,
                 "{{DEFAULT_POLICES}}": data.DEFAULT_POLICES,
                 "{{CANCELLATIONPOLICY}}": data.CANCELLATIONPOLICY,
+                "{{GUESTTABLE}}": table,
                 "{{EMPNAME}}": data.EMPNAME,
                 "{{EMPPHONE}}": data.EMPPHONE,
                 "{{EMPEMAIL}}": data.EMPEMAIL,
