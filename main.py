@@ -112,7 +112,7 @@ def generate_guest_table(table_data: Dict[str, list]) -> str:
 @app.post("/booking-confirmation")
 async def booking_confirmation(data: BookingData):
     try:
-        print(data.dict()) 
+        # print(data.dict()) 
         # Get cached template
         html_content = get_html_template("voucher.html")
         
@@ -158,7 +158,9 @@ async def booking_confirmation(data: BookingData):
                 "{{gstpre}}": data.GST_PRECENT
             }.items()
         }
-        print(replacements)
+       
+       
+       
         # Handle Bill to Company case
         if data.PAYMENTMODE == "Bill to Company":
             if data.SHOWTRAIFF == "":
@@ -187,11 +189,6 @@ async def booking_confirmation(data: BookingData):
 
         # Replace placeholders
         for placeholder, value in replacements.items():
-            if placeholder in html_content:
-                print(f"Replaced {placeholder} with {value}")
-            else:
-                print(f"Placeholder {placeholder} not found in template.")
-       
             html_content = html_content.replace(placeholder, value)
     
 
