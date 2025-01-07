@@ -162,7 +162,7 @@ async def booking_confirmation(data: BookingData):
        
        
         # Handle Bill to Company case
-        if data.PAYMENTMODE == "Bill to Company":
+        if data.PAYMENTMODE == "Bill to Company" or data.PAYMENTMODE == "Pay at Check-In"or data.PAYMENTMODE == "Pay at check Out" or data.PAYMENTMODE == "Prepaid":
             if data.SHOWTRAIFF == "No":
                 html_content = html_content.replace(
                     '''<table style="max-width:552px;width:100%;"><tbody><tr><td>Room Charges</td><td style="text-align: right">{{roomcharges}}</td></tr><tr><td>Inclusion</td><td style="text-align: right">{{inclusions}}</td></tr><tr><td>Subtotal</td><td style="text-align: right">{{SUBTOTAL}}</td></tr><tr><td>Tax(gst)</td><td style="text-align: right">{{gst}}</td></tr><tr><td><b>GRAND TOTAL</b></td><td style="text-align: right"><b>{{grandtotal}}</b></td></tr></tbody></table>''',
@@ -328,23 +328,18 @@ async def booking_confirmation1(data: BookingDataMail):
     
     }
 
-    if data.PAYMENTMODE == "Bill to Company":
-        if data.SHOWTRAIFF == "Yes":
-            replacements = {
-                "{{roomcharges}}": data.ROOM_CHARGES,
-                "{{inclusions}}": data.INCLUSIONS,
-                "{{gst}}": data.GST_VALUE,
-                "{{SUBTOTAL}}": data.SUBTOTAL,
-                "{{grandtotal}}": data.AMT_TO_BE_PAID,
-                "{{PAYMENTMODE}}": data.PAYMENTMODE,
-                "{{EMPNAME}}": data.EMPNAME,
-                "{{EMPPHONE}}": data.EMPPHONE,
-                "{{EMPEMAIL}}": data.EMPEMAIL,
-                "{{GUESTTABLE}}": table,
-                "{{SHOWTRAIFF}}": data.SHOWTRAIFF
-            }
-        else: 
-            html_content = html_content.replace("""<table style="border-collapse:collapse; width:100%" width="100%"><tbody><tr><td style="padding:10px 0; word-wrap:break-word">Room Charges</td><td style="padding:10px 0; word-wrap:break-word; text-align:right" align="right">{{roomcharges}}</td></tr><tr><td style="padding:10px 0; word-wrap:break-word">Inclusion IX</td><td style="padding:10px 0; word-wrap:break-word; text-align:right" align="right">{{inclusions}}</td></tr><tr><td style="padding:10px 0; word-wrap:break-word">Subtotal</td><td style="padding:10px 0; word-wrap:break-word; text-align:right" align="right">{{SUBTOTAL}}</td></tr><tr><td style="padding:10px 0; word-wrap:break-word">Tax( {{GST_PRECENT}} )</td><td style="padding:10px 0; word-wrap:break-word; text-align:right" align="right">{{gst}}</td></tr><tr><td style="padding:10px 0; word-wrap:break-word"><b>GRAND TOTAL</b></td><td style="padding:10px 0; word-wrap:break-word; text-align:right" align="right"><b>{{grandtotal}}</b></td></tr></tbody></table>""", "")
+    if data.PAYMENTMODE == "Bill to Company" or data.PAYMENTMODE == "Pay at Check-In"or data.PAYMENTMODE == "Pay at check Out" or data.PAYMENTMODE == "Prepaid":
+            if data.SHOWTRAIFF == "No":
+                html_content = html_content.replace(
+                    '''<table style="max-width:552px;width:100%;"><tbody><tr><td>Room Charges</td><td style="text-align: right">{{roomcharges}}</td></tr><tr><td>Inclusion</td><td style="text-align: right">{{inclusions}}</td></tr><tr><td>Subtotal</td><td style="text-align: right">{{SUBTOTAL}}</td></tr><tr><td>Tax(gst)</td><td style="text-align: right">{{gst}}</td></tr><tr><td><b>GRAND TOTAL</b></td><td style="text-align: right"><b>{{grandtotal}}</b></td></tr></tbody></table>''',
+                    ""
+                )
+                # Keep only relevant fields for Bill to Company with shown tariff
+                #replacements = {k: v for k, v in replacements.items() if k in {
+                #   "{{ name }}","{{checkindate}}", "{{checkoutdate}}", "{{dayofcheckin}}","{{dayofcheckout}}","{{no_of_night}}","{{checkintime}}","{{checkouttime}}","{{hotelname}}","{{hoteladdress}}","{{hotelphone}}","{{noofrooms}}","{{noofguest}}","{{roomcharges}}", "{{inclusions}}", "{{gst}}", "{{SUBTOTAL}}","{{grandtotal}}", "{{PAYMENTMODE}}", "{{EMPNAME}}", "{{EMPPHONE}}","{{EMPEMAIL}}", "{{GUESTTABLE}}", "{{SHOWTRAIFF}}", "{{client}}", "{{clientgst}}", "{{booking_date}}", "{{booking_id}}", "{{Brid}}", "{{gstpre}}",
+                #}}
+            else:
+                print("Bill to Company with shown tariff")
        
         
 
