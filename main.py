@@ -53,6 +53,7 @@ class BookingData(BaseModel):
     Booking_Id: Optional[str] = None
     Brid: Optional[str] = None
     GST_PRECENT: Optional[str] = None
+    NEARBY:Optional[str] = None
 
     class Config:
         schema_extra = {
@@ -155,7 +156,8 @@ async def booking_confirmation(data: BookingData):
                 "{{booking_date}}": data.Booking_Date,
                 "{{booking_id}}": data.Booking_Id,
                 "{{Brid}}": data.Brid,
-                "{{gstpre}}": data.GST_PRECENT
+                "{{gstpre}}": data.GST_PRECENT,
+                "{{NEARBY}}" : data.NEARBY
             }.items()
         }
        
