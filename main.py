@@ -355,6 +355,103 @@ async def booking_confirmation1(data: BookingDataMail):
     return HTMLResponse(content=html_content, status_code=200)
 
 
+@app.post("/booking-confirmation-mail-test")
+async def booking_confirmation2(data: BookingDataMail):
+    # Open and read the HTML file
+    with open("test_mail.html", "r") as file:
+        html_content = file.read()
+
+    # HTML table structure
+    table = """<table style="border-collapse: collapse; width: 100%; border: 0px solid #dddddd; font-size:16px;">
+        <tr>
+        <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">S.no</th>
+        <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">Guest Name</th>
+        <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">Room Type</th>
+        <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">Occupancy</th>
+        <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">Meal Plan</th>
+        </tr>"""
+
+    num_rows = len(data.TABLEDATA["GUESTNAME"])
+
+    # Create a new row for each guest
+    for i in range(num_rows):
+        s_no = i + 1
+        guest_name = data.TABLEDATA.get("GUESTNAME", [""])[i]
+        room_type = data.TABLEDATA.get("ROOMTYPE", [""])[i]
+        occupancy = data.TABLEDATA.get("OCC", [""])[i]
+        meal_plan = data.TABLEDATA.get("MEALPLAN", [""])[i]
+        new_row = f"""<tr>
+            <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{s_no}</td>
+            <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{guest_name}</td>
+            <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{room_type}</td>
+            <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{occupancy}</td>
+            <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{meal_plan}</td>
+        </tr>"""
+        table += new_row
+
+    # Close the table
+    table += "</table>"
+
+    replacements = {
+        "{{ name }}": data.NAME,
+        "{{checkindate}}": data.CHECKIN,
+        "{{checkoutdate}}": data.CHECKOUT,
+        "{{dayofcheckin}}": data.DAYOF_CHECKIN,
+        "{{dayofcheckout}}": data.DAYOF_CHECKOUT11,
+        "{{no_of_night}}": data.NO_OF_NIGHTS,
+        "{{checkintime}}": data.CHECK_IN_TIME,
+        "{{checkouttime}}": data.CHECK_OUT_TIME,
+        "{{hotelname}}": data.HOTELNAME,
+        "{{hoteladdress}}": data.HOTELADDRESS,
+        "{{hotelphone}}": str(data.HOTELPHONE) if data.HOTELPHONE else "",
+        "{{noofrooms}}": data.ROOMCOUNT,
+        "{{noofguest}}": data.GUESTCOUNT,
+        "{{roomcharges}}": data.ROOM_CHARGES,
+        "{{inclusions}}": data.INCLUSIONS,
+        "{{gst}}": data.GST_VALUE,
+        "{{SUBTOTAL}}": data.SUBTOTAL,
+        "{{grandtotal}}": data.AMT_TO_BE_PAID,
+        "{{PAYMENTMODE}}": data.PAYMENTMODE,
+        "{{ADDON_POLICES}}": data.ADDON_POLICES,
+        "{{DEFAULT_POLICES}}": data.DEFAULT_POLICES,
+        "{{CANCELLATIONPOLICY}}": data.CANCELLATIONPOLICY,
+        "{{EMPNAME}}": data.EMPNAME,
+        "{{EMPPHONE}}": data.EMPPHONE,
+        "{{EMPEMAIL}}": data.EMPEMAIL,
+        "{{location}}": data.LOCATIONLINK,
+        "{{GUESTTABLE}}": table,
+        "{{client}}": data.CLIENT,
+        "{{clientgst}}": data.CLIENT_GST,
+        "{{booking_date}}": data.Booking_Date,
+        "{{booking_id}}": data.Booking_Id,
+        "{{BRID}}":data.Brid,
+        "{{GST_PRECENT}}":data.GST_PRECENT
+    
+    }
+
+    if data.PAYMENTMODE == "Bill to Company" or data.PAYMENTMODE == "Pay at Check-In"or data.PAYMENTMODE == "Pay at check Out" or data.PAYMENTMODE == "Prepaid":
+            if data.SHOWTRAIFF == "No":
+                html_content = html_content.replace(
+                    '''<table style="max-width:552px;width:100%;"><tbody><tr><td>Room Charges</td><td style="text-align: right">{{roomcharges}}</td></tr><tr><td>Inclusion</td><td style="text-align: right">{{inclusions}}</td></tr><tr><td>Subtotal</td><td style="text-align: right">{{SUBTOTAL}}</td></tr><tr><td>Tax(gst)</td><td style="text-align: right">{{gst}}</td></tr><tr><td><b>GRAND TOTAL</b></td><td style="text-align: right"><b>{{grandtotal}}</b></td></tr></tbody></table>''',
+                    ""
+                )
+                # Keep only relevant fields for Bill to Company with shown tariff
+                #replacements = {k: v for k, v in replacements.items() if k in {
+                #   "{{ name }}","{{checkindate}}", "{{checkoutdate}}", "{{dayofcheckin}}","{{dayofcheckout}}","{{no_of_night}}","{{checkintime}}","{{checkouttime}}","{{hotelname}}","{{hoteladdress}}","{{hotelphone}}","{{noofrooms}}","{{noofguest}}","{{roomcharges}}", "{{inclusions}}", "{{gst}}", "{{SUBTOTAL}}","{{grandtotal}}", "{{PAYMENTMODE}}", "{{EMPNAME}}", "{{EMPPHONE}}","{{EMPEMAIL}}", "{{GUESTTABLE}}", "{{SHOWTRAIFF}}", "{{client}}", "{{clientgst}}", "{{booking_date}}", "{{booking_id}}", "{{Brid}}", "{{gstpre}}",
+                #}}
+            else:
+                print("Bill to Company with shown tariff")
+       
+        
+
+    # Replace placeholders in the HTML content with actual values
+    for placeholder, value in replacements.items():
+        if value:
+            html_content = html_content.replace(placeholder, value)
+
+   
+    
+    return HTMLResponse(content=html_content, status_code=200)
 
 
 
