@@ -515,6 +515,27 @@ async def get_prop(request: Request):
         print(f"Unexpected error: {e}")
         return {"error": "Unexpected error occurred"}
 
+@app.post("/getpropnew")
+async def get_prop_new(request: Request):
+    try:
+        if not await request.body():
+            return {"error": "Request body is empty"}
+        body = await request.json()
+        print(f"Request body: {body}")
+        # Make the request to the Bakuun API
+        async with httpx.AsyncClient() as client:
+            response = await client.post(
+                "https://wsb.devbakuun.cloud/v1/getproperty/test/RDK64/139658",
+                headers={"Content-Type": "application/json"},
+                json=body
+            )
+
+        # Return the response from the Bakuun API
+        return response.json()
+    except Exception as e:
+        print(f"Unexpected error: {e}")
+        return {"error": "Unexpected error occurred"}
+
 @app.post("/mps")
 async def mps_check(request: Request):
     try:
