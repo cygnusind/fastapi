@@ -657,6 +657,27 @@ async def sps(request: Request):
     except Exception as e:
         print(f"Unexpected error: {e}")
         return {"error": "Unexpected error occurred"}
+
+@app.post("/spsnew")
+async def spsnew(request: Request):
+    try:
+        if not await request.body():
+            return {"error": "Request body is empty"}
+        body = await request.json()
+        print(f"Request body: {body}")
+        #return {"Testresponse": "Test"}
+        async with httpx.AsyncClient() as client:
+            response = await client.post(
+                "https://wspull.devbakuun.cloud/v1/spsoccupancy/test/RDK64/647936",
+                headers={"Content-Type": "application/json"},
+                json=body
+            )
+
+        # Return the response from the external API
+        return response.json()
+    except Exception as e:
+        print(f"Unexpected error: {e}")
+        return {"error": "Unexpected error occurred"}
     
 @app.post("/sps/{token}/results")
 async def sps_token(token : str,request: Request):
