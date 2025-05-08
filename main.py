@@ -326,7 +326,7 @@ async def booking_confirmation1(data: BookingDataMail):
             "{{client}}": data.CLIENT,
             "{{clientgst}}": data.CLIENT_GST,
             "{{booking_date}}": data.Booking_Date,
-            "{{booking_id}}": data.Booking_Id,
+            "{{booking_id}}": if data.Booking_Id else " ",
             "{{BRID}}":data.Brid,
             "{{GST_PRECENT}}":data.GST_PRECENT
         }.items()
