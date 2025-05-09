@@ -659,7 +659,7 @@ async def sps(request: Request):
     
 @app.post("/sps/{token}/results")
 async def sps_token(token : str,request: Request):
-    api_url = "https://wspull.devbakuun.cloud/v1/RDK64/spsnight/" + token +"/results"
+    api_url = "https://wspull.devbakuun.cloud/v1/RDK64/spsoccupancy/" + token +"/results"
     print(f"API URL: {api_url}")
     try:
         if not await request.body():
