@@ -546,7 +546,7 @@ async def mps_check(request: Request):
         # Make the request to the Bakuun API
         async with httpx.AsyncClient() as client:
             response = await client.post(
-                "https://pull.bakuun.com/RDK220/mpsnight",
+                "https://wspull.devbakuun.cloud/v1/mpsoccupancy/test/RDK64/615890",
                 headers={"Content-Type": "application/json"},
                 json=body
             )
