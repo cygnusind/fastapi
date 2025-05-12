@@ -643,6 +643,27 @@ async def booking(request: Request):
         print(f"Unexpected error: {e}")
         return {"error": "Unexpected error occurred"}
 
+@app.post("/bookingnew")
+async def booking_new(request: Request):
+    try:
+        if not await request.body():
+            return {"error": "Request body is empty"}
+        body = await request.json()
+        print(f"Request body: {body}")
+        #return {"Testresponse": "Test"}
+        async with httpx.AsyncClient() as client:
+            response = await client.post(
+                "https://wspull.devbakuun.cloud/v1/booking/test/RDK64/965220",
+                headers={"Content-Type": "application/json"},
+                json=body
+            )
+
+        # Return the response from the external API
+        return response.json()
+    except Exception as e:
+        print(f"Unexpected error: {e}")
+        return {"error": "Unexpected error occurred"}
+
 
 @app.post("/ackbooking ")
 async def ackbooking(request: Request):
