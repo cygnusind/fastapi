@@ -503,7 +503,7 @@ async def get_prop(request: Request):
         # Make the request to the Bakuun API
         async with httpx.AsyncClient() as client:
             response = await client.post(
-                "https://api.bakuun.com/ratedockAPI/RDK220/getproperty",
+                "https://wsb.devbakuun.cloud/v2/getproperty/test/RDK64/139658",
                 headers={"Content-Type": "application/json"},
                 json=body
             )
@@ -514,26 +514,6 @@ async def get_prop(request: Request):
         print(f"Unexpected error: {e}")
         return {"error": "Unexpected error occurred"}
 
-@app.post("/getpropnew")
-async def get_prop_new(request: Request):
-    try:
-        if not await request.body():
-            return {"error": "Request body is empty"}
-        body = await request.json()
-        print(f"Request body: {body}")
-        # Make the request to the Bakuun API
-        async with httpx.AsyncClient() as client:
-            response = await client.post(
-                "https://wsb.devbakuun.cloud/v1/getproperty/test/RDK64/139658",
-                headers={"Content-Type": "application/json"},
-                json=body
-            )
-
-        # Return the response from the Bakuun API
-        return response.json()
-    except Exception as e:
-        print(f"Unexpected error: {e}")
-        return {"error": "Unexpected error occurred"}
 
 @app.post("/mps")
 async def mps_check(request: Request):
@@ -560,60 +540,11 @@ async def mps_check(request: Request):
          return {"error": "Unexpected error occurred"}
 
 
-@app.post("/mpsoccupancy")
-async def mps_occupancy(request: Request):
-    try:
-        if not await request.body():
-            return {"error": "Request body is empty"}
-        body = await request.json()
-        print(f"Request body: {body}")
-        #return {"Testresponse": "Test"}
-        # Make the request to the Bakuun API
-        async with httpx.AsyncClient() as client:
-            response = await client.post(
-                "https://pull.bakuun.com/RDK220/mpsoccupancy",
-                headers={"Content-Type": "application/json"},
-                json=body
-            )
-         # Print raw response text for debugging
-        raw_response_text = response.text
-        print(f"Raw response text: {raw_response_text}")
-        # Return the response from the external API
-        return response.json()
-    except Exception as e:
-         print(f"Unexpected error: {e}")
-         return {"error": "Unexpected error occurred"}
-
-
-
-#mps seacrh by city
-@app.post("/mpscity")
-async def mpsc(request: Request):
-    try:
-        if not await request.body():
-            return {"error": "Request body is empty"}
-        body = await request.json()
-        print(f"Request body: {body}")
-        #return {"Testresponse": "Test"}
-        async with httpx.AsyncClient() as client:
-            response = await client.post(
-                "https://pull.bakuun.com/RDK220/mpsnight",
-                headers={"Content-Type": "application/json"},
-                json=body
-            )
-
-        # Return the response from the external API
-        return response.json()
-    except Exception as e:
-        print(f"Unexpected error: {e}")
-        return {"error": "Unexpected error occurred"}
-
-
-#mps seacrch results
-@app.post("/mpsresult/{token}/results")
+#mps search results
+@app.post("/mpsoccupancy/{token}/results")
 async def mps_search(token : str,request: Request):
-        
-    api_url ="https://pull.bakuun.com/RDK220/mpsnight/"+token+"/results"
+
+    api_url ="https://wspull.devbakuun.cloud/v1/RDK64/mpsoccupancy/"+token+"/results"
     try:
         if not await request.body():
             return {"error": "Request body is empty"}
@@ -657,7 +588,7 @@ async def sps(request: Request):
         print(f"Unexpected error: {e}")
         return {"error": "Unexpected error occurred"}
     
-@app.post("/sps/{token}/results")
+@app.post("/spsoccupancy/{token}/results")
 async def sps_token(token : str,request: Request):
     api_url = "https://wspull.devbakuun.cloud/v1/RDK64/spsoccupancy/" + token +"/results"
     print(f"API URL: {api_url}")
