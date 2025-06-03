@@ -364,15 +364,13 @@ async def booking_confirmation2(data: BookingDataMail):
     # HTML table structure
     table = ""
     if data.typeofbooking == "Bulk":
+        # bulkbooking 
         table = """<table style="border-collapse: collapse; width: 100%; border: 0px solid #dddddd; font-size:16px;">
         <tr>
         <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">S.no</th>
         <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">Check In & Out</th>
+        <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">Descripation</th>
         <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">Guest Name</th>
-        <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">Room Type</th>
-        <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">Occupancy</th>
-        <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">Meal Plan</th>
-        <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">Qty</th>
         </tr>"""
 
         num_rows = len(data.TABLEDATA["GUESTNAME"])
@@ -391,11 +389,9 @@ async def booking_confirmation2(data: BookingDataMail):
             new_row = f"""<tr>
                 <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{s_no}</td>
                 <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{checkin} to {checkout}</td>
+                <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{room_type}-{occupancy}-{meal_plan} x {qty}</td>
                 <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{guest_name}</td>
-                <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{room_type}</td>
-                <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{occupancy}</td>
-                <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{meal_plan}</td>
-                <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{qty}</td>
+                
             </tr>"""
             table += new_row
 
