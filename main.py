@@ -247,6 +247,7 @@ class BookingDataMail(BaseModel):
     SHOWTRAIFF: str = None
     CLIENT_GST:str = None
     FILENAME:str = None
+    typeofbooking :str = None
     Booking_Date:str = None
     Booking_Id:Optional[str] = None
     Brid:str=None
