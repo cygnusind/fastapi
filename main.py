@@ -361,7 +361,48 @@ async def booking_confirmation2(data: BookingDataMail):
         html_content = file.read()
 
     # HTML table structure
-    table = """<table style="border-collapse: collapse; width: 100%; border: 0px solid #dddddd; font-size:16px;">
+    table = ""
+    if data.typeofbooking == "Bulk":
+        table = """<table style="border-collapse: collapse; width: 100%; border: 0px solid #dddddd; font-size:16px;">
+        <tr>
+        <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">S.no</th>
+        <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">Check In & Out</th>
+        <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">Guest Name</th>
+        <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">Room Type</th>
+        <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">Occupancy</th>
+        <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">Meal Plan</th>
+        <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">Qty</th>
+        </tr>"""
+
+        num_rows = len(data.TABLEDATA["GUESTNAME"])
+
+        # Create a new row for each guest
+        for i in range(num_rows):
+            s_no = i + 1
+            checkin = data.TABLEDATA.get("CHECKIN", [""])[i]
+            checkout = data.TABLEDATA.get("CHECKOUT", [""])[i]
+            qty = data.TABLEDATA.get("QTY", [""])[i]
+            guest_name = data.TABLEDATA.get("GUESTNAME", [""])[i]
+            room_type = data.TABLEDATA.get("ROOMTYPE", [""])[i]
+            occupancy = data.TABLEDATA.get("OCC", [""])[i]
+            meal_plan = data.TABLEDATA.get("MEALPLAN", [""])[i]
+
+            new_row = f"""<tr>
+                <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{s_no}</td>
+                <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{checkin} to {checkout}</td>
+                <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{guest_name}</td>
+                <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{room_type}</td>
+                <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{occupancy}</td>
+                <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{meal_plan}</td>
+                <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{qty}</td>
+            </tr>"""
+            table += new_row
+
+        # Close the table
+        table += "</table>"
+
+    else:
+        table = """<table style="border-collapse: collapse; width: 100%; border: 0px solid #dddddd; font-size:16px;">
         <tr>
         <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">S.no</th>
         <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">Guest Name</th>
@@ -370,26 +411,27 @@ async def booking_confirmation2(data: BookingDataMail):
         <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">Meal Plan</th>
         </tr>"""
 
-    num_rows = len(data.TABLEDATA["GUESTNAME"])
+        num_rows = len(data.TABLEDATA["GUESTNAME"])
 
-    # Create a new row for each guest
-    for i in range(num_rows):
-        s_no = i + 1
-        guest_name = data.TABLEDATA.get("GUESTNAME", [""])[i]
-        room_type = data.TABLEDATA.get("ROOMTYPE", [""])[i]
-        occupancy = data.TABLEDATA.get("OCC", [""])[i]
-        meal_plan = data.TABLEDATA.get("MEALPLAN", [""])[i]
-        new_row = f"""<tr>
-            <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{s_no}</td>
-            <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{guest_name}</td>
-            <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{room_type}</td>
-            <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{occupancy}</td>
-            <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{meal_plan}</td>
-        </tr>"""
-        table += new_row
+        # Create a new row for each guest
+        for i in range(num_rows):
+            s_no = i + 1
+            guest_name = data.TABLEDATA.get("GUESTNAME", [""])[i]
+            room_type = data.TABLEDATA.get("ROOMTYPE", [""])[i]
+            occupancy = data.TABLEDATA.get("OCC", [""])[i]
+            meal_plan = data.TABLEDATA.get("MEALPLAN", [""])[i]
 
-    # Close the table
-    table += "</table>"
+            new_row = f"""<tr>
+                <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{s_no}</td>
+                <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{guest_name}</td>
+                <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{room_type}</td>
+                <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{occupancy}</td>
+                <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{meal_plan}</td>
+            </tr>"""
+            table += new_row
+
+        # Close the table
+        table += "</table>"
 
     replacements = {
         "{{ name }}": data.NAME,
@@ -423,35 +465,25 @@ async def booking_confirmation2(data: BookingDataMail):
         "{{clientgst}}": data.CLIENT_GST,
         "{{booking_date}}": data.Booking_Date,
         "{{booking_id}}": data.Booking_Id,
-        "{{BRID}}":data.Brid,
-        "{{GST_PRECENT}}":data.GST_PRECENT
-    
+        "{{BRID}}": data.Brid,
+        "{{GST_PRECENT}}": data.GST_PRECENT
     }
 
-    if data.PAYMENTMODE == "Bill to Company" or data.PAYMENTMODE == "Pay at Check-In"or data.PAYMENTMODE == "Pay at check Out" or data.PAYMENTMODE == "Prepaid":
-            if data.SHOWTRAIFF == "No":
-                html_content = html_content.replace(
-                    '''<table style="max-width:552px;width:100%;"><tbody><tr><td>Room Charges</td><td style="text-align: right">{{roomcharges}}</td></tr><tr><td>Inclusion</td><td style="text-align: right">{{inclusions}}</td></tr><tr><td>Subtotal</td><td style="text-align: right">{{SUBTOTAL}}</td></tr><tr><td>Tax(gst)</td><td style="text-align: right">{{gst}}</td></tr><tr><td><b>GRAND TOTAL</b></td><td style="text-align: right"><b>{{grandtotal}}</b></td></tr></tbody></table>''',
-                    ""
-                )
-                # Keep only relevant fields for Bill to Company with shown tariff
-                #replacements = {k: v for k, v in replacements.items() if k in {
-                #   "{{ name }}","{{checkindate}}", "{{checkoutdate}}", "{{dayofcheckin}}","{{dayofcheckout}}","{{no_of_night}}","{{checkintime}}","{{checkouttime}}","{{hotelname}}","{{hoteladdress}}","{{hotelphone}}","{{noofrooms}}","{{noofguest}}","{{roomcharges}}", "{{inclusions}}", "{{gst}}", "{{SUBTOTAL}}","{{grandtotal}}", "{{PAYMENTMODE}}", "{{EMPNAME}}", "{{EMPPHONE}}","{{EMPEMAIL}}", "{{GUESTTABLE}}", "{{SHOWTRAIFF}}", "{{client}}", "{{clientgst}}", "{{booking_date}}", "{{booking_id}}", "{{Brid}}", "{{gstpre}}",
-                #}}
-            else:
-                print("Bill to Company with shown tariff")
-       
-        
+    if data.PAYMENTMODE in ["Bill to Company", "Pay at Check-In", "Pay at check Out", "Prepaid"]:
+        if data.SHOWTRAIFF == "No":
+            html_content = html_content.replace(
+                '''<table style="max-width:552px;width:100%;"><tbody><tr><td>Room Charges</td><td style="text-align: right">{{roomcharges}}</td></tr><tr><td>Inclusion</td><td style="text-align: right">{{inclusions}}</td></tr><tr><td>Subtotal</td><td style="text-align: right">{{SUBTOTAL}}</td></tr><tr><td>Tax(gst)</td><td style="text-align: right">{{gst}}</td></tr><tr><td><b>GRAND TOTAL</b></td><td style="text-align: right"><b>{{grandtotal}}</b></td></tr></tbody></table>''',
+                ""
+            )
+        else:
+            print("Bill to Company with shown tariff")
 
-    # Replace placeholders in the HTML content with actual values
+    # Replace placeholders
     for placeholder, value in replacements.items():
         if value:
             html_content = html_content.replace(placeholder, value)
 
-   
-    
     return HTMLResponse(content=html_content, status_code=200)
-
 
 
 @app.get("/")
