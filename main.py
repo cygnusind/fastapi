@@ -358,12 +358,16 @@ async def booking_confirmation1(data: BookingDataMail):
 @app.post("/booking-confirmation-mail-test")
 async def booking_confirmation2(data: BookingDataMail):
     # Open and read the HTML file
-    with open("test_mail.html", "r") as file:
+    with open("voucherMail.html", "r") as file:
         html_content = file.read()
 
     # HTML table structure
     table = ""
     if data.typeofbooking == "Bulk":
+         # Open and read the HTML file
+     with open("BulkVocuherMail.html", "r") as file:
+        html_content = file.read()
+        
         # bulkbooking 
         table = """<table style="border-collapse: collapse; width: 100%; border: 0px solid #dddddd; font-size:16px;">
         <tr>
@@ -399,6 +403,9 @@ async def booking_confirmation2(data: BookingDataMail):
         table += "</table>"
 
     else:
+         # Open and read the HTML file
+     with open("voucherMail.html", "r") as file:
+        html_content = file.read()
         table = """<table style="border-collapse: collapse; width: 100%; border: 0px solid #dddddd; font-size:16px;">
         <tr>
         <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">S.no</th>
@@ -469,12 +476,20 @@ async def booking_confirmation2(data: BookingDataMail):
     if data.PAYMENTMODE in ["Bill to Company", "Pay at Check-In", "Pay at check Out", "Prepaid"]:
         if data.SHOWTRAIFF == "No":
             html_content = html_content.replace(
-                '''<table style="max-width:552px;width:100%;"><tbody><tr><td>Room Charges</td><td style="text-align: right">{{roomcharges}}</td></tr><tr><td>Inclusion</td><td style="text-align: right">{{inclusions}}</td></tr><tr><td>Subtotal</td><td style="text-align: right">{{SUBTOTAL}}</td></tr><tr><td>Tax(gst)</td><td style="text-align: right">{{gst}}</td></tr><tr><td><b>GRAND TOTAL</b></td><td style="text-align: right"><b>{{grandtotal}}</b></td></tr></tbody></table>''',
+                ''' <table style="border-collapse:collapse; width:100%" width="100%"><tbody><tr><td style="padding:10px 0; word-wrap:break-word">Room Charges</td><td style="padding:10px 0; word-wrap:break-word; text-align:right" align="right">{{roomcharges}}</td></tr><tr><td style="padding:10px 0; word-wrap:break-word">Inclusion IX</td><td style="padding:10px 0; word-wrap:break-word; text-align:right" align="right">{{inclusions}}</td></tr><tr><td style="padding:10px 0; word-wrap:break-word">Subtotal</td><td style="padding:10px 0; word-wrap:break-word; text-align:right" align="right">{{SUBTOTAL}}</td></tr><tr><td style="padding:10px 0; word-wrap:break-word">Tax( {{GST_PRECENT}} )</td><td style="padding:10px 0; word-wrap:break-word; text-align:right" align="right">{{gst}}</td></tr><tr><td style="padding:10px 0; word-wrap:break-word"><b>GRAND TOTAL</b></td><td style="padding:10px 0; word-wrap:break-word; text-align:right" align="right"><b>{{grandtotal}}</b></td></tr></tbody></table>''',
                 ""
             )
         else:
             print("Bill to Company with shown tariff")
-
+    if data.PAYMENTMODE in ["Pay at Check-In", "Pay at check Out", "Prepaid"]:
+          html_content = html_content.replace(
+                '''GRAND TOTAL''',
+                "Total Amount to pay"
+            )
+          html_content = html_content.replace(
+                '''<p style="font-size:x-small; margin-bottom:10px; margin-top:0"><small>*Any extra expenses/meals apart from Room rent will be payable at the hotel</small></p>''',
+                ""
+            )
     # Replace placeholders
     for placeholder, value in replacements.items():
         if value:
