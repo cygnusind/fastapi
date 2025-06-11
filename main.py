@@ -429,50 +429,50 @@ def generate_guest_table1(table_data: Dict[str, list]) -> str:
     if not table_data or "GUESTNAME" not in table_data:
         return ""
 
-    if data.typeofbooking == "Bulk":
-        header = '''<table style="border-collapse: collapse; width: 100%; border: 0px solid #dddddd; font-size:16px;">
-        <tr>
-        <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">S.no</th>
-        <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">Guest Name</th>
-        <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">Room Type</th>
-        <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">Occupancy</th>
-        <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">Meal Plan</th>
-        </tr>'''
-        rows = []
-        for i, guest_name in enumerate(table_data["GUESTNAME"], 1):
-            row = f'''<tr>
-                <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{i}</td>
-                <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{guest_name}</td>
-                <td style="border: 0px solid #dddddd; text-align:center; padding: 8px;">{table_data.get("ROOMTYPE", [""])[i-1]}</td>
-                <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{table_data.get("OCC", [""])[i-1]}</td>
-                <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{table_data.get("MEALPLAN", [""])[i-1]}</td>
-            </tr>'''
-            rows.append(row)
-        return header + "".join(rows) + "</table>"
+    # if data.typeofbooking == "Bulk":
+    #     header = '''<table style="border-collapse: collapse; width: 100%; border: 0px solid #dddddd; font-size:16px;">
+    #     <tr>
+    #     <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">S.no</th>
+    #     <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">Guest Name</th>
+    #     <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">Room Type</th>
+    #     <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">Occupancy</th>
+    #     <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">Meal Plan</th>
+    #     </tr>'''
+    #     rows = []
+    #     for i, guest_name in enumerate(table_data["GUESTNAME"], 1):
+    #         row = f'''<tr>
+    #             <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{i}</td>
+    #             <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{guest_name}</td>
+    #             <td style="border: 0px solid #dddddd; text-align:center; padding: 8px;">{table_data.get("ROOMTYPE", [""])[i-1]}</td>
+    #             <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{table_data.get("OCC", [""])[i-1]}</td>
+    #             <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{table_data.get("MEALPLAN", [""])[i-1]}</td>
+    #         </tr>'''
+    #         rows.append(row)
+    #     return header + "".join(rows) + "</table>"
 
-    else:
-        header = '''<table style="border-collapse: collapse; width: 100%; border: 0px solid #dddddd; font-size:16px;">
-        <tr>
-        <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">S.no</th>
-        <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">Guest Name</th>
-        <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">Check In & Out</th>
-        <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">Descripation</th>
-        <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">Nights</th>
-        </tr>'''
-        rows = []
-        for i, guest_name in enumerate(table_data["GUESTNAME"], 1):
-            row = f'''<tr>
-                <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{i}</td>
-                <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{guest_name}</td>
-                <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{table_data.get("CHECKIN", [""])[i-1]} - {table_data.get("CHECKOUT", [""])[i-1]}</td>
-                <td style="border: 0px solid #dddddd; text-align:center; padding: 8px;">{table_data.get("ROOMTYPE", [""])[i-1]}-{table_data.get("OCC", [""])[i-1]}-{table_data.get("MEALPLAN", [""])[i-1]}{table_data.get("QTY", [""])[i-1]}</td>
-                <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{table_data.get("NIGHTS", [""])[i-1]}</td>
-            </tr>'''
-            rows.append(row)
-        return header + "".join(rows) + "</table>"
+    # else:
+    #     header = '''<table style="border-collapse: collapse; width: 100%; border: 0px solid #dddddd; font-size:16px;">
+    #     <tr>
+    #     <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">S.no</th>
+    #     <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">Guest Name</th>
+    #     <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">Check In & Out</th>
+    #     <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">Descripation</th>
+    #     <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">Nights</th>
+    #     </tr>'''
+    #     rows = []
+    #     for i, guest_name in enumerate(table_data["GUESTNAME"], 1):
+    #         row = f'''<tr>
+    #             <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{i}</td>
+    #             <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{guest_name}</td>
+    #             <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{table_data.get("CHECKIN", [""])[i-1]} - {table_data.get("CHECKOUT", [""])[i-1]}</td>
+    #             <td style="border: 0px solid #dddddd; text-align:center; padding: 8px;">{table_data.get("ROOMTYPE", [""])[i-1]}-{table_data.get("OCC", [""])[i-1]}-{table_data.get("MEALPLAN", [""])[i-1]}{table_data.get("QTY", [""])[i-1]}</td>
+    #             <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{table_data.get("NIGHTS", [""])[i-1]}</td>
+    #         </tr>'''
+    #         rows.append(row)
+    #     return header + "".join(rows) + "</table>"
 
 @app.post("/booking-confirmation-test")
-async def booking_confirmation(data: BookingData):
+async def booking_confirmation(data: BookingData1):
     def generate_guest_table1(table_data: Dict[str, list]) -> str:
      if not table_data or "GUESTNAME" not in table_data:
         return ""
