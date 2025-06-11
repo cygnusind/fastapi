@@ -429,7 +429,7 @@ def generate_guest_table1(table_data: Dict[str, list],booking_type: str) -> str:
     if not table_data or "GUESTNAME" not in table_data:
         return ""
 
-    if booking_type == "Bulk":
+    if booking_type != "Bulk":
         header = '''<table style="border-collapse: collapse; width: 100%; border: 0px solid #dddddd; font-size:16px;">
         <tr>
         <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">S.no</th>
