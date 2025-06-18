@@ -488,7 +488,6 @@ def generate_guest_table1(table_data: Dict[str, list],booking_type: str) -> str:
 
         return header + "".join(rows) + "</table>"
 
-    return ""
 @app.post("/booking-confirmation-test")
 async def booking_confirmation(data: BookingData1):
     try:
