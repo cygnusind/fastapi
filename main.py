@@ -425,18 +425,32 @@ def generate_pdf_from_html1(html_content: str) -> io.BytesIO:
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"PDF generation failed: {str(e)}")
 
-def generate_guest_table1(table_data: Dict[str, list],booking_type: str) -> str:
+import io
+from typing import Dict
+from fastapi import HTTPException
+from weasyprint import HTML
+
+def generate_pdf_from_html1(html_content: str) -> io.BytesIO:
+    try:
+        pdf_io = io.BytesIO()
+        HTML(string=html_content).write_pdf(pdf_io, presentational_hints=True)
+        pdf_io.seek(0)
+        return pdf_io
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"PDF generation failed: {str(e)}")
+
+def generate_guest_table1(table_data: Dict[str, list], booking_type: str) -> str:
     if not table_data or "GUESTNAME" not in table_data:
         return ""
-     
+
     if booking_type != "Bulk":
         header = '''<table style="border-collapse: collapse; width: 100%; border: 0px solid #dddddd; font-size:16px;">
         <tr>
-        <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">S.no</th>
-        <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">Guest Name</th>
-        <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">Room Type</th>
-        <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">Occupancy</th>
-        <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">Meal Plan</th>
+            <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">S.no</th>
+            <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">Guest Name</th>
+            <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">Room Type</th>
+            <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">Occupancy</th>
+            <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">Meal Plan</th>
         </tr>'''
         rows = []
         for i, guest_name in enumerate(table_data["GUESTNAME"], 1):
@@ -451,22 +465,21 @@ def generate_guest_table1(table_data: Dict[str, list],booking_type: str) -> str:
         return header + "".join(rows) + "</table>"
 
     else:
-        # Check if all guest names are non-empty
-     include_guest_name_column = all(name and name.strip() for name in table_data["GUESTNAME"])
+        # Bulk booking
+        include_guest_name_column = all(name and name.strip() for name in table_data["GUESTNAME"])
 
-    if booking_type != "Bulk":
         # Start table header
         header = '''<table style="border-collapse: collapse; width: 100%; border: 0px solid #dddddd; font-size:16px;">
         <tr>
-        <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">S.no</th>'''
+            <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">S.no</th>'''
 
         if include_guest_name_column:
             header += '''<th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">Guest Name</th>'''
 
         header += '''
-        <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">Room Type</th>
-        <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">Occupancy</th>
-        <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">Meal Plan</th>
+            <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">Check In & Out</th>
+            <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">Description</th>
+            <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">Nights</th>
         </tr>'''
 
         # Build rows
@@ -480,13 +493,14 @@ def generate_guest_table1(table_data: Dict[str, list],booking_type: str) -> str:
                 row += f'''<td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{guest_name}</td>'''
 
             row += f'''
-                <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{table_data.get("ROOMTYPE", [""])[i]}</td>
-                <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{table_data.get("OCC", [""])[i]}</td>
-                <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{table_data.get("MEALPLAN", [""])[i]}</td>
+                <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{table_data.get("CHECKIN", [""])[i]} to {table_data.get("CHECKOUT", [""])[i]}</td>
+                <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{table_data.get("ROOMTYPE", [""])[i]}-{table_data.get("OCC", [""])[i]}-{table_data.get("MEALPLAN", [""])[i]} x {table_data.get("QTY", [""])[i]}</td>
+                <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{table_data.get("NIGHTS", [""])[i]}</td>
             </tr>'''
             rows.append(row)
 
         return header + "".join(rows) + "</table>"
+
 
 @app.post("/booking-confirmation-test")
 async def booking_confirmation(data: BookingData1):
@@ -506,7 +520,7 @@ async def booking_confirmation(data: BookingData1):
                 "{{no_of_night}}": data.NO_OF_NIGHTS,
                 "{{checkintime}}": data.CHECK_IN_TIME,
                 "{{checkouttime}}": data.CHECK_OUT_TIME,
-                "{{hotelname}}": data.HOTELNAME,
+                "{{hotelname}}": str(data.HOTELPHONE) if data.HOTELPHONE else "",
                 "{{hoteladdress}}": data.HOTELADDRESS,
                 "{{hotelphone}}": data.HOTELPHONE,
                 "{{noofrooms}}": data.ROOMCOUNT,
@@ -574,6 +588,9 @@ async def booking_confirmation(data: BookingData1):
 
 
 #TESTING VOCUHER PDF
+
+
+
 @app.post("/booking-confirmation-mail-test")
 async def booking_confirmation2(data: BookingDataMail):
     # Open and read the HTML file
@@ -698,7 +715,7 @@ async def booking_confirmation2(data: BookingDataMail):
     if data.PAYMENTMODE in ["Bill to Company", "Pay at Check-In", "Pay at check Out", "Prepaid"]:
         if data.SHOWTRAIFF == "No":
             html_content = html_content.replace(
-                ''' <table style="border-collapse:collapse; width:100%" width="100%"><tbody><tr><td style="padding:10px 0; word-wrap:break-word">Room Charges</td><td style="padding:10px 0; word-wrap:break-word; text-align:right" align="right">{{roomcharges}}</td></tr><tr><td style="padding:10px 0; word-wrap:break-word">Inclusion IX</td><td style="padding:10px 0; word-wrap:break-word; text-align:right" align="right">{{inclusions}}</td></tr><tr><td style="padding:10px 0; word-wrap:break-word">Subtotal</td><td style="padding:10px 0; word-wrap:break-word; text-align:right" align="right">{{SUBTOTAL}}</td></tr><tr><td style="padding:10px 0; word-wrap:break-word">Tax( {{GST_PRECENT}} )</td><td style="padding:10px 0; word-wrap:break-word; text-align:right" align="right">{{gst}}</td></tr><tr><td style="padding:10px 0; word-wrap:break-word"><b>GRAND TOTAL</b></td><td style="padding:10px 0; word-wrap:break-word; text-align:right" align="right"><b>{{grandtotal}}</b></td></tr></tbody></table>''',
+                ''' <table style="border-collapse:collapse; width:100%" width="100%"><tbody><tr><td style="padding:10px 0; word-wrap:break-word">Room Charges</td><td style="padding:10px 0; word-wrap:break-word; text-align:right" align="right">{{roomcharges}}</td></tr><tr><td style="padding:10px 0; word-wrap:break-word">Inclusion IX</td><td style="padding:10px 0; word-wrap:break-word; text-align:right" align="right">{{inclusions}}</td></tr><tr><td style="padding:10px 0; word-wrap:break-word">Subtotal</td><td style="padding:10px 0; word-wrap:break-word; text-align:right" align="right">{{SUBTOTAL}}</td></tr><tr><td style="padding:10px 0; word-wrap:break-word">Tax(gst)</td><td style="padding:10px 0; word-wrap:break-word; text-align:right" align="right">{{gst}}</td></tr><tr><td style="padding:10px 0; word-wrap:break-word"><b>GRAND TOTAL</b></td><td style="padding:10px 0; word-wrap:break-word; text-align:right" align="right"><b>{{grandtotal}}</b></td></tr></tbody></table>''',
                 ""
             )
         else:
