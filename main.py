@@ -134,7 +134,7 @@ async def booking_confirmation(data: BookingData):
                 "{{checkouttime}}": data.CHECK_OUT_TIME,
                 "{{hotelname}}": data.HOTELNAME,
                 "{{hoteladdress}}": data.HOTELADDRESS,
-                "{{hotelphone}}": data.HOTELPHONE,
+                "{{hotelphone}}": str(data.HOTELPHONE) if data.HOTELPHONE else "",
                 "{{noofrooms}}": data.ROOMCOUNT,
                 "{{noofguest}}": data.GUESTCOUNT,
                 "{{roomcharges}}": data.ROOM_CHARGES,
@@ -520,9 +520,9 @@ async def booking_confirmation(data: BookingData1):
                 "{{no_of_night}}": data.NO_OF_NIGHTS,
                 "{{checkintime}}": data.CHECK_IN_TIME,
                 "{{checkouttime}}": data.CHECK_OUT_TIME,
-                "{{hotelname}}": str(data.HOTELPHONE) if data.HOTELPHONE else "",
+                "{{hotelname}}": data.HOTELNAME,
                 "{{hoteladdress}}": data.HOTELADDRESS,
-                "{{hotelphone}}": data.HOTELPHONE,
+                "{{hotelphone}}": str(data.HOTELPHONE) if data.HOTELPHONE else "",
                 "{{noofrooms}}": data.ROOMCOUNT,
                 "{{noofguest}}": data.GUESTCOUNT,
                 "{{roomcharges}}": data.ROOM_CHARGES,
@@ -593,58 +593,67 @@ async def booking_confirmation(data: BookingData1):
 
 @app.post("/booking-confirmation-mail-test")
 async def booking_confirmation2(data: BookingDataMail):
-    # Open and read the HTML file
-    with open("voucherMail.html", "r") as file:
-        html_content = file.read()
-
     # HTML table structure
     table = ""
+
     if data.typeofbooking == "Bulk":
-         # Open and read the HTML file
-     with open("BulkVocuherMail.html", "r") as file:
-        html_content = file.read()
-        
-        # bulkbooking 
-        table = """<table style="border-collapse: collapse; width: 100%; border: 0px solid #dddddd; font-size:16px;">
+        # Open and read the HTML file
+        with open("BulkVocuherMail.html", "r") as file:
+            html_content = file.read()
+
+        # bulk booking
+        table_data = data.TABLEDATA
+        include_guest_name_column = all(name and name.strip() for name in table_data["GUESTNAME"])
+
+        header = """<table style="border-collapse: collapse; width: 100%; border: 0px solid #dddddd; font-size:16px;">
         <tr>
-        <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">S.no</th>
-        <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">Guest Name</th>
+        <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">S.no</th>"""
+
+        if include_guest_name_column:
+            header += '''
+            <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">Guest Name</th>'''
+
+        header += '''
         <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">Check In & Out</th>
-        <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">Descripation</th>
+        <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">Description</th>
         <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">Nights</th>
-        </tr>"""
+        </tr>'''
 
-        num_rows = len(data.TABLEDATA["GUESTNAME"])
+        num_rows = len(table_data["ROOMTYPE"])
 
-        # Create a new row for each guest
+        rows = []
         for i in range(num_rows):
             s_no = i + 1
-            checkin = data.TABLEDATA.get("CHECKIN", [""])[i]
-            checkout = data.TABLEDATA.get("CHECKOUT", [""])[i]
-            qty = data.TABLEDATA.get("QTY", [""])[i]
-            guest_name = data.TABLEDATA.get("GUESTNAME", [""])[i]
-            room_type = data.TABLEDATA.get("ROOMTYPE", [""])[i]
-            occupancy = data.TABLEDATA.get("OCC", [""])[i]
-            meal_plan = data.TABLEDATA.get("MEALPLAN", [""])[i]
-            Nights   = data.TABLEDATA.get("NIGHTS", [""])[i]
+            checkin = table_data.get("CHECKIN", [""])[i]
+            checkout = table_data.get("CHECKOUT", [""])[i]
+            qty = table_data.get("QTY", [""])[i]
+            guest_name = table_data.get("GUESTNAME", [""])[i]
+            room_type = table_data.get("ROOMTYPE", [""])[i]
+            occupancy = table_data.get("OCC", [""])[i]
+            meal_plan = table_data.get("MEALPLAN", [""])[i]
+            nights = table_data.get("NIGHTS", [""])[i]
 
-            new_row = f"""<tr>
-                <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{s_no}</td>
-                <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{guest_name}</td>
-                <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{checkin} to {checkout}</td>
-                <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{room_type}-{occupancy}-{meal_plan} x {qty}</td>
-                <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{Nights}</td>
-                
+            row = f"""<tr>
+            <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{s_no}</td>"""
+
+            if include_guest_name_column:
+                row += f"""<td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{guest_name}</td>"""
+
+            row += f"""
+            <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{checkin} to {checkout}</td>
+            <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{room_type}-{occupancy}-{meal_plan} x {qty}</td>
+            <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{nights}</td>
             </tr>"""
-            table += new_row
 
-        # Close the table
-        table += "</table>"
+            rows.append(row)
+
+        table = header + "".join(rows) + "</table>"
 
     else:
-         # Open and read the HTML file
-     with open("voucherMail.html", "r") as file:
-        html_content = file.read()
+        # Open and read the HTML file
+        with open("voucherMail.html", "r") as file:
+            html_content = file.read()
+
         table = """<table style="border-collapse: collapse; width: 100%; border: 0px solid #dddddd; font-size:16px;">
         <tr>
         <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">S.no</th>
@@ -656,7 +665,6 @@ async def booking_confirmation2(data: BookingDataMail):
 
         num_rows = len(data.TABLEDATA["GUESTNAME"])
 
-        # Create a new row for each guest
         for i in range(num_rows):
             s_no = i + 1
             guest_name = data.TABLEDATA.get("GUESTNAME", [""])[i]
@@ -665,15 +673,14 @@ async def booking_confirmation2(data: BookingDataMail):
             meal_plan = data.TABLEDATA.get("MEALPLAN", [""])[i]
 
             new_row = f"""<tr>
-                <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{s_no}</td>
-                <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{guest_name}</td>
-                <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{room_type}</td>
-                <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{occupancy}</td>
-                <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{meal_plan}</td>
+            <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{s_no}</td>
+            <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{guest_name}</td>
+            <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{room_type}</td>
+            <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{occupancy}</td>
+            <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{meal_plan}</td>
             </tr>"""
             table += new_row
 
-        # Close the table
         table += "</table>"
 
     replacements = {
@@ -720,21 +727,20 @@ async def booking_confirmation2(data: BookingDataMail):
             )
         else:
             print("Bill to Company with shown tariff")
+
     if data.PAYMENTMODE in ["Pay at Check-In", "Pay at check Out", "Prepaid"]:
-          html_content = html_content.replace(
-                '''GRAND TOTAL''',
-                "Total Amount to pay"
-            )
-          html_content = html_content.replace(
-                '''<p style="font-size:x-small; margin-bottom:10px; margin-top:0"><small>*Any extra expenses/meals apart from Room rent will be payable at the hotel</small></p>''',
-                ""
-            )
-    # Replace placeholders
+        html_content = html_content.replace("GRAND TOTAL", "Total Amount to pay")
+        html_content = html_content.replace(
+            '''<p style="font-size:x-small; margin-bottom:10px; margin-top:0"><small>*Any extra expenses/meals apart from Room rent will be payable at the hotel</small></p>''',
+            ""
+        )
+
     for placeholder, value in replacements.items():
         if value:
             html_content = html_content.replace(placeholder, value)
 
     return HTMLResponse(content=html_content, status_code=200)
+
 
 
 @app.get("/")
