@@ -711,7 +711,7 @@ async def booking_confirmation2(data: BookingDataMail):
         "{{client}}": data.CLIENT,
         "{{clientgst}}": data.CLIENT_GST,
         "{{booking_date}}": data.Booking_Date,
-        "{{booking_id}}":  str(data.Booking_Id) if data.Booking_Id else "",
+        "{{booking_id}}":data.Booking_Id if data.Booking_Id else " ",
         "{{BRID}}": data.Brid,
         "{{GST_PRECENT}}": data.GST_PRECENT
     }
@@ -719,7 +719,7 @@ async def booking_confirmation2(data: BookingDataMail):
     if data.PAYMENTMODE in ["Bill to Company", "Pay at Check-In", "Pay at check Out", "Prepaid"]:
         if data.SHOWTRAIFF == "No":
             html_content = html_content.replace(
-                ''' <table style="border-collapse:collapse; width:100%" width="100%"><tbody><tr><td style="padding:10px 0; word-wrap:break-word">Room Charges</td><td style="padding:10px 0; word-wrap:break-word; text-align:right" align="right">{{roomcharges}}</td></tr><tr><td style="padding:10px 0; word-wrap:break-word">Inclusion IX</td><td style="padding:10px 0; word-wrap:break-word; text-align:right" align="right">{{inclusions}}</td></tr><tr><td style="padding:10px 0; word-wrap:break-word">Subtotal</td><td style="padding:10px 0; word-wrap:break-word; text-align:right" align="right">{{SUBTOTAL}}</td></tr><tr><td style="padding:10px 0; word-wrap:break-word">Tax(gst)</td><td style="padding:10px 0; word-wrap:break-word; text-align:right" align="right">{{gst}}</td></tr><tr><td style="padding:10px 0; word-wrap:break-word"><b>GRAND TOTAL</b></td><td style="padding:10px 0; word-wrap:break-word; text-align:right" align="right"><b>{{grandtotal}}</b></td></tr></tbody></table>''',
+                ''' <table style="border-collapse:collapse; width:100%" ><tbody><tr><td style="padding:10px 0; word-wrap:break-word">Room Charges</td><td style="padding:10px 0; word-wrap:break-word; text-align:right" align="right">{{roomcharges}}</td></tr><tr><td style="padding:10px 0; word-wrap:break-word">Inclusion IX</td><td style="padding:10px 0; word-wrap:break-word; text-align:right" align="right">{{inclusions}}</td></tr><tr><td style="padding:10px 0; word-wrap:break-word">Subtotal</td><td style="padding:10px 0; word-wrap:break-word; text-align:right" align="right">{{SUBTOTAL}}</td></tr><tr><td style="padding:10px 0; word-wrap:break-word">Tax(gst)</td><td style="padding:10px 0; word-wrap:break-word; text-align:right" align="right">{{gst}}</td></tr><tr><td style="padding:10px 0; word-wrap:break-word"><b>GRAND TOTAL</b></td><td style="padding:10px 0; word-wrap:break-word; text-align:right" align="right"><b>{{grandtotal}}</b></td></tr></tbody></table>''',
                 ""
             )
         else:
