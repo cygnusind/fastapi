@@ -305,7 +305,7 @@ async def booking_confirmation1(data: BookingDataMail):
         "{{checkouttime}}": data.CHECK_OUT_TIME,
         "{{hotelname}}": data.HOTELNAME,
         "{{hoteladdress}}": data.HOTELADDRESS,
-        "{{hotelphone}}": str(data.HOTELPHONE) if data.HOTELPHONE else "",
+        "{{hotelphone}}": str(data.HOTELPHONE) if data.HOTELPHONE else " ",
         "{{noofrooms}}": data.ROOMCOUNT,
         "{{noofguest}}": data.GUESTCOUNT,
         "{{roomcharges}}": data.ROOM_CHARGES,
@@ -425,10 +425,7 @@ def generate_pdf_from_html1(html_content: str) -> io.BytesIO:
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"PDF generation failed: {str(e)}")
 
-import io
-from typing import Dict
-from fastapi import HTTPException
-from weasyprint import HTML
+
 
 def generate_pdf_from_html1(html_content: str) -> io.BytesIO:
     try:
@@ -522,7 +519,7 @@ async def booking_confirmation(data: BookingData1):
                 "{{checkouttime}}": data.CHECK_OUT_TIME,
                 "{{hotelname}}": data.HOTELNAME,
                 "{{hoteladdress}}": data.HOTELADDRESS,
-                "{{hotelphone}}": str(data.HOTELPHONE) if data.HOTELPHONE else "",
+                "{{hotelphone}}": data.HOTELPHONE if data.HOTELPHONE else " ",
                 "{{noofrooms}}": data.ROOMCOUNT,
                 "{{noofguest}}": data.GUESTCOUNT,
                 "{{roomcharges}}": data.ROOM_CHARGES,
@@ -542,7 +539,7 @@ async def booking_confirmation(data: BookingData1):
                 "{{client}}": data.CLIENT,
                 "{{clientgst}}": data.CLIENT_GST,
                 "{{booking_date}}": data.Booking_Date,
-                "{{booking_id}}": data.Booking_Id,
+                 "{{booking_id}}": data.Booking_Id if data.Booking_Id else " ",
                 "{{Brid}}": data.Brid,
                 "{{gstpre}}": data.GST_PRECENT,
                 "{{NEARBY}}": data.NEARBY
@@ -714,7 +711,7 @@ async def booking_confirmation2(data: BookingDataMail):
         "{{client}}": data.CLIENT,
         "{{clientgst}}": data.CLIENT_GST,
         "{{booking_date}}": data.Booking_Date,
-        "{{booking_id}}": data.Booking_Id,
+        "{{booking_id}}":  str(data.Booking_Id) if data.Booking_Id else "",
         "{{BRID}}": data.Brid,
         "{{GST_PRECENT}}": data.GST_PRECENT
     }
