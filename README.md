@@ -18,6 +18,8 @@ This example starts up a [FastAPI](https://fastapi.tiangolo.com/) server.
 - [Hypercorn](https://hypercorn.readthedocs.io/)
 - Python 3
 
+- docker build -t fastapi-cygnus-app -f dockerfile .
+- docker run -d -p 8000:8000 --name fastapi-cygnus-app -e PORT=8000 fastapi-cygnus-app
 ## 💁‍♀️ How to use
 
 - Clone locally and install packages with pip using `pip install -r requirements.txt`
