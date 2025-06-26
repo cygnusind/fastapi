@@ -928,3 +928,28 @@ async def booking(request: Request):
     except Exception as e:
         print(f"Unexpected error: {e}")
         return {"error": "Unexpected error occurred"}
+
+@app.post("/emtactivity/{action}")
+async def emt_activity(action: str, request: Request):
+    try:
+        try:
+            body = await request.json()
+        except Exception:
+            raise HTTPException(status_code=400, detail="Request body is empty or invalid JSON")
+        print(f"Request body: {body}")
+        async with httpx.AsyncClient() as client:
+            response = await client.post(
+                f"http://stagingactivityapi.easemytrip.com/Activity.svc/json/{action}",
+                headers={"Content-Type": "application/json"},
+                json=body
+            )
+
+        raw_response_text = await response.aread()
+        print(f"Raw response text: {raw_response_text.decode('utf-8')}")
+
+        return await response.json()
+    except HTTPException:
+        raise
+    except Exception as e:
+        print(f"Unexpected error: {e}")
+        raise HTTPException(status_code=500, detail="Unexpected error occurred")
