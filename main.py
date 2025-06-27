@@ -938,16 +938,18 @@ async def emt_activity(action: str, request: Request):
             raise HTTPException(status_code=400, detail="Request body is empty or invalid JSON")
         print(f"Request body: {body}")
         async with httpx.AsyncClient() as client:
-            response = await client.post(
+            upstream_response = await client.post(
                 f"http://stagingactivityapi.easemytrip.com/Activity.svc/json/{action}",
                 headers={"Content-Type": "application/json"},
                 json=body
             )
-
-        raw_response_text = await response.aread()
-        print(f"Raw response text: {raw_response_text.decode('utf-8')}")
-
-        return await response
+        content = await upstream_response.aread()
+        content_type = upstream_response.headers.get("content-type", "application/octet-stream")
+        return Response(
+            content=content,
+            status_code=upstream_response.status_code,
+            media_type=content_type
+        )
     except HTTPException:
         raise
     except Exception as e:
