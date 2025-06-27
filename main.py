@@ -947,7 +947,7 @@ async def emt_activity(action: str, request: Request):
         raw_response_text = await response.aread()
         print(f"Raw response text: {raw_response_text.decode('utf-8')}")
 
-        return await response.json()
+        return await response
     except HTTPException:
         raise
     except Exception as e:
