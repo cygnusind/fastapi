@@ -637,7 +637,7 @@ async def booking_confirmation2(data: BookingDataMail):
         <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">Guest Name</th>
         <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">Room Type</th>
         <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">Occupancy</th>
-        <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">Inclusion Remark</th>
+        <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">Inclusion Services</th>
         <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">Meal Plan</th>
         </tr>"""
 
@@ -648,7 +648,7 @@ async def booking_confirmation2(data: BookingDataMail):
             guest_name = data.TABLEDATA.get("GUESTNAME", [""])[i]
             room_type = data.TABLEDATA.get("ROOMTYPE", [""])[i]
             occupancy = data.TABLEDATA.get("OCC", [""])[i]
-            inclusion_remark = data.TABLEDATA.get("INCLUSION_REMARK", [""])[i]
+            inclusion_services = data.TABLEDATA.get("INCLUSION_SERVICES", [""])[i]
             meal_plan = data.TABLEDATA.get("MEALPLAN", [""])[i]
 
             new_row = f"""<tr>
@@ -656,7 +656,7 @@ async def booking_confirmation2(data: BookingDataMail):
             <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{guest_name}</td>
             <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{room_type}</td>
             <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{occupancy}</td>
-            <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{inclusion_remark}</td>
+            <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{inclusion_services}</td>
             <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{meal_plan}</td>
             </tr>"""
             table += new_row
