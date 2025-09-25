@@ -656,7 +656,7 @@ async def booking_confirmation2(data: BookingDataMail):
             <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{guest_name}</td>
             <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{room_type}</td>
             <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{occupancy}</td>
-            <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{inclusion}</td>
+            <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{inclusion_remark}</td>
             <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{meal_plan}</td>
             </tr>"""
             table += new_row
