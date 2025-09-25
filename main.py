@@ -160,9 +160,7 @@ async def booking_confirmation(data: BookingData):
                 "{{NEARBY}}" : data.NEARBY
             }.items()
         }
-       
-       
-       
+
         # Handle Bill to Company case
         if data.PAYMENTMODE == "Bill to Company" or data.PAYMENTMODE == "Pay at Check-In"or data.PAYMENTMODE == "Pay at check Out" or data.PAYMENTMODE == "Prepaid":
             if data.SHOWTRAIFF == "No":
@@ -192,11 +190,7 @@ async def booking_confirmation(data: BookingData):
         # Replace placeholders
         for placeholder, value in replacements.items():
             html_content = html_content.replace(placeholder, value)
-    
 
-
-        
-           
         # Generate PDF
         pdf = generate_pdf_from_html(html_content)
         filename = f"{data.FILENAME}.pdf" if data.FILENAME else "booking_confirmation.pdf"
@@ -209,7 +203,6 @@ async def booking_confirmation(data: BookingData):
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
-
 
 #for vochuer for email
 class BookingDataMail(BaseModel):
@@ -226,8 +219,7 @@ class BookingDataMail(BaseModel):
     HOTELPHONE: str = None
     ROOMCOUNT: str = None
     CLIENT: str = None
-    
- 
+
     GUESTCOUNT:str = None
     ROOM_CHARGES: str = None
     INCLUSIONS: str = None
@@ -252,10 +244,6 @@ class BookingDataMail(BaseModel):
     Booking_Id:Optional[str] = None
     Brid:str=None
     GST_PRECENT:str = None
-
-
-
-
 
 @app.post("/booking-confirmation-mail")
 async def booking_confirmation1(data: BookingDataMail):
@@ -342,16 +330,12 @@ async def booking_confirmation1(data: BookingDataMail):
                 #}}
             else:
                 print("Bill to Company with shown tariff")
-       
-        
 
     # Replace placeholders in the HTML content with actual values
     for placeholder, value in replacements.items():
         if value:
             html_content = html_content.replace(placeholder, value)
 
-   
-    
     return HTMLResponse(content=html_content, status_code=200)
 
 #TESTING VOCUHER PDF
@@ -498,7 +482,6 @@ def generate_guest_table1(table_data: Dict[str, list], booking_type: str) -> str
 
         return header + "".join(rows) + "</table>"
 
-
 @app.post("/booking-confirmation-test")
 async def booking_confirmation(data: BookingData1):
     try:
@@ -539,7 +522,7 @@ async def booking_confirmation(data: BookingData1):
                 "{{client}}": data.CLIENT,
                 "{{clientgst}}": data.CLIENT_GST,
                 "{{booking_date}}": data.Booking_Date,
-                 "{{booking_id}}": data.Booking_Id if data.Booking_Id else " ",
+                "{{booking_id}}": data.Booking_Id if data.Booking_Id else " ",
                 "{{Brid}}": data.Brid,
                 "{{gstpre}}": data.GST_PRECENT,
                 "{{NEARBY}}": data.NEARBY
@@ -583,10 +566,7 @@ async def booking_confirmation(data: BookingData1):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
-
-#TESTING VOCUHER PDF
-
-
+# TESTING VOCUHER PDF
 
 @app.post("/booking-confirmation-mail-test")
 async def booking_confirmation2(data: BookingDataMail):
@@ -657,6 +637,7 @@ async def booking_confirmation2(data: BookingDataMail):
         <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">Guest Name</th>
         <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">Room Type</th>
         <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">Occupancy</th>
+        <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">Inclusion Remark</th>
         <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">Meal Plan</th>
         </tr>"""
 
@@ -667,6 +648,7 @@ async def booking_confirmation2(data: BookingDataMail):
             guest_name = data.TABLEDATA.get("GUESTNAME", [""])[i]
             room_type = data.TABLEDATA.get("ROOMTYPE", [""])[i]
             occupancy = data.TABLEDATA.get("OCC", [""])[i]
+            inclusion_remark = data.TABLEDATA.get("INCLUSION_REMARK", [""])[i]
             meal_plan = data.TABLEDATA.get("MEALPLAN", [""])[i]
 
             new_row = f"""<tr>
@@ -674,6 +656,7 @@ async def booking_confirmation2(data: BookingDataMail):
             <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{guest_name}</td>
             <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{room_type}</td>
             <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{occupancy}</td>
+            <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{inclusion}</td>
             <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{meal_plan}</td>
             </tr>"""
             table += new_row
@@ -738,8 +721,6 @@ async def booking_confirmation2(data: BookingDataMail):
 
     return HTMLResponse(content=html_content, status_code=200)
 
-
-
 @app.get("/")
 async def root():
     print(f"Test")
@@ -754,7 +735,6 @@ async def test():
     async with httpx.AsyncClient() as client:
         response = await client.get("https://httpbin.org/get")
     return response.json
-
 
 @app.post("/create")
 async def create_user(request: Request):
@@ -777,7 +757,6 @@ async def create_user(request: Request):
     except Exception as e:
         print(f"Unexpected error: {e}")
         return {"error": "Unexpected error occurred"}
-    
 
 @app.post("/getprop")
 async def get_prop(request: Request):
@@ -793,13 +772,11 @@ async def get_prop(request: Request):
                 headers={"Content-Type": "application/json"},
                 json=body
             )
-
         # Return the response from the Bakuun API
         return response.json()
     except Exception as e:
         print(f"Unexpected error: {e}")
         return {"error": "Unexpected error occurred"}
-
 
 @app.post("/mps")
 async def mps_check(request: Request):
@@ -816,20 +793,19 @@ async def mps_check(request: Request):
                 headers={"Content-Type": "application/json"},
                 json=body
             )
-         # Print raw response text for debugging
+        # Print raw response text for debugging
         raw_response_text = response.text
         print(f"Raw response text: {raw_response_text}")
         # Return the response from the external API
         return response.json()
     except Exception as e:
-         print(f"Unexpected error: {e}")
-         return {"error": "Unexpected error occurred"}
+        print(f"Unexpected error: {e}")
+        return {"error": "Unexpected error occurred"}
 
 
 #mps search results
 @app.post("/mpsoccupancy/{token}/results")
 async def mps_search(token : str,request: Request):
-
     api_url ="https://wspull.devbakuun.cloud/v1/RDK64/mpsoccupancy/"+token+"/results"
     try:
         if not await request.body():
@@ -851,8 +827,6 @@ async def mps_search(token : str,request: Request):
         print(f"Unexpected error: {e}")
         return {"error": "Unexpected error occurred"}     
 
-        
-           
 @app.post("/sps")
 async def sps(request: Request):
     try:
