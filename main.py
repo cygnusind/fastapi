@@ -10,6 +10,8 @@ import httpx
 
 app = FastAPI()
 
+# Test commit for vishal
+
 # Optimize the Pydantic model with better typing and validation
 class GuestInfo(BaseModel):
     name: str
