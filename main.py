@@ -509,6 +509,7 @@ async def booking_confirmation(data: BookingData1):
                 "{{noofguest}}": data.GUESTCOUNT,
                 "{{roomcharges}}": data.ROOM_CHARGES,
                 "{{inclusions}}": data.INCLUSIONS,
+                "{{no_of_night}}": data.NO_OF_NIGHTS,
                 "{{gst}}": data.GST_VALUE,
                 "{{SUBTOTAL}}": data.SUBTOTAL,
                 "{{grandtotal}}": data.AMT_TO_BE_PAID,
