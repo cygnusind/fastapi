@@ -488,7 +488,7 @@ def generate_guest_table1(table_data: Dict[str, list], booking_type: str) -> str
 @app.post("/booking-confirmation-test")
 async def booking_confirmation(data: BookingData1):
     try:
-        html_content = get_html_template1("Bulkvoucher.html" if data.typeofbooking == "Bulk" else "voucherMail.html")
+        html_content = get_html_template1("Bulkvoucher.html" if data.typeofbooking == "Bulk" else "voucher.html")
 
         table = generate_guest_table1(data.TABLEDATA,data.typeofbooking)
 
