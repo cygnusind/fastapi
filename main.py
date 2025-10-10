@@ -666,6 +666,8 @@ async def booking_confirmation2(data: BookingDataMail):
             table += new_row
 
         table += "</table>"
+        print("TABLE DATA:", data.TABLEDATA)
+
 
     replacements = {
         "{{ name }}": data.NAME,
