@@ -579,7 +579,7 @@ async def booking_confirmation2(data: BookingDataMail):
 
     if data.typeofbooking == "Bulk":
         # Open and read the HTML file
-        with open("BulkVocuherMail.html", "r") as file:
+        with open("BulkVoucherMail.html", "r") as file:
             html_content = file.read()
 
         # bulk booking
@@ -631,8 +631,8 @@ async def booking_confirmation2(data: BookingDataMail):
         table = header + "".join(rows) + "</table>"
 
     else:
-        # Open and read the HTML file  vocuherMail.html => BulkVocuherMail.html
-        with open("BulkVocuherMail.html", "r") as file:
+        # Open and read the HTML file  vocuherMail.html => BulkVoucherMail.html
+        with open("BulkVoucherMail.html", "r") as file:
             html_content = file.read()
 
         table = """<table style="border-collapse: collapse; width: 100%; border: 0px solid #dddddd; font-size:16px;">
