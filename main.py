@@ -626,7 +626,7 @@ async def booking_confirmation2(data: BookingDataMail):
             <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{nights}</td>
             </tr>"""
 
-            rows.append(row)
+            #rows.append(row)
 
         table = header + "".join(rows) + "</table>"
 
