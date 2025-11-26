@@ -631,26 +631,14 @@ async def booking_confirmation2(data: BookingDataMail):
         table = header + "".join(rows) + "</table>"
 
     else:
-
+    # Open and read the HTML file  vocuherMail.html => BulkVoucherMail.html
         with open("voucherMail.html", "r") as file:
             html_content = file.read()
 
-        # Detect if guest column should show (same as bulk)
-        include_guest_name_column = any(
-            name and name.strip()
-            for name in data.TABLEDATA.get("GUESTNAME", [])
-        )
-
-        # TABLE HEADER
         table = """<table style="border-collapse: collapse; width: 100%; border: 0px solid #dddddd; font-size:16px;">
         <tr>
-        <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">S.no</th>"""
-
-        if include_guest_name_column:
-            table += """
-        <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">Guest Name</th>"""
-
-        table += """
+        <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">S.no</th>
+        <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">Guest Name</th>
         <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">Room Type</th>
         <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">Occupancy</th>
         <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">Inclusion Services</th>
@@ -658,72 +646,28 @@ async def booking_confirmation2(data: BookingDataMail):
         </tr>"""
 
         num_rows = len(data.TABLEDATA["GUESTNAME"])
-
-        # ROWS
+        rows = []
         for i in range(num_rows):
             s_no = i + 1
-            table += f"""<tr>
-            <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{s_no}</td>"""
+            guest_name = data.TABLEDATA.get("GUESTNAME", [""])[i]
+            room_type = data.TABLEDATA.get("ROOMTYPE", [""])[i]
+            occupancy = data.TABLEDATA.get("OCC", [""])[i]
+            inclusion_services = data.TABLEDATA.get("INCLUSION_SERVICES", [""])[i]
+            meal_plan = data.TABLEDATA.get("MEALPLAN", [""])[i]
 
-            if include_guest_name_column:
-                table += f"""
-            <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{data.TABLEDATA['GUESTNAME'][i]}</td>"""
-
-            table += f"""
-            <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{data.TABLEDATA['ROOMTYPE'][i]}</td>
-            <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{data.TABLEDATA['OCC'][i]}</td>
-            <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{data.TABLEDATA['INCLUSION_SERVICES'][i]}</td>
-            <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{data.TABLEDATA['MEALPLAN'][i]}</td>
+            new_row = f"""<tr>
+            <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{s_no}</td>
+            <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{guest_name}</td>
+            <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{room_type}</td>
+            <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{occupancy}</td>
+            <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{inclusion_services}</td>
+            <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{meal_plan}</td>
             </tr>"""
+            table += new_row
+            rows.append(new_row)
 
         table += "</table>"
         print("TABLE DATA:", data.TABLEDATA)
-
-    # ---------- END -----------
-
-    # Now return the generated HTML table inside response
-    return {
-        "status": True,
-        "html_table": table,
-        "message": "Voucher table generated"
-    }
-        # # Open and read the HTML file  vocuherMail.html => BulkVoucherMail.html
-        # with open("voucherMail.html", "r") as file:
-        #     html_content = file.read()
-
-        # table = """<table style="border-collapse: collapse; width: 100%; border: 0px solid #dddddd; font-size:16px;">
-        # <tr>
-        # <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">S.no</th>
-        # <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">Guest Name</th>
-        # <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">Room Type</th>
-        # <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">Occupancy</th>
-        # <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">Inclusion Services</th>
-        # <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">Meal Plan</th>
-        # </tr>"""
-
-        # num_rows = len(data.TABLEDATA["GUESTNAME"])
-        # rows = []
-        # for i in range(num_rows):
-        #     s_no = i + 1
-        #     guest_name = data.TABLEDATA.get("GUESTNAME", [""])[i]
-        #     room_type = data.TABLEDATA.get("ROOMTYPE", [""])[i]
-        #     occupancy = data.TABLEDATA.get("OCC", [""])[i]
-        #     inclusion_services = data.TABLEDATA.get("INCLUSION_SERVICES", [""])[i]
-        #     meal_plan = data.TABLEDATA.get("MEALPLAN", [""])[i]
-
-        #     new_row = f"""<tr>
-        #     <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{s_no}</td>
-        #     <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{guest_name}</td>
-        #     <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{room_type}</td>
-        #     <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{occupancy}</td>
-        #     <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{inclusion_services}</td>
-        #     <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{meal_plan}</td>
-        #     </tr>"""
-        #     table += new_row
-        #     rows.append(new_row)
-
-        # table += "</table>"
-        # print("TABLE DATA:", data.TABLEDATA)
 
 
     replacements = {
