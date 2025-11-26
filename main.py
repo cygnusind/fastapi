@@ -646,7 +646,7 @@ async def booking_confirmation2(data: BookingDataMail):
         </tr>"""
 
         num_rows = len(data.TABLEDATA["GUESTNAME"])
-
+        rows = []
         for i in range(num_rows):
             s_no = i + 1
             guest_name = data.TABLEDATA.get("GUESTNAME", [""])[i]
@@ -664,6 +664,7 @@ async def booking_confirmation2(data: BookingDataMail):
             <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{meal_plan}</td>
             </tr>"""
             table += new_row
+            rows.append(new_row)
 
         table += "</table>"
         print("TABLE DATA:", data.TABLEDATA)
