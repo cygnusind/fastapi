@@ -597,6 +597,7 @@ async def booking_confirmation2(data: BookingDataMail):
         header += '''
         <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">Check In & Out</th>
         <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">Description</th>
+        <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">Inclusion Services</th>
         <th style="border: 0px solid #dddddd; text-align: center; padding: 8px;">Nights</th>
         </tr>'''
 
