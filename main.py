@@ -611,6 +611,7 @@ async def booking_confirmation2(data: BookingDataMail):
             guest_name = table_data.get("GUESTNAME", [""])[i]
             room_type = table_data.get("ROOMTYPE", [""])[i]
             occupancy = table_data.get("OCC", [""])[i]
+            inclusion_services = table_data.get("INCLUSION_SERVICES", [""])[i]
             meal_plan = table_data.get("MEALPLAN", [""])[i]
             nights = table_data.get("NIGHTS", [""])[i]
 
@@ -623,6 +624,7 @@ async def booking_confirmation2(data: BookingDataMail):
             row += f"""
             <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{checkin} to {checkout}</td>
             <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{room_type}-{occupancy}-{meal_plan} x {qty}</td>
+            <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{inclusion_services}</td>
             <td style="border: 0px solid #dddddd; text-align: center; padding: 8px;">{nights}</td>
             </tr>"""
 
