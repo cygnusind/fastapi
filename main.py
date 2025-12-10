@@ -812,6 +812,29 @@ async def mps_check(request: Request):
         print(f"Unexpected error: {e}")
         return {"error": "Unexpected error occurred"}
 
+@app.post("/mpslive")
+async def mps_check(request: Request):
+    try:
+        if not await request.body():
+            return {"error": "Request body is empty"}
+        body = await request.json()
+        print(f"Request body: {body}")
+        #return {"Testresponse": "Test"}
+        # Make the request to the Bakuun API
+        async with httpx.AsyncClient() as client:
+            response = await client.post(
+                "hhttps://wspull.bakuun.com/v1/mpsnight/MPB5/223004",
+                headers={"Content-Type": "application/json"},
+                json=body
+            )
+        # Print raw response text for debugging
+        raw_response_text = response.text
+        print(f"Raw response text: {raw_response_text}")
+        # Return the response from the external API
+        return response.json()
+    except Exception as e:
+        print(f"Unexpected error: {e}")
+        return {"error": "Unexpected error occurred"}
 
 #mps search results
 @app.post("/mpsoccupancy/{token}/results")
@@ -857,6 +880,28 @@ async def sps(request: Request):
     except Exception as e:
         print(f"Unexpected error: {e}")
         return {"error": "Unexpected error occurred"}
+
+@app.post("/spslive")
+async def sps(request: Request):
+    try:
+        if not await request.body():
+            return {"error": "Request body is empty"}
+        body = await request.json()
+        print(f"Request body: {body}")
+        #return {"Testresponse": "Test"}
+        async with httpx.AsyncClient() as client:
+            response = await client.post(
+                "https://wspull.bakuun.com/v1/spsnight/MPB5/646607",
+                headers={"Content-Type": "application/json"},
+                json=body
+            )
+
+        # Return the response from the external API
+        return response.json()
+    except Exception as e:
+        print(f"Unexpected error: {e}")
+        return {"error": "Unexpected error occurred"}
+
     
 @app.post("/spsoccupancy/{token}/results")
 async def sps_token(token : str,request: Request):
