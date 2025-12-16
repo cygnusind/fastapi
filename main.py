@@ -118,7 +118,8 @@ async def booking_confirmation(data: BookingData):
     try:
         # print(data.dict()) 
         # Get cached template
-        html_content = get_html_template("voucher.html")
+        # here i change html template from voucher.html to BulkVoucherMail.html
+        html_content = get_html_template("BulkVoucherMail.html.html")
         
         # Generate guest table
         table = generate_guest_table(data.TABLEDATA)
